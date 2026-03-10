@@ -1,463 +1,374 @@
-import { Search, Menu, ChevronDown, X } from "lucide-react";
+import { Search, Menu, X, ChevronRight } from "lucide-react";
 import Logo from "/neurologic_solutions.horizontal.color_.black_.png";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 
 interface NavigationProps {
   scrolled: boolean;
 }
 
+const NAV_ITEMS = [
+  {
+    label: "Products",
+    href: "/products",
+    children: [
+      {
+        label: "EpiScalp",
+        href: "/episcalp",
+        desc: "Rapid EEG-Based Epilepsy Risk Assessment",
+      },
+      {
+        label: "EZTrack",
+        href: "/eztrack",
+        desc: "Simplified EEG Fragility for Surgical Planning",
+      },
+    ],
+  },
+  {
+    label: "Clinical",
+    href: "/clinical",
+    children: [
+      {
+        label: "Clinical Evidence",
+        href: "/clinical-evidence",
+        desc: "Outcomes and performance results",
+      },
+      {
+        label: "Publications",
+        href: "/publications",
+        desc: "Papers, posters, and abstracts",
+      },
+      {
+        label: "Use Cases",
+        href: "/use-cases",
+        desc: "Where it helps most clinically",
+      },
+    ],
+  },
+  {
+    label: "Company",
+    href: "/company",
+    children: [
+      {
+        label: "About Us",
+        href: "/about-us",
+        desc: "Mission, vision, and story",
+      },
+      {
+        label: "Team",
+        href: "/team",
+        desc: "Leadership and contributors",
+      },
+    ],
+  },
+  {
+    label: "News",
+    href: "/blog-news",
+  },
+];
+
 export default function Navigation({ scrolled }: NavigationProps) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [expandedMobileMenu, setExpandedMobileMenu] = useState<string | null>(
-    null
-  );
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const navText = "text-black";
+  const searchRef = useRef<HTMLInputElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const location = useLocation();
 
-  const navBg = scrolled
-    ? "bg-white shadow-md shadow-black/10"
-    : "bg-white";
+  useEffect(() => {
+    setMobileOpen(false);
+    setActiveDropdown(null);
+    setMobileExpanded(null);
+  }, [location.pathname]);
 
-  const panelBg = scrolled
-    ? "bg-white"
-    : "bg-white";
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setActiveDropdown(null);
+        setSearchOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, []);
 
-  const panelText = "text-black";
-  const panelChrome = "shadow-xl ring-1 ring-black/10";
+  useEffect(() => {
+    if (mobileOpen) document.body.style.overflow = "hidden";
+    else document.body.style.overflow = "unset";
 
-  const dropdownWrapClass = `
-    absolute left-1/2 top-full mt-0 w-[950px] -translate-x-1/2
-    opacity-0 pointer-events-none translate-y-2
-    group-hover:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0
-    transition-all duration-200 z-50
-  `;
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [mobileOpen]);
 
-  const dropdownPad = "px-3.5 py-3";
-
-  const grid3x1 = "mt-2 grid grid-cols-3 gap-5 place-items-stretch text-center";
-  const grid2x1 = "mt-2 grid grid-cols-2 gap-5 place-items-stretch text-center";
-
-  const cardClass =
-    "w-full rounded-lg px-3.5 py-3 hover:bg-black/5 transition-colors";
-
-  const navItemClass =
-    "text-[11px] tracking-[0.22em] uppercase opacity-80 inline-flex items-center gap-1";
+  useEffect(() => {
+    if (searchOpen && searchRef.current) searchRef.current.focus();
+  }, [searchOpen]);
 
   return (
-    <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${navBg} ${navText}`}
+    <header
+      ref={navRef}
+      className={`fixed top-0 left-0 right-0 w-full z-50 transition-all duration-300 font-sans ${
+        scrolled
+          ? "bg-white/80 backdrop-blur-md border-b border-neutral-200/50 shadow-sm"
+          : "bg-white border-b border-transparent"
+      }`}
     >
-      <div className="max-w-screen-2xl mx-auto px-6 py-2">
-        <div className="flex items-center justify-between">
+      {/* Top Navigation */}
+      <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12">
+        <div className="flex h-20 items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center">
+
           {/* Logo */}
-          <Link to="/" className="inline-flex items-center">
-            <img src={Logo} alt="Neurologic Solutions" className="h-14 w-auto" />
+          <Link
+            to="/"
+            className="flex items-center gap-2 flex-shrink-0 lg:justify-self-start"
+            onClick={() => {
+              setMobileOpen(false);
+              setActiveDropdown(null);
+            }}
+          >
+            <img
+              src={Logo}
+              alt="Neurologic Solutions"
+              className="h-10 md:h-11 lg:h-12 xl:h-[52px] w-auto object-contain"
+            />
           </Link>
 
-          <div className="ml-auto flex items-center space-x-6">
-            <div className="hidden md:flex items-center space-x-6">
-              {/* Products */}
-              <div className="relative group">
-                <Link to="/products" className={navItemClass}>
-                  Products
-                  <ChevronDown className="w-3.5 h-3.5 opacity-70" />
-                </Link>
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center justify-center space-x-1 lg:justify-self-center">
+            {NAV_ITEMS.map((item) => {
+              const hasChildren = !!item.children?.length;
+              const isOpen = activeDropdown === item.label;
 
-                <div className={dropdownWrapClass}>
-                  <div className="h-3" />
-                  <div
-                    className={`rounded-xl ${panelBg} ${panelText} ${panelChrome}`}
-                  >
-                    <div className={dropdownPad}>
-                      <div className={grid2x1}>
-                        <Link to="/episcalp" className={cardClass}>
-                          <div className="text-sm font-light">EpiScalp</div>
-                          <div className="mt-1 text-xs opacity-70">
-                            Rapid EEG-Based Epilepsy Risk Assessment
-                          </div>
-                        </Link>
-
-                        <Link to="/eztrack" className={cardClass}>
-                          <div className="text-sm font-light">EZTrack</div>
-                          <div className="mt-1 text-xs opacity-70">
-                            Simplified EEG Fragility for Surgical Planning
-                          </div>
-                        </Link>
-                      </div>
-                    </div>
+              if (!hasChildren) {
+                return (
+                  <div key={item.label} className="h-20 flex items-center px-4">
+                    <Link
+                      to={item.href}
+                      className="text-[13px] tracking-widest uppercase font-medium text-neutral-500 hover:text-black transition-colors"
+                    >
+                      {item.label}
+                    </Link>
                   </div>
-                </div>
-              </div>
+                );
+              }
 
-              {/* Clinical */}
-              <div className="relative group">
-                <Link to="/clinical" className={navItemClass}>
-                  Clinical
-                  <ChevronDown className="w-3.5 h-3.5 opacity-70" />
-                </Link>
-
-                <div className={dropdownWrapClass}>
-                  <div className="h-3" />
-                  <div
-                    className={`rounded-xl ${panelBg} ${panelText} ${panelChrome}`}
-                  >
-                    <div className={dropdownPad}>
-                      <div className={grid3x1}>
-                        <Link to="/clinical-evidence" className={cardClass}>
-                          <div className="text-sm font-light">
-                            Clinical evidence
-                          </div>
-                          <div className="mt-1 text-xs opacity-70">
-                            Outcomes and performance results
-                          </div>
-                        </Link>
-
-                        <Link to="/publications" className={cardClass}>
-                          <div className="text-sm font-light">
-                            Publications
-                          </div>
-                          <div className="mt-1 text-xs opacity-70">
-                            Papers, posters, and abstracts
-                          </div>
-                        </Link>
-
-                        <Link to="/use-cases" className={cardClass}>
-                          <div className="text-sm font-light">Use cases</div>
-                          <div className="mt-1 text-xs opacity-70">
-                            Where it helps most clinically
-                          </div>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Company */}
-              <div className="relative group">
-                <Link to="/company" className={navItemClass}>
-                  Company
-                  <ChevronDown className="w-3.5 h-3.5 opacity-70" />
-                </Link>
-
-                <div className={dropdownWrapClass}>
-                  <div className="h-3" />
-                  <div
-                    className={`rounded-xl ${panelBg} ${panelText} ${panelChrome}`}
-                  >
-                    <div className={dropdownPad}>
-                      <div className={grid2x1}>
-                        <Link to="/about-us" className={cardClass}>
-                          <div className="text-sm font-light">About us</div>
-                          <div className="mt-1 text-xs opacity-70">
-                            Mission, vision, and story
-                          </div>
-                        </Link>
-
-                        <Link to="/team" className={cardClass}>
-                          <div className="text-sm font-light">Team</div>
-                          <div className="mt-1 text-xs opacity-70">
-                            Leadership and contributors
-                          </div>
-                        </Link>
-
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Resources */}
-              <div className="relative group">
-                <Link to="/resources" className={navItemClass}>
-                  Resources
-                  <ChevronDown className="w-3.5 h-3.5 opacity-70" />
-                </Link>
-
-                <div className={dropdownWrapClass}>
-                  <div className="h-2" />
-                  <div
-                    className={`rounded-xl ${panelBg} ${panelText} ${panelChrome}`}
-                  >
-                    <div className={dropdownPad}>
-                      <div className={grid2x1}>
-                        <Link to="/blog-news" className={cardClass}>
-                          <div className="text-sm font-light">
-                            Blog / News
-                          </div>
-                          <div className="mt-1 text-xs opacity-70">
-                            Updates and announcements
-                          </div>
-                        </Link>
-
-                        <Link to="/support" className={cardClass}>
-                          <div className="text-sm font-light">Support</div>
-                          <div className="mt-1 text-xs opacity-70">
-                            Help and getting started
-                          </div>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Request demo */}
-              <Link
-                to="/Contact-Us"
-                className={`${navItemClass} rounded-full px-3 py-1.5 border border-black/20 hover:bg-black/5 bg-yellow-400`}
-              >
-                Contact Us
-              </Link>
-            </div>
-
-            {/* Search */}
-            <div className="relative group">
-              <div className="flex items-center">
-                <Search className="w-5 h-5 opacity-80 group-hover:opacity-100 transition-opacity" />
+              return (
                 <div
-                  className="
-                    overflow-hidden w-0 opacity-0 ml-0
-                    group-hover:w-56 group-hover:opacity-100 group-hover:ml-3
-                    focus-within:w-56 focus-within:opacity-100 focus-within:ml-3
-                    transition-all duration-300
-                  "
+                  key={item.label}
+                  onMouseEnter={() => setActiveDropdown(item.label)}
+                  onMouseLeave={() => setActiveDropdown(null)}
+                  className="h-20 flex items-center px-4"
                 >
-                  <input
-                    type="text"
-                    placeholder="Search Neurologic…"
-                    className="w-full rounded-full border border-black/20 bg-white px-4 py-2 text-sm font-light outline-none focus:border-black/40"
-                  />
+                  <button
+                    onClick={() =>
+                      setActiveDropdown(isOpen ? null : item.label)
+                    }
+                    className={`relative text-[13px] tracking-widest uppercase font-medium transition-colors ${
+                      isOpen
+                        ? "text-black"
+                        : "text-neutral-500 hover:text-black"
+                    }`}
+                  >
+                    {item.label}
+                    <span
+                      className={`absolute -bottom-2 left-0 w-full h-[2px] bg-black transition-transform duration-300 origin-left ${
+                        isOpen ? "scale-x-100" : "scale-x-0"
+                      }`}
+                    />
+                  </button>
+
+                  {/* Dropdown */}
+                  <div
+                    className={`absolute left-0 top-full w-full bg-white border-b border-neutral-200 shadow-xl shadow-black/5 transition-all duration-300 origin-top ${
+                      isOpen
+                        ? "opacity-100 visible translate-y-0"
+                        : "opacity-0 invisible -translate-y-2 pointer-events-none"
+                    }`}
+                  >
+                    <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 py-8 mx-auto max-w-[1600px]">
+                      <div className="grid grid-cols-2 xl:grid-cols-3 gap-6">
+                        {item.children!.map((child) => (
+                          <Link
+                            key={child.href}
+                            to={child.href}
+                            onClick={() => setActiveDropdown(null)}
+                            className="group p-4 rounded-xl hover:bg-neutral-50 border border-transparent hover:border-neutral-100 transition-all duration-200 flex items-start justify-between"
+                          >
+                            <div>
+                              <span className="text-base font-semibold text-neutral-900 group-hover:text-black">
+                                {child.label}
+                              </span>
+                              <p className="text-sm text-neutral-500 mt-1">
+                                {child.desc}
+                              </p>
+                            </div>
+                            <ChevronRight className="w-5 h-5 text-neutral-300 group-hover:text-black transition-colors" />
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              );
+            })}
+          </nav>
+
+          {/* Right Side Actions */}
+          <div className="hidden lg:flex items-center space-x-6 lg:justify-self-end">
+            <div className="flex items-center relative">
+              <input
+                ref={searchRef}
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search solutions..."
+                className={`transition-all duration-300 outline-none text-sm bg-neutral-100/80 rounded-full h-10 px-4 placeholder:text-neutral-400 border border-transparent focus:border-neutral-300 focus:bg-white ${
+                  searchOpen
+                    ? "w-64 opacity-100 mr-2"
+                    : "w-0 opacity-0 px-0 pointer-events-none"
+                }`}
+              />
+
+              <button
+                onClick={() => {
+                  setSearchOpen(!searchOpen);
+                  if (searchOpen) setSearchQuery("");
+                }}
+                className="w-10 h-10 flex items-center justify-center rounded-full text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors"
+              >
+                {searchOpen ? (
+                  <X className="w-5 h-5" />
+                ) : (
+                  <Search className="w-5 h-5" />
+                )}
+              </button>
             </div>
 
-            {/* Mobile menu toggle */}
-            <button
-              className="md:hidden hover:opacity-70 transition-opacity"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle menu"
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center h-10 px-6 rounded-full bg-black text-white text-[12px] tracking-widest uppercase font-medium hover:bg-neutral-800 transition"
             >
-              {mobileMenuOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
+              Contact Us
+            </Link>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button
+            className="lg:hidden relative z-50 w-10 h-10 flex items-center justify-center rounded-full text-neutral-900 bg-neutral-50 hover:bg-neutral-100"
+            onClick={() => setMobileOpen(!mobileOpen)}
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
+      </div>
+
+      {/* Mobile Menu */}
+      <div
+        className={`lg:hidden fixed inset-0 w-full h-[100dvh] bg-white z-40 flex flex-col transition-transform duration-500 ${
+          mobileOpen ? "translate-y-0" : "-translate-y-full"
+        }`}
+      >
+        <div className="h-20 shrink-0" />
+
+        {/* Mobile Search */}
+        <div className="px-6 py-4 border-b border-neutral-100">
+          <div className="flex items-center gap-3 bg-neutral-50 border border-neutral-200 rounded-full px-4 h-12">
+            <Search className="w-5 h-5 text-neutral-400" />
+            <input
+              type="text"
+              placeholder="Search Neurologic Solutions..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="flex-1 bg-transparent outline-none text-base"
+            />
           </div>
         </div>
 
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden border-t border-black/10 mt-2">
-            <div className="py-4 space-y-1">
-              {/* Products */}
-              <div>
+        {/* Mobile Links */}
+        <div className="flex-1 overflow-y-auto px-4 py-2">
+          {NAV_ITEMS.map((item) => {
+            const hasChildren = !!item.children?.length;
+
+            if (!hasChildren) {
+              return (
+                <div key={item.label} className="border-b border-neutral-100">
+                  <Link
+                    to={item.href}
+                    onClick={() => setMobileOpen(false)}
+                    className="flex justify-between py-5 px-2"
+                  >
+                    <span className="text-lg font-semibold text-black">
+                      {item.label}
+                    </span>
+                    <ChevronRight className="w-5 h-5 text-neutral-400" />
+                  </Link>
+                </div>
+              );
+            }
+
+            return (
+              <div key={item.label} className="border-b border-neutral-100">
                 <button
                   onClick={() =>
-                    setExpandedMobileMenu(
-                      expandedMobileMenu === "products" ? null : "products"
+                    setMobileExpanded(
+                      mobileExpanded === item.label ? null : item.label
                     )
                   }
-                  className="w-full flex items-center justify-between px-4 py-3 hover:bg-black/5 rounded-lg transition-colors"
+                  className="w-full flex justify-between py-5 px-2"
                 >
-                  <span className="text-sm font-light">Products</span>
-                  <ChevronDown
-                    className={`w-4 h-4 opacity-70 transition-transform ${
-                      expandedMobileMenu === "products" ? "rotate-180" : ""
+                  <span className="text-lg font-semibold text-black">
+                    {item.label}
+                  </span>
+                  <ChevronRight
+                    className={`w-5 h-5 text-neutral-400 transition-transform ${
+                      mobileExpanded === item.label ? "rotate-90" : ""
                     }`}
                   />
                 </button>
-                {expandedMobileMenu === "products" && (
-                  <div className="bg-black/2 pl-4 py-2 space-y-2">
-                    <Link
-                      to="/episcalp"
-                      className="block px-4 py-2 text-sm font-light hover:bg-black/5 rounded-lg transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div>EpiScalp</div>
-                      <div className="text-xs opacity-70">
-                        Rapid EEG-Based Epilepsy Risk Assessment
-                      </div>
-                    </Link>
-                    <Link
-                      to="/eztrack"
-                      className="block px-4 py-2 text-sm font-light hover:bg-black/5 rounded-lg transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div>EZTrack</div>
-                      <div className="text-xs opacity-70">
-                        Simplified EEG Fragility for Surgical Planning
-                      </div>
-                    </Link>
-                  </div>
-                )}
-              </div>
 
-              {/* Clinical */}
-              <div>
-                <button
-                  onClick={() =>
-                    setExpandedMobileMenu(
-                      expandedMobileMenu === "clinical" ? null : "clinical"
-                    )
-                  }
-                  className="w-full flex items-center justify-between px-4 py-3 hover:bg-black/5 rounded-lg transition-colors"
+                <div
+                  className={`grid transition-[grid-template-rows] duration-300 ${
+                    mobileExpanded === item.label
+                      ? "grid-rows-[1fr] opacity-100 mb-4"
+                      : "grid-rows-[0fr] opacity-0"
+                  }`}
                 >
-                  <span className="text-sm font-light">Clinical</span>
-                  <ChevronDown
-                    className={`w-4 h-4 opacity-70 transition-transform ${
-                      expandedMobileMenu === "clinical" ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                {expandedMobileMenu === "clinical" && (
-                  <div className="bg-black/2 pl-4 py-2 space-y-2">
-                    <Link
-                      to="/clinical-evidence"
-                      className="block px-4 py-2 text-sm font-light hover:bg-black/5 rounded-lg transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div>Clinical Evidence</div>
-                      <div className="text-xs opacity-70">
-                        Outcomes and performance results
-                      </div>
-                    </Link>
-                    <Link
-                      to="/publications"
-                      className="block px-4 py-2 text-sm font-light hover:bg-black/5 rounded-lg transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div>Publications</div>
-                      <div className="text-xs opacity-70">
-                        Papers, posters, and abstracts
-                      </div>
-                    </Link>
-                    <Link
-                      to="/use-cases"
-                      className="block px-4 py-2 text-sm font-light hover:bg-black/5 rounded-lg transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div>Use Cases</div>
-                      <div className="text-xs opacity-70">
-                        Where it helps most clinically
-                      </div>
-                    </Link>
+                  <div className="overflow-hidden flex flex-col gap-2">
+                    {item.children!.map((child) => (
+                      <Link
+                        key={child.href}
+                        to={child.href}
+                        onClick={() => setMobileOpen(false)}
+                        className="block p-4 rounded-xl bg-neutral-50 hover:bg-neutral-100"
+                      >
+                        <span className="text-base font-medium text-neutral-900">
+                          {child.label}
+                        </span>
+                        <p className="text-sm text-neutral-500">{child.desc}</p>
+                      </Link>
+                    ))}
                   </div>
-                )}
+                </div>
               </div>
+            );
+          })}
+        </div>
 
-              {/* Company */}
-              <div>
-                <button
-                  onClick={() =>
-                    setExpandedMobileMenu(
-                      expandedMobileMenu === "company" ? null : "company"
-                    )
-                  }
-                  className="w-full flex items-center justify-between px-4 py-3 hover:bg-black/5 rounded-lg transition-colors"
-                >
-                  <span className="text-sm font-light">Company</span>
-                  <ChevronDown
-                    className={`w-4 h-4 opacity-70 transition-transform ${
-                      expandedMobileMenu === "company" ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                {expandedMobileMenu === "company" && (
-                  <div className="bg-black/2 pl-4 py-2 space-y-2">
-                    <Link
-                      to="/about-us"
-                      className="block px-4 py-2 text-sm font-light hover:bg-black/5 rounded-lg transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div>About Us</div>
-                      <div className="text-xs opacity-70">
-                        Mission, vision, and story
-                      </div>
-                    </Link>
-                    <Link
-                      to="/team"
-                      className="block px-4 py-2 text-sm font-light hover:bg-black/5 rounded-lg transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div>Team</div>
-                      <div className="text-xs opacity-70">
-                        Leadership and contributors
-                      </div>
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              {/* Resources */}
-              <div>
-                <button
-                  onClick={() =>
-                    setExpandedMobileMenu(
-                      expandedMobileMenu === "resources" ? null : "resources"
-                    )
-                  }
-                  className="w-full flex items-center justify-between px-4 py-3 hover:bg-black/5 rounded-lg transition-colors"
-                >
-                  <span className="text-sm font-light">Resources</span>
-                  <ChevronDown
-                    className={`w-4 h-4 opacity-70 transition-transform ${
-                      expandedMobileMenu === "resources" ? "rotate-180" : ""
-                    }`}
-                  />
-                </button>
-                {expandedMobileMenu === "resources" && (
-                  <div className="bg-black/2 pl-4 py-2 space-y-2">
-                    <Link
-                      to="/blog-news"
-                      className="block px-4 py-2 text-sm font-light hover:bg-black/5 rounded-lg transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div>Blog / News</div>
-                      <div className="text-xs opacity-70">
-                        Updates and announcements
-                      </div>
-                    </Link>
-                    <Link
-                      to="/for-investors"
-                      className="block px-4 py-2 text-sm font-light hover:bg-black/5 rounded-lg transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div>For Investors</div>
-                      <div className="text-xs opacity-70">
-                        Investor-relevant information
-                      </div>
-                    </Link>
-                    <Link
-                      to="/support"
-                      className="block px-4 py-2 text-sm font-light hover:bg-black/5 rounded-lg transition-colors"
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      <div>Support</div>
-                      <div className="text-xs opacity-70">
-                        Help and getting started
-                      </div>
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              {/* Contact Us */}
-              <div className="pt-2 border-t border-black/10">
-                <Link
-                  to="/Contact-Us"
-                  className="block px-4 py-3 text-sm font-light bg-yellow-400 rounded-lg hover:bg-yellow-300 transition-colors text-center"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Contact Us
-                </Link>
-              </div>
-            </div>
-          </div>
-        )}
+        {/* Mobile CTA */}
+        <div className="p-6 border-t border-neutral-100">
+          <Link
+            to="/contact"
+            onClick={() => setMobileOpen(false)}
+            className="flex items-center justify-center w-full h-14 rounded-full bg-black text-white text-sm font-semibold tracking-widest uppercase hover:bg-neutral-800"
+          >
+            Contact Us
+          </Link>
+        </div>
       </div>
-    </nav>
+    </header>
   );
 }

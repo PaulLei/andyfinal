@@ -25,9 +25,7 @@ export default function Footer() {
             </Link>
 
             <p className="mt-5 text-gray-400 font-light text-sm leading-relaxed max-w-sm">
-              Neurologic Solutions is an early stage company that aims to
-              improve the diagnosis and treatment of patients with epilepsy by
-              building a portfolio of smart EEG analytic software tools.
+              Neurologic Solutions pioneers precision neurodata analysis to help clinicians achieve accurate diagnosis and optimal treatment. We deliver reliable EEG analytics, actionable insights, and quantitative biomarkers that turn brain data into better clinical outcomes across neurological disorders.
             </p>
 
 
