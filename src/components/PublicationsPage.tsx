@@ -1,5 +1,5 @@
 import { BookOpen, ExternalLink, Filter, Download } from 'lucide-react';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 const publications = [
   {
@@ -39,41 +39,141 @@ const publications = [
   },
 ];
 
+const publicationYears = [
+  'All',
+  ...Array.from(new Set(publications.map((pub) => pub.year.toString())))
+    .sort((a, b) => Number(b) - Number(a)),
+];
 
-const years = ['All', '2025', '2024', '2023', '2022'];
 const categories = ['All', 'Peer-Reviewed', 'White Paper'];
 
 export default function PublicationsPage() {
   const [activeYear, setActiveYear] = useState('All');
   const [activeCategory, setActiveCategory] = useState('All');
 
-  const filteredPubs = publications.filter((pub) => {
-    const yearMatch = activeYear === 'All' || pub.year.toString() === activeYear;
-    const catMatch =
-      activeCategory === 'All' || pub.category === activeCategory;
-    return yearMatch && catMatch;
-  });
+  const filteredPubs = useMemo(() => {
+    return publications
+      .filter((pub) => {
+        const yearMatch =
+          activeYear === 'All' || pub.year.toString() === activeYear;
+        const catMatch =
+          activeCategory === 'All' || pub.category === activeCategory;
+        return yearMatch && catMatch;
+      })
+      .slice()
+      .sort((a, b) => b.year - a.year);
+  }, [activeYear, activeCategory]);
+
+  const getYearButtonClasses = (year: string) => {
+    const active = activeYear === year;
+
+    if (year === 'All') {
+      return active
+        ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+        : 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100';
+    }
+
+    if (year === '2022') {
+      return active
+        ? 'bg-slate-600 text-white border-slate-600 shadow-sm'
+        : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100';
+    }
+
+    if (year === '2021') {
+      return active
+        ? 'bg-amber-500 text-white border-amber-500 shadow-sm'
+        : 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100';
+    }
+
+    if (year === '2017') {
+      return active
+        ? 'bg-violet-600 text-white border-violet-600 shadow-sm'
+        : 'bg-violet-50 text-violet-700 border-violet-200 hover:bg-violet-100';
+    }
+
+    if (year === '2014') {
+      return active
+        ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+        : 'bg-blue-50 text-blue-700 border-blue-200 hover:bg-blue-100';
+    }
+
+    return active
+      ? 'bg-gray-700 text-white border-gray-700 shadow-sm'
+      : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100';
+  };
+
+  const getCategoryButtonClasses = (category: string) => {
+    const active = activeCategory === category;
+
+    if (category === 'All') {
+      return active
+        ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+        : 'bg-emerald-50 text-emerald-700 border-emerald-200 hover:bg-emerald-100';
+    }
+
+    if (category === 'Peer-Reviewed') {
+      return active
+        ? 'bg-cyan-600 text-white border-cyan-600 shadow-sm'
+        : 'bg-cyan-50 text-cyan-700 border-cyan-200 hover:bg-cyan-100';
+    }
+
+    return active
+      ? 'bg-rose-600 text-white border-rose-600 shadow-sm'
+      : 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100';
+  };
+
+  const getCategoryBadgeClasses = (category: string) => {
+    if (category === 'Peer-Reviewed') {
+      return 'bg-cyan-50 text-cyan-700 border-cyan-200';
+    }
+
+    return 'bg-rose-50 text-rose-700 border-rose-200';
+  };
+
+  const getYearBadgeClasses = (year: number) => {
+    const yearString = year.toString();
+
+    if (yearString === '2022') {
+      return 'bg-slate-50 text-slate-700 border-slate-200';
+    }
+
+    if (yearString === '2021') {
+      return 'bg-amber-50 text-amber-700 border-amber-200';
+    }
+
+    if (yearString === '2017') {
+      return 'bg-violet-50 text-violet-700 border-violet-200';
+    }
+
+    if (yearString === '2014') {
+      return 'bg-blue-50 text-blue-700 border-blue-200';
+    }
+
+    return 'bg-gray-50 text-gray-700 border-gray-200';
+  };
 
   return (
-    <div className="min-h-screen bg-white pt-32">
+    <div className="min-h-screen bg-white pt-24">
       {/* Header */}
-      <section className="relative py-24 px-6 overflow-hidden">
+      <section className="relative overflow-hidden px-6 pt-14 pb-10 md:pt-16 md:pb-12">
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-emerald-100/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-teal-100/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-10 left-10 h-80 w-80 rounded-full bg-emerald-100/20 blur-3xl" />
+          <div className="absolute bottom-10 right-10 h-80 w-80 rounded-full bg-teal-100/20 blur-3xl" />
         </div>
 
-        <div className="max-w-6xl mx-auto relative z-10">
-          <div className="flex items-center space-x-3 mb-6">
-            <BookOpen className="w-8 h-8 text-emerald-600" />
-            <span className="text-xs tracking-widest uppercase text-emerald-600 font-semibold">
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <div className="mb-5 flex items-center space-x-3">
+            <BookOpen className="h-8 w-8 text-emerald-600" />
+            <span className="text-xs font-semibold uppercase tracking-widest text-emerald-600">
               Research
             </span>
           </div>
-          <h1 className="text-5xl md:text-6xl font-light mb-6 leading-tight">
+
+          <h1 className="mb-5 text-4xl font-light leading-tight md:text-5xl lg:text-6xl">
             Scientific Publications
           </h1>
-          <p className="text-lg text-gray-600 font-light max-w-2xl">
+
+          <p className="max-w-2xl text-lg font-light text-gray-600">
             Peer-reviewed research and technical papers advancing the field of
             epilepsy diagnosis and treatment.
           </p>
@@ -81,102 +181,121 @@ export default function PublicationsPage() {
       </section>
 
       {/* Filters */}
-      <section className="sticky top-24 bg-white border-b border-gray-100 py-6 px-6 z-40">
-        <div className="max-w-6xl mx-auto">
-          <div className="mb-6">
-            <div className="flex items-center space-x-2 mb-4">
-              <Filter className="w-5 h-5 text-gray-700" />
-              <h3 className="text-sm font-semibold text-gray-700">Filter by Year</h3>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {years.map((year) => (
-                <button
-                  key={year}
-                  onClick={() => setActiveYear(year)}
-                  className={`px-4 py-2 rounded-full text-sm font-light transition-all ${
-                    activeYear === year
-                      ? 'bg-emerald-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {year}
-                </button>
-              ))}
-            </div>
-          </div>
+      <section className="sticky top-20 z-40 border-y border-gray-100 bg-white/95 px-6 py-4 backdrop-blur">
+        <div className="mx-auto max-w-6xl">
+          <div className="rounded-2xl border border-gray-200 bg-white/90 p-4 shadow-sm">
+            <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+              <div className="flex items-center space-x-2">
+                <Filter className="h-5 w-5 text-gray-700" />
+                <h3 className="text-sm font-semibold text-gray-700">
+                  Filter publications
+                </h3>
+              </div>
 
-          <div>
-            <div className="flex items-center space-x-2 mb-4">
-              <Filter className="w-5 h-5 text-gray-700" />
-              <h3 className="text-sm font-semibold text-gray-700">Filter by Type</h3>
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {categories.map((cat) => (
-                <button
-                  key={cat}
-                  onClick={() => setActiveCategory(cat)}
-                  className={`px-4 py-2 rounded-full text-sm font-light transition-all ${
-                    activeCategory === cat
-                      ? 'bg-emerald-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
+              <div className="flex flex-col gap-4 lg:flex-row lg:flex-wrap lg:items-center lg:gap-8">
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+                  <span className="min-w-fit text-sm font-semibold text-gray-700">
+                    Year
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {publicationYears.map((year) => (
+                      <button
+                        key={year}
+                        onClick={() => setActiveYear(year)}
+                        className={`rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 ${getYearButtonClasses(
+                          year
+                        )}`}
+                      >
+                        {year}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3">
+                  <span className="min-w-fit text-sm font-semibold text-gray-700">
+                    Type
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {categories.map((cat) => (
+                      <button
+                        key={cat}
+                        onClick={() => setActiveCategory(cat)}
+                        className={`rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 ${getCategoryButtonClasses(
+                          cat
+                        )}`}
+                      >
+                        {cat}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Publications List */}
-      <section className="py-16 px-6">
-        <div className="max-w-4xl mx-auto space-y-4">
-          {filteredPubs.reverse().map((pub, index) => (
+      <section className="px-6 py-12 md:py-14">
+        <div className="mx-auto max-w-4xl space-y-4">
+          {filteredPubs.map((pub, index) => (
             <div
-              key={index}
-              className="group opacity-0 animate-fade-in bg-white border border-gray-200 rounded-xl p-8 hover:border-emerald-300 hover:shadow-lg transition-all duration-300"
+              key={`${pub.title}-${pub.year}`}
+              className="group animate-fade-in rounded-xl border border-gray-200 bg-white p-8 opacity-0 transition-all duration-300 hover:border-emerald-300 hover:shadow-lg"
               style={{ animationDelay: `${0.1 * index}s` }}
             >
-              <div className="flex items-start justify-between mb-4">
+              <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
-                  <div className="flex items-center space-x-3 mb-3">
-                    <span className="px-3 py-1 bg-emerald-100 text-emerald-700 rounded-full text-xs font-semibold">
+                  <div className="mb-3 flex flex-wrap items-center gap-2">
+                    <span
+                      className={`rounded-full border px-3 py-1 text-xs font-semibold ${getCategoryBadgeClasses(
+                        pub.category
+                      )}`}
+                    >
                       {pub.category}
                     </span>
-                    <span className="text-sm text-gray-500 font-light">
+                    <span
+                      className={`rounded-full border px-3 py-1 text-xs font-semibold ${getYearBadgeClasses(
+                        pub.year
+                      )}`}
+                    >
                       {pub.year}
                     </span>
                   </div>
-                  <h3 className="text-xl font-light mb-3 leading-tight group-hover:text-emerald-600 transition-colors">
+
+                  <h3 className="mb-3 text-xl font-light leading-tight transition-colors group-hover:text-emerald-600">
                     {pub.title}
                   </h3>
-                  <p className="text-gray-600 font-light text-sm mb-2">
+
+                  <p className="mb-2 text-sm font-light text-gray-600">
                     {pub.authors}
                   </p>
-                  <p className="text-gray-500 font-light italic text-sm">
+
+                  <p className="text-sm font-light italic text-gray-500">
                     {pub.journal}
                   </p>
                 </div>
-                <div className="flex items-center space-x-2 ml-4">
+
+                <div className="ml-4 flex items-center space-x-2">
                   <a
                     href={pub.doi}
-                    className="p-3 rounded-lg bg-gray-100 text-gray-600 hover:bg-emerald-100 hover:text-emerald-600 transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-lg bg-gray-100 p-3 text-gray-600 transition-colors hover:bg-emerald-100 hover:text-emerald-600"
                     title="View DOI"
                   >
-                    <ExternalLink className="w-5 h-5" />
+                    <ExternalLink className="h-5 w-5" />
                   </a>
-                  <button className="p-3 rounded-lg bg-gray-100 text-gray-600 hover:bg-emerald-100 hover:text-emerald-600 transition-colors">
-                    <Download className="w-5 h-5" />
-                  </button>
+
                 </div>
               </div>
             </div>
           ))}
 
           {filteredPubs.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-gray-600 font-light text-lg">
+            <div className="py-16 text-center">
+              <p className="text-lg font-light text-gray-600">
                 No publications found matching your filters.
               </p>
             </div>
@@ -185,14 +304,14 @@ export default function PublicationsPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-24 px-6 bg-gradient-to-b from-emerald-50 to-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-4xl font-light mb-6">Featured Research</h2>
-          <p className="text-lg text-gray-600 font-light mb-12">
+      <section className="bg-gradient-to-b from-emerald-50 to-white px-6 py-20 md:py-24">
+        <div className="mx-auto max-w-4xl text-center">
+          <h2 className="mb-6 text-4xl font-light">Featured Research</h2>
+          <p className="mb-12 text-lg font-light text-gray-600">
             Check out our latest peer-reviewed publication on automated seizure
             detection.
           </p>
-          <button className="bg-emerald-600 text-white px-8 py-4 rounded-full hover:bg-emerald-700 transition-all font-light">
+          <button className="rounded-full bg-emerald-600 px-8 py-4 font-light text-white transition-all hover:bg-emerald-700">
             View Featured Paper
           </button>
         </div>

@@ -1,4 +1,4 @@
-import { Search, Menu, X, ChevronRight } from "lucide-react";
+import { Menu, X, ChevronRight } from "lucide-react";
 import Logo from "/neurologic_solutions.horizontal.color_.black_.png";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
@@ -38,11 +38,6 @@ const NAV_ITEMS = [
         href: "/publications",
         desc: "Papers, posters, and abstracts",
       },
-      {
-        label: "Use Cases",
-        href: "/use-cases",
-        desc: "Where it helps most clinically",
-      },
     ],
   },
   {
@@ -71,10 +66,7 @@ export default function Navigation({ scrolled }: NavigationProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
 
-  const searchRef = useRef<HTMLInputElement>(null);
   const navRef = useRef<HTMLElement>(null);
   const location = useLocation();
 
@@ -88,7 +80,6 @@ export default function Navigation({ scrolled }: NavigationProps) {
     const handler = (e: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(e.target as Node)) {
         setActiveDropdown(null);
-        setSearchOpen(false);
       }
     };
     document.addEventListener("mousedown", handler);
@@ -104,10 +95,6 @@ export default function Navigation({ scrolled }: NavigationProps) {
     };
   }, [mobileOpen]);
 
-  useEffect(() => {
-    if (searchOpen && searchRef.current) searchRef.current.focus();
-  }, [searchOpen]);
-
   return (
     <header
       ref={navRef}
@@ -117,11 +104,8 @@ export default function Navigation({ scrolled }: NavigationProps) {
           : "bg-white border-b border-transparent"
       }`}
     >
-      {/* Top Navigation */}
       <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12">
         <div className="flex h-20 items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr] lg:items-center">
-
-          {/* Logo */}
           <Link
             to="/"
             className="flex items-center gap-2 flex-shrink-0 lg:justify-self-start"
@@ -137,7 +121,6 @@ export default function Navigation({ scrolled }: NavigationProps) {
             />
           </Link>
 
-          {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center justify-center space-x-1 lg:justify-self-center">
             {NAV_ITEMS.map((item) => {
               const hasChildren = !!item.children?.length;
@@ -181,7 +164,6 @@ export default function Navigation({ scrolled }: NavigationProps) {
                     />
                   </button>
 
-                  {/* Dropdown */}
                   <div
                     className={`absolute left-0 top-full w-full bg-white border-b border-neutral-200 shadow-xl shadow-black/5 transition-all duration-300 origin-top ${
                       isOpen
@@ -217,37 +199,7 @@ export default function Navigation({ scrolled }: NavigationProps) {
             })}
           </nav>
 
-          {/* Right Side Actions */}
-          <div className="hidden lg:flex items-center space-x-6 lg:justify-self-end">
-            <div className="flex items-center relative">
-              <input
-                ref={searchRef}
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search solutions..."
-                className={`transition-all duration-300 outline-none text-sm bg-neutral-100/80 rounded-full h-10 px-4 placeholder:text-neutral-400 border border-transparent focus:border-neutral-300 focus:bg-white ${
-                  searchOpen
-                    ? "w-64 opacity-100 mr-2"
-                    : "w-0 opacity-0 px-0 pointer-events-none"
-                }`}
-              />
-
-              <button
-                onClick={() => {
-                  setSearchOpen(!searchOpen);
-                  if (searchOpen) setSearchQuery("");
-                }}
-                className="w-10 h-10 flex items-center justify-center rounded-full text-neutral-600 hover:bg-neutral-100 hover:text-black transition-colors"
-              >
-                {searchOpen ? (
-                  <X className="w-5 h-5" />
-                ) : (
-                  <Search className="w-5 h-5" />
-                )}
-              </button>
-            </div>
-
+          <div className="hidden lg:flex items-center lg:justify-self-end">
             <Link
               to="/contact"
               className="inline-flex items-center justify-center h-10 px-6 rounded-full bg-black text-white text-[12px] tracking-widest uppercase font-medium hover:bg-neutral-800 transition"
@@ -256,7 +208,6 @@ export default function Navigation({ scrolled }: NavigationProps) {
             </Link>
           </div>
 
-          {/* Mobile Menu Button */}
           <button
             className="lg:hidden relative z-50 w-10 h-10 flex items-center justify-center rounded-full text-neutral-900 bg-neutral-50 hover:bg-neutral-100"
             onClick={() => setMobileOpen(!mobileOpen)}
@@ -266,7 +217,6 @@ export default function Navigation({ scrolled }: NavigationProps) {
         </div>
       </div>
 
-      {/* Mobile Menu */}
       <div
         className={`lg:hidden fixed inset-0 w-full h-[100dvh] bg-white z-40 flex flex-col transition-transform duration-500 ${
           mobileOpen ? "translate-y-0" : "-translate-y-full"
@@ -274,21 +224,6 @@ export default function Navigation({ scrolled }: NavigationProps) {
       >
         <div className="h-20 shrink-0" />
 
-        {/* Mobile Search */}
-        <div className="px-6 py-4 border-b border-neutral-100">
-          <div className="flex items-center gap-3 bg-neutral-50 border border-neutral-200 rounded-full px-4 h-12">
-            <Search className="w-5 h-5 text-neutral-400" />
-            <input
-              type="text"
-              placeholder="Search Neurologic Solutions..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 bg-transparent outline-none text-base"
-            />
-          </div>
-        </div>
-
-        {/* Mobile Links */}
         <div className="flex-1 overflow-y-auto px-4 py-2">
           {NAV_ITEMS.map((item) => {
             const hasChildren = !!item.children?.length;
@@ -358,7 +293,6 @@ export default function Navigation({ scrolled }: NavigationProps) {
           })}
         </div>
 
-        {/* Mobile CTA */}
         <div className="p-6 border-t border-neutral-100">
           <Link
             to="/contact"

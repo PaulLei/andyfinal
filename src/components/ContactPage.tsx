@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Linkedin, Twitter, Github } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin } from 'lucide-react';
 import { useState } from 'react';
 
 export default function ContactPage() {
@@ -6,6 +6,7 @@ export default function ContactPage() {
     name: '',
     email: '',
     subject: '',
+    otherSubject: '',
     message: '',
   });
 
@@ -28,13 +29,15 @@ export default function ContactPage() {
       {/* Header */}
       <section className="py-24 px-6 bg-gradient-to-b from-slate-900 to-slate-800 text-white">
         <div className="max-w-6xl mx-auto text-center">
-          <span className="text-xs tracking-widest uppercase text-slate-400 font-semibold">
+          <span className="text-xs tracking-widest uppercase text-white/80 font-semibold">
             Get in Touch
           </span>
-          <h1 className="text-5xl md:text-6xl font-light mt-4 mb-6 leading-tight">
+
+          <h1 className="text-4xl md:text-5xl font-light mt-4 mb-6 leading-tight">
             Contact Us
           </h1>
-          <p className="text-lg text-slate-300 font-light max-w-2xl mx-auto">
+
+          <p className="text-lg text-white/90 font-light max-w-2xl mx-auto">
             Have questions or interested in partnering with us? We would love to
             hear from you.
           </p>
@@ -44,9 +47,11 @@ export default function ContactPage() {
       {/* Main Content */}
       <section className="py-24 px-6">
         <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-16">
+
           {/* Contact Info */}
           <div className="md:col-span-1">
             <div className="space-y-12">
+
               {/* Phone */}
               <div className="opacity-0 animate-fade-in" style={{ animationDelay: '0.1s' }}>
                 <div className="flex items-start space-x-4">
@@ -77,7 +82,7 @@ export default function ContactPage() {
                       href="mailto:help@neurologicsolutions.net"
                       className="text-gray-600 font-light hover:text-slate-900 transition-colors"
                     >
-                      help@neurologicsolutions.net
+                      info@neurologicsolutions.net
                     </a>
                   </div>
                 </div>
@@ -109,33 +114,29 @@ export default function ContactPage() {
                 <h3 className="text-lg font-normal mb-4">Follow Us</h3>
                 <div className="flex items-center space-x-4">
                   <a
-                    href="#"
+                    href="https://www.linkedin.com/company/neurologic-solutions/"
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all"
                   >
                     <Linkedin className="w-5 h-5" />
                   </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all"
-                  >
-                    <Twitter className="w-5 h-5" />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center hover:bg-slate-900 hover:text-white transition-all"
-                  >
-                    <Github className="w-5 h-5" />
-                  </a>
                 </div>
               </div>
+
             </div>
           </div>
 
           {/* Contact Form */}
           <div className="md:col-span-2 opacity-0 animate-fade-in" style={{ animationDelay: '0.2s' }}>
             <div className="bg-slate-50 rounded-2xl p-8 md:p-12">
-              <h2 className="text-3xl font-light mb-8">Send us a Message</h2>
+
+              <h2 className="text-3xl font-light mb-8">
+                Send us a Message
+              </h2>
+
               <form onSubmit={handleSubmit} className="space-y-6">
+
                 {/* Name */}
                 <div>
                   <label className="block text-sm font-normal text-gray-700 mb-2">
@@ -173,6 +174,7 @@ export default function ContactPage() {
                   <label className="block text-sm font-normal text-gray-700 mb-2">
                     Subject
                   </label>
+
                   <select
                     name="subject"
                     value={formData.subject}
@@ -185,8 +187,21 @@ export default function ContactPage() {
                     <option value="support">Technical Support</option>
                     <option value="pricing">Pricing Information</option>
                     <option value="demo">Request a Demo</option>
+                    <option value="careers">Careers / Job Opportunities</option>
                     <option value="other">Other</option>
                   </select>
+
+                  {formData.subject === "other" && (
+                    <input
+                      type="text"
+                      name="otherSubject"
+                      value={formData.otherSubject}
+                      onChange={handleChange}
+                      placeholder="Please specify your topic"
+                      className="mt-3 w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent transition-all"
+                      required
+                    />
+                  )}
                 </div>
 
                 {/* Message */}
@@ -205,67 +220,23 @@ export default function ContactPage() {
                   />
                 </div>
 
-                {/* Submit Button */}
+                {/* Submit */}
                 <button
                   type="submit"
                   className="w-full bg-slate-900 text-white py-3 rounded-lg hover:bg-slate-800 transition-all font-light"
                 >
                   Send Message
                 </button>
+
               </form>
+
               <p className="text-sm text-gray-500 font-light mt-6">
                 We typically respond within 24 business hours.
               </p>
+
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Map Section */}
-      <section className="py-24 px-6 bg-slate-50">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-light mb-12 text-center">Visit Us</h2>
-          <div className="rounded-2xl overflow-hidden h-96 bg-gradient-to-br from-slate-200 to-slate-300 flex items-center justify-center">
-            <p className="text-gray-600 font-light">
-              Interactive map would be displayed here
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-24 px-6">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-4xl font-light mb-12 text-center">Frequently Asked Questions</h2>
-          <div className="space-y-6">
-            {[
-              {
-                q: 'What is your typical response time?',
-                a: 'We aim to respond to all inquiries within 24 business hours.',
-              },
-              {
-                q: 'How can I request a product demo?',
-                a: 'Select "Request a Demo" in the contact form above, and our team will reach out to schedule.',
-              },
-              {
-                q: 'Do you offer technical support?',
-                a: 'Yes, we provide comprehensive technical support to all our clients.',
-              },
-              {
-                q: 'What are your business hours?',
-                a: 'We are available Monday-Friday, 9 AM to 5 PM EST.',
-              },
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="border-b border-gray-200 pb-6 opacity-0 animate-fade-in"
-                style={{ animationDelay: `${0.1 * index}s` }}
-              >
-                <h3 className="text-lg font-normal mb-3">{item.q}</h3>
-                <p className="text-gray-600 font-light">{item.a}</p>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
     </div>
