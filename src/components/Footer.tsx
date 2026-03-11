@@ -53,11 +53,6 @@ export default function Footer() {
                   EZTrack
                 </Link>
               </li>
-              <li>
-                <Link to="/products" className={linkClass}>
-                  Product overview
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -73,11 +68,6 @@ export default function Footer() {
               <li>
                 <Link to="/publications" className={linkClass}>
                   Publications
-                </Link>
-              </li>
-              <li>
-                <Link to="/use-cases" className={linkClass}>
-                  Use cases
                 </Link>
               </li>
             </ul>
@@ -102,21 +92,11 @@ export default function Footer() {
 
           {/* Resources */}
           <div className="md:col-span-1">
-            <h4 className={sectionTitleClass}>Resources</h4>
+            <h4 className={sectionTitleClass}>News</h4>
             <ul className="space-y-3">
               <li>
                 <Link to="/blog-news" className={linkClass}>
-                  Blog / News
-                </Link>
-              </li>
-              <li>
-                <Link to="/for-investors" className={linkClass}>
-                  For Investors
-                </Link>
-              </li>
-              <li>
-                <Link to="/support" className={linkClass}>
-                  Support
+                  News
                 </Link>
               </li>
             </ul>

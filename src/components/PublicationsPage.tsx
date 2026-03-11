@@ -181,7 +181,7 @@ export default function PublicationsPage() {
       </section>
 
       {/* Filters */}
-      <section className="sticky top-20 z-40 border-y border-gray-100 bg-white/95 px-6 py-4 backdrop-blur">
+      <section className="md:sticky md:top-20 z-40 border-y border-gray-100 bg-white/95 px-6 py-4 backdrop-blur">
         <div className="mx-auto max-w-6xl">
           <div className="rounded-2xl border border-gray-200 bg-white/90 p-4 shadow-sm">
             <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">

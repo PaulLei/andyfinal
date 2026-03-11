@@ -16,6 +16,9 @@ import NewsPage from "./components/NewsPage";
 import PublicationsPage from "./components/PublicationsPage";
 import ContactPage from "./components/ContactPage";
 import SupportPage from "./components/SupportPage";
+import ProfilePage from "./components/ProfilePage";
+import ScrollToTop from "./ScrollToTop";
+
 
 function Home() {
   return (
@@ -57,12 +60,14 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <div className="min-h-screen bg-white">
         <Navigation scrolled={scrolled} />
 
         <Routes>
           {/* Home */}
           <Route path="/" element={<Home />} />
+          <Route path="/about/:person" element={<ProfilePage />} />
 
           {/* Products */}
           <Route path="/products" element={<Placeholder title="Products" />} />
