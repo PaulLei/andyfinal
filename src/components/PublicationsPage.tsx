@@ -793,56 +793,6 @@ export default function PublicationsPage() {
           </div>
         </div>
       </section>
-
-      {/* =========================================================
-          BOTTOM CTA
-          - less generic than before
-          - visually consistent
-      ========================================================== */}
-      <section className="px-6 pb-20 pt-4 md:pb-24">
-        <div
-          className="mx-auto max-w-6xl rounded-[2rem] p-8 text-white sm:p-10"
-          style={{
-            background:
-              'linear-gradient(135deg, rgba(47,39,56,1) 0%, rgba(85,72,109,1) 50%, rgba(153,134,191,1) 100%)',
-          }}
-        >
-          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
-            <div>
-              <div className="text-[11px] uppercase tracking-[0.22em] text-white/70">
-                Research Foundation
-              </div>
-              <h2 className="mt-3 text-3xl leading-tight sm:text-4xl" style={{ fontWeight: 300 }}>
-                Publications that support our product direction
-              </h2>
-              <p className="mt-4 max-w-2xl text-base leading-7 text-white/80">
-                This section can later be extended with product-linked filters,
-                featured studies, validation graphics, and anchors from the
-                product pages so visitors can browse research related to
-                EpiScalp and EZTrack directly.
-              </p>
-            </div>
-
-            <div
-              className="rounded-3xl border p-6"
-              style={{
-                borderColor: 'rgba(255,255,255,0.14)',
-                backgroundColor: 'rgba(255,255,255,0.08)',
-              }}
-            >
-              <div className="text-sm uppercase tracking-[0.18em] text-white/65">
-                Suggested next additions
-              </div>
-              <ul className="mt-4 space-y-3 text-sm leading-6 text-white/85">
-                <li>• Add publication thumbnails or journal logos</li>
-                <li>• Add “Pinned” cards for EpiScalp vs EZTrack</li>
-                <li>• Add anchor links from product pages into this page</li>
-                <li>• Add publication counts / citation counts later if desired</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
