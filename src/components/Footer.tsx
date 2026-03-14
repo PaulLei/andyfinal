@@ -1,124 +1,128 @@
-import { Linkedin, Twitter, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
-import LogoWhite from "/neurologic_solutions.horizontal.color_.white_.png"; // ✅ adjust filename if needed
+import LogoWhite from "/neurologic_solutions.horizontal.color_.white_.png";
 
 export default function Footer() {
   const sectionTitleClass =
-    "text-[11px] tracking-[0.22em] uppercase opacity-80 mb-5";
+    "mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-white/70";
   const linkClass =
-    "text-gray-400 hover:text-white transition-colors font-light text-sm";
+    "text-sm font-light text-white/65 transition-colors hover:text-white";
+  const bodyClass = "text-sm font-light leading-relaxed text-white/65";
 
   return (
     <footer className="bg-black text-white">
-      {/* ✅ align with navbar container */}
-      <div className="max-w-screen-2xl mx-auto px-6">
+      <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-8 xl:px-10">
         {/* Top */}
-        <div className="py-16 grid grid-cols-1 md:grid-cols-7 gap-12">
-          {/* Brand (logo + blurb) */}
-          <div className="md:col-span-2">
+        <div className="grid grid-cols-1 gap-10 py-12 sm:gap-12 sm:py-14 lg:grid-cols-12 lg:gap-8 lg:py-16">
+          {/* Brand */}
+          <div className="lg:col-span-4 xl:col-span-4">
             <Link to="/" className="inline-flex items-center">
               <img
                 src={LogoWhite}
                 alt="Neurologic Solutions"
-                className="h-12 w-auto scale-[1.75] origin-left"
+                className="h-10 w-auto origin-left scale-[1.2] sm:h-11 sm:scale-[1.45] lg:h-12 lg:scale-[1.6]"
               />
             </Link>
 
-            <p className="mt-5 text-gray-400 font-light text-sm leading-relaxed max-w-sm">
-              Neurologic Solutions pioneers precision neurodata analysis to help clinicians achieve accurate diagnosis and optimal treatment. We deliver reliable EEG analytics, actionable insights, and quantitative biomarkers that turn brain data into better clinical outcomes across neurological disorders.
+            <p className="mt-5 max-w-md text-sm font-light leading-relaxed text-white/65">
+              Neurologic Solutions pioneers precision neurodata analysis to help
+              clinicians achieve accurate diagnosis and optimal treatment. We
+              deliver reliable EEG analytics, actionable insights, and
+              quantitative biomarkers that turn brain data into better clinical
+              outcomes across neurological disorders.
             </p>
 
-
-            <div className="mt-7">
+            <div className="mt-6">
               <Link
-                to="/Contact-Us"
-                className="inline-flex items-center rounded-full px-4 py-2 text-[11px] tracking-[0.22em] uppercase bg-yellow-400 text-black hover:bg-yellow-300 transition-colors"
+                to="/contact-us"
+                className="inline-flex items-center rounded-full bg-yellow-400 px-4 py-2 text-[11px] uppercase tracking-[0.22em] text-black transition-colors hover:bg-yellow-300"
               >
                 Contact Us
               </Link>
             </div>
           </div>
 
-          {/* Products */}
-          <div className="md:col-span-1">
-            <h4 className={sectionTitleClass}>Products</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/episcalp" className={linkClass}>
-                  EpiScalp
-                </Link>
-              </li>
-              <li>
-                <Link to="/eztrack" className={linkClass}>
-                  EZTrack
-                </Link>
-              </li>
-            </ul>
+          {/* Nav columns */}
+          <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-6 lg:grid-cols-4 lg:gap-6 xl:col-span-5">
+            <div>
+              <h4 className={sectionTitleClass}>Products</h4>
+              <ul className="space-y-3">
+                <li>
+                  <Link to="/episcalp" className={linkClass}>
+                    EpiScalp
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/eztrack" className={linkClass}>
+                    EZTrack
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className={sectionTitleClass}>Clinical</h4>
+              <ul className="space-y-3">
+                <li>
+                  <Link to="/clinical-evidence" className={linkClass}>
+                    Clinical evidence
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/publications" className={linkClass}>
+                    Publications
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className={sectionTitleClass}>Company</h4>
+              <ul className="space-y-3">
+                <li>
+                  <Link to="/about-us" className={linkClass}>
+                    About us
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/team" className={linkClass}>
+                    Team
+                  </Link>
+                </li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className={sectionTitleClass}>News</h4>
+              <ul className="space-y-3">
+                <li>
+                  <Link to="/blog-news" className={linkClass}>
+                    News
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
 
-          {/* Clinical */}
-          <div className="md:col-span-1">
-            <h4 className={sectionTitleClass}>Clinical</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/clinical-evidence" className={linkClass}>
-                  Clinical evidence
-                </Link>
-              </li>
-              <li>
-                <Link to="/publications" className={linkClass}>
-                  Publications
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Company */}
-          <div className="md:col-span-1">
-            <h4 className={sectionTitleClass}>Company</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/about-us" className={linkClass}>
-                  About us
-                </Link>
-              </li>
-              <li>
-                <Link to="/team" className={linkClass}>
-                  Team
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Resources */}
-          <div className="md:col-span-1">
-            <h4 className={sectionTitleClass}>News</h4>
-            <ul className="space-y-3">
-              <li>
-                <Link to="/blog-news" className={linkClass}>
-                  News
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* ✅ New: Contact column (far right) */}
-          <div className="md:col-span-1 md:justify-self-end">
+          {/* Contact */}
+          <div className="lg:col-span-2 xl:col-span-3 lg:pl-2">
             <h4 className={sectionTitleClass}>Contact</h4>
             <ul className="space-y-3">
-              <li className="text-gray-400 font-light text-sm">
+              <li className={bodyClass}>
                 Phone:{" "}
                 <a className={linkClass} href="tel:+16175498316">
                   +1 (617) 549-8316
                 </a>
               </li>
-              <li className="text-gray-400 font-light text-sm">
+              <li className={bodyClass}>
                 Email:{" "}
-                <a className={linkClass} href="mailto:help@neurologicsolutions.net">
+                <a
+                  className={linkClass}
+                  href="mailto:help@neurologicsolutions.net"
+                >
                   help@neurologicsolutions.net
                 </a>
               </li>
-              <li className="text-gray-400 font-light text-sm leading-relaxed">
+              <li className={bodyClass}>
                 Address: Neurologic Solutions Inc. 301 W 29th ST. Baltimore, MD
                 21218
               </li>
@@ -127,12 +131,13 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="border-t border-gray-800 py-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-500 text-sm font-light mb-4 md:mb-0">
-            © {new Date().getFullYear()} Neurologic Solutions. All rights reserved.
+        <div className="flex flex-col gap-4 border-t border-white/10 py-6 sm:py-8 md:flex-row md:items-center md:justify-between">
+          <p className="text-sm font-light text-white/45">
+            © {new Date().getFullYear()} Neurologic Solutions. All rights
+            reserved.
           </p>
 
-          <div className="flex items-center space-x-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-5 md:justify-end">
             <Link to="/privacy" className={linkClass}>
               Privacy Policy
             </Link>
@@ -140,7 +145,6 @@ export default function Footer() {
               Terms of Use
             </Link>
 
-            {/* ✅ “site by PATA…” orange external link */}
             <a
               href="https://patadigitalservices.com"
               target="_blank"
