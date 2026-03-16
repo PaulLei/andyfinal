@@ -1,4 +1,5 @@
 import { Newspaper, ArrowRight, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { newsItems } from '../data/news';
 
 // ─── Brand tokens ──────────────────────────────────────────────────────────────
@@ -39,7 +40,7 @@ export default function PressSection() {
     >
       <div className="max-w-6xl mx-auto">
 
-        {/* ── Header ───────────────────────────────────────────────────────── */}
+        {/* Header */}
         <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
             <div
@@ -59,17 +60,17 @@ export default function PressSection() {
             </h2>
           </div>
 
-          <a
-            href="/blog-news"
+          <Link
+            to="/blog-news"
             className="inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm shrink-0 transition-colors hover:bg-black/5"
             style={{ borderColor: B.purpleBorder, color: B.purpleDark }}
           >
             <Newspaper className="h-4 w-4" />
             All news &amp; press
-          </a>
+          </Link>
         </div>
 
-        {/* ── Cards ────────────────────────────────────────────────────────── */}
+        {/* Cards */}
         <div className="grid gap-4 md:grid-cols-3">
           {latestItems.map((item, index) => (
             <a
@@ -84,7 +85,6 @@ export default function PressSection() {
                 boxShadow: index === 0 ? `inset 3px 0 0 ${B.purpleDark}` : undefined,
               }}
             >
-              {/* Date */}
               <p
                 className="text-[11px] uppercase tracking-[0.18em] mb-4"
                 style={{ color: B.orangeDark, fontWeight: 600 }}
@@ -92,7 +92,6 @@ export default function PressSection() {
                 {formatDate(item.date)}
               </p>
 
-              {/* Title */}
               <h3
                 className="flex-1 text-base leading-7 mb-5"
                 style={{ color: B.ink, fontWeight: 400 }}
@@ -100,7 +99,6 @@ export default function PressSection() {
                 {item.title}
               </h3>
 
-              {/* Link indicator */}
               <div
                 className="flex items-center gap-1.5 text-xs opacity-0 group-hover:opacity-100 transition-opacity"
                 style={{ color: B.purpleDark }}
@@ -112,17 +110,17 @@ export default function PressSection() {
           ))}
         </div>
 
-        {/* ── View all CTA ─────────────────────────────────────────────────── */}
+        {/* CTA */}
         <div className="mt-8 flex justify-center">
-          <a
-            href="/blog-news"
+          <Link
+            to="/blog-news"
             className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
             style={{ backgroundColor: B.purpleDark, color: '#fff' }}
           >
             <Newspaper className="h-4 w-4" />
             View all news &amp; press
             <ArrowRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
 
       </div>

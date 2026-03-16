@@ -6,7 +6,6 @@ const products = [
     title: "EpiScalp",
     description:
       "EpiScalp is a software analytics tool that can be used to assist in diagnosing new seizure onset cases.",
-    price: "From $499",
     gradient: "from-[#905c3c] via-[#7d5f78] to-[#664a85]",
     dark: true,
     image: "/Episcalp.jpg",
@@ -16,7 +15,6 @@ const products = [
     title: "EZTrack",
     description:
       "EZTrack is a software analytics tool that can be used to assist in Neurosurgical planning of Epilepsy cases.",
-    price: "From $349",
     gradient: "from-[#664a85] via-[#7d5f78] to-[#905c3c]",
     image: "/eztrack-sz.jpg",
     link: "/eztrack",
@@ -49,14 +47,6 @@ export default function ProductCards() {
                   }`}
                 >
                   {product.description}
-                </p>
-
-                <p
-                  className={`text-2xl font-light ${
-                    product.dark === false ? "text-black" : "text-white"
-                  }`}
-                >
-                  {product.price}
                 </p>
               </div>
 

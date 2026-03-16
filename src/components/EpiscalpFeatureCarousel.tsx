@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Moon, Sun, Heart, Wind, Users, HardDriveUpload,Network,Lightbulb, ShieldPlus, MessageSquareCode} from 'lucide-react';
 
 
@@ -45,7 +46,6 @@ export default function FeatureCarousel() {
           <h2 className="text-4xl md:text-5xl font-light mb-6 text-[#ce7f57]">
             The EpiScalp Process
             <br />
-          
           </h2>
         </div>
 
@@ -86,9 +86,6 @@ export default function FeatureCarousel() {
                     <h3 className="text-3xl md:text-4xl font-light mb-4">
                       {feature.title}
                     </h3>
-                    <p className="text-lg text-gray-600 font-light mb-8">
-                      
-                    </p>
                     <div className="flex gap-2">
                       {features.map((_, i) => (
                         <button
@@ -101,6 +98,7 @@ export default function FeatureCarousel() {
                       ))}
                     </div>
                   </div>
+
                   <div className="flex-1">
                     <div className="bg-gradient-to-br from-gray-900 to-gray-700 rounded-3xl p-8 aspect-square flex items-center justify-center">
                       <div
@@ -115,12 +113,12 @@ export default function FeatureCarousel() {
         </div>
 
         <div className="text-center mt-12">
-          <a
-            href="./episcalp"
+          <Link
+            to="/episcalp"
             className="inline-flex items-center justify-center px-8 py-3 rounded-full bg-[#9986bf] text-white font-medium hover:bg-[#ce7f57] transition-colors duration-300"
           >
             View more
-          </a>
+          </Link>
         </div>
       </div>
     </section>
