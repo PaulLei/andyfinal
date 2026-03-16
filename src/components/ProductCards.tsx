@@ -8,7 +8,7 @@ const products = [
    gradient: 'from-[#905c3c] via-[#7d5f78] to-[#664a85]',
    dark: true,
    image: '/Episcalp.jpg',
-   link: './EpiScalp',
+   link: '/episcalp',
     
   },
   {
@@ -17,7 +17,7 @@ const products = [
     price: 'From $349',
     gradient: 'from-[#664a85] via-[#7d5f78] to-[#905c3c]',
     image: '/eztrack-sz.jpg',
-    link: './EZTrack',
+    link: '/eztrack',
   },
 ];
 
