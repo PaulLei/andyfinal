@@ -1,6 +1,22 @@
 import { Link } from "react-router-dom";
 import LogoWhite from "/neurologic_solutions.horizontal.color_.white_.png";
 
+const BRAND = {
+  purple: '#9986bf',
+  purpleDark: '#7e6aa7',
+  purpleSoft: 'rgba(153, 134, 191, 0.12)',
+  purpleBorder: 'rgba(153, 134, 191, 0.28)',
+  orange: '#ce7f57',
+  orangeDark: '#b96d46',
+  orangeSoft: 'rgba(206, 127, 87, 0.12)',
+  orangeBorder: 'rgba(206, 127, 87, 0.28)',
+  ink: '#2f2738',
+  muted: '#6e647b',
+  line: 'rgba(47, 39, 56, 0.10)',
+  bg: '#fcfaf8',
+  card: '#ffffff',
+};
+
 export default function Footer() {
   const sectionTitleClass =
     "mb-4 text-[11px] font-medium uppercase tracking-[0.22em] text-white/70";

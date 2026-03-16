@@ -1,86 +1,209 @@
-const technology = [
-  {
-    title:
-      'Source-sink connectivity: a novel interictal EEG marker for seizure localization',
-    author: 'Kristin M.',
-    date: '21 November 2022',
-    link: 'https://academic.oup.com/brain/article/145/11/3901/6835751?login=false',
-  },
-  {
-    title:
-      'Neural fragility as an EEG marker of the seizure onset zone',
-    author: 'Adam L.',
-    date: '1 October 2021',
-    link: 'https://www.nature.com/articles/s41593-021-00901-w.epdf',
-  },
-  {
-    title:
-      'Linear time-varying model characterizes invasive EEG signals generated from complex epileptic networks',
-    author: 'Adam L.',
-    date: '14 September 2017',
-    link: 'https://ieeexplore.ieee.org/document/8037439',
-  },
-  {
-    title:
-      'Fragility in Dynamic Networks: Application to Neural Networks in the Epileptic Cortex',
-    author: 'Sridevi S.',
-    date: '1 October 2014',
-    link: 'https://direct.mit.edu/neco/article-abstract/26/10/2294/8025',
-  },
-];
+import { publications } from '../data/publications';
+import { ExternalLink, BookOpen, Quote } from 'lucide-react';
+
+// ─── Brand tokens ──────────────────────────────────────────────────────────────
+const B = {
+  purple:       '#9986bf',
+  purpleDark:   '#7e6aa7',
+  purpleSoft:   'rgba(153,134,191,0.12)',
+  purpleBorder: 'rgba(153,134,191,0.28)',
+  orange:       '#ce7f57',
+  orangeDark:   '#b96d46',
+  orangeSoft:   'rgba(206,127,87,0.12)',
+  orangeBorder: 'rgba(206,127,87,0.28)',
+  ink:          '#2f2738',
+  muted:        '#6e647b',
+  line:         'rgba(47,39,56,0.10)',
+  bg:           '#fcfaf8',
+  card:         '#ffffff',
+};
+
+// ─── Derive stats from the full publications array ─────────────────────────────
+function getStats(pubs: typeof publications) {
+  const total = pubs.length;
+  const journals = new Set(pubs.map((p) => p.journal).filter(Boolean)).size;
+  return { total, journals };
+}
 
 export default function Technology() {
+  const featuredPubs = publications.filter((p) => p.featured);
+  const { total, journals } = getStats(publications);
+
+  // Only show stats row if the numbers are meaningful
+  const showStats = total >= 5;
+
+  const stats = [
+    { label: 'Publications', value: `${total}+` },
+    { label: 'Journals', value: `${journals}` },
+  ];
+
   return (
-    <section className="py-24 px-6 bg-[#F2F6FA]">
-      <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-light mb-6 text-gray-900">
-            Built on <span className="text-blue-700"> <strong>research</strong></span>.
-            <br />
-            Proven in <span className="text-orange-600"> <strong>practice</strong></span>.
-          </h2>
-        </div>
+    <section
+      className="py-20 px-6 sm:py-24"
+      style={{ backgroundColor: B.bg, color: B.ink }}
+    >
+      <div className="max-w-6xl mx-auto">
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {technology.map((tech, index) => (
-            <a
-              key={index}
-              href={tech.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="
-                block
-                bg-[#F7F9FC]
-                rounded-3xl
-                p-10
-                border-l-4
-                border-blue-700
-                hover:bg-[#EEF3F8]
-                transition-colors
-                duration-300
-              "
+        {/* ── Header ─────────────────────────────────────────────────────────── */}
+        <div className="mb-12 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div>
+            <div
+              className="text-[11px] uppercase tracking-[0.22em] mb-4"
+              style={{ color: B.purpleDark, fontWeight: 600 }}
             >
-              <p className="text-xl font-light mb-8 leading-relaxed text-gray-900">
-                “{tech.title}”
-              </p>
+              Research Foundation
+            </div>
+            <h2
+              className="text-4xl sm:text-5xl leading-[1.0]"
+              style={{ fontWeight: 300 }}
+            >
+              Built on{' '}
+              <span style={{ color: B.purpleDark, fontStyle: 'italic' }}>
+                research
+              </span>
+              .
+              <br />
+              Proven in{' '}
+              <span style={{ color: B.orangeDark, fontStyle: 'italic' }}>
+                practice
+              </span>
+              .
+            </h2>
+          </div>
 
-              <div>
-                <p className="text-gray-900">{tech.author}</p>
-                <p className="text-sm text-orange-600">
-                  {tech.date}
-                </p>
-              </div>
-            </a>
-          ))}
+          {/* Stats pills — only rendered when numbers are meaningful */}
+          {showStats && (
+            <div className="flex flex-wrap gap-3 lg:flex-col lg:items-end">
+              {stats.map((s) => (
+                <div
+                  key={s.label}
+                  className="rounded-2xl border px-5 py-3 text-center"
+                  style={{
+                    borderColor: B.purpleBorder,
+                    backgroundColor: B.purpleSoft,
+                  }}
+                >
+                  <div
+                    className="text-2xl leading-none"
+                    style={{ color: B.purpleDark, fontWeight: 300 }}
+                  >
+                    {s.value}
+                  </div>
+                  <div
+                    className="mt-1 text-[10px] uppercase tracking-[0.18em]"
+                    style={{ color: B.muted, fontWeight: 600 }}
+                  >
+                    {s.label}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
-         <div className="text-center mt-12">
+
+        {/* ── Featured publication cards ──────────────────────────────────────── */}
+        <div className="grid gap-4 md:grid-cols-2">
+          {featuredPubs.map((pub, index) => {
+            const isPinned = index === 0; // first card = most important
+            return (
+              <a
+                key={index}
+                href={pub.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group flex flex-col rounded-[1.5rem] border p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:p-7"
+                style={{
+                  borderColor: isPinned ? B.purpleBorder : B.line,
+                  backgroundColor: isPinned ? B.purpleSoft : B.card,
+                  // pinned card gets a left accent
+                  boxShadow: isPinned
+                    ? `inset 3px 0 0 ${B.purpleDark}`
+                    : undefined,
+                }}
+              >
+                {/* Top row: journal + year + pinned badge */}
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  {isPinned && (
+                    <span
+                      className="rounded-full border px-2.5 py-0.5 text-[10px] uppercase tracking-[0.16em]"
+                      style={{
+                        borderColor: B.purpleBorder,
+                        color: B.purpleDark,
+                        backgroundColor: 'rgba(255,255,255,0.8)',
+                        fontWeight: 600,
+                      }}
+                    >
+                      Featured
+                    </span>
+                  )}
+                  {pub.journal && (
+                    <span
+                      className="flex items-center gap-1 text-xs"
+                      style={{ color: isPinned ? B.purpleDark : B.orangeDark, fontWeight: 500 }}
+                    >
+                      <BookOpen className="h-3 w-3" />
+                      {pub.journal}
+                    </span>
+                  )}
+                  <span
+                    className="ml-auto text-xs tabular-nums"
+                    style={{ color: B.muted }}
+                  >
+                    {pub.year}
+                  </span>
+                </div>
+
+                {/* Title */}
+                <div className="flex items-start gap-3 mb-5 flex-1">
+                  <Quote
+                    className="h-4 w-4 shrink-0 mt-0.5 opacity-40"
+                    style={{ color: B.purpleDark }}
+                  />
+                  <p
+                    className="text-base leading-7"
+                    style={{ color: B.ink, fontWeight: 400 }}
+                  >
+                    {pub.title}
+                  </p>
+                </div>
+
+                {/* Citation line */}
+                <div
+                  className="pt-4 border-t text-sm leading-6"
+                  style={{ borderColor: B.line, color: B.muted }}
+                >
+                  {/* Prefer a pre-formatted citation string, fall back to authors */}
+                
+                </div>
+
+                {/* External link indicator */}
+                <div
+                  className="mt-4 flex items-center gap-1.5 text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ color: B.purpleDark }}
+                >
+                  <ExternalLink className="h-3 w-3" />
+                  View publication
+                </div>
+              </a>
+            );
+          })}
+        </div>
+
+        {/* ── View all CTA ────────────────────────────────────────────────────── */}
+        <div className="mt-8 flex justify-center">
           <a
-            href="./publications"
-            className="text-xl text-blue-700 hover:text-orange-600 underline transition-colors duration-300"
+            href="/publications"
+            className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+            style={{
+              backgroundColor: B.purpleDark,
+              color: '#fff',
+            }}
           >
-            View more
+            <BookOpen className="h-4 w-4" />
+            View all publications
           </a>
         </div>
+
       </div>
     </section>
   );

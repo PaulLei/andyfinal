@@ -1,66 +1,32 @@
-import { Newspaper } from 'lucide-react';
+import { Newspaper, ArrowRight, ExternalLink } from 'lucide-react';
+import { newsItems } from '../data/news';
 
-const pressItems = [
-  {
-    date: '3 November 2024',
-    headline: 'Sri Sarma wins inaugural Pitch It On! competition',
-    link: 'https://hub.jhu.edu/2020/11/03/sri-sarma-wins-accelherator-pitch-competition/',
-  },
-  {
-    date: '1 April 2021',
-    headline:
-      'Neurologic Solutions Granted FDA 510K Clearance for its Seizure Onset Zone Detection Software',
-    link: 'https://neurologicsolutions.net/neurologic-solutions-granted-fda-510k-clearance-for-its-seizure-onset-zone-detection-software/',
-  },
-  {
-    date: '17 June 2021',
-    headline:
-      'Neurologic Solutions Awarded A Phase 1 Small Business Innovation Research Grant from the National Science Foundation',
-    link: 'https://time.com/collection/best-inventions-2024/7083065/oura-ring-gen3/',
-  },
-  {
-    date: '31 August 2021',
-    headline: 'Sarma named a recipient of Thalheimer Fund Grant',
-    link: 'https://www.bme.jhu.edu/news-events/news/sarma-named-a-recipient-of-thalheimer-fund-grant/',
-  },
-  {
-    date: '15 June 2024',
-    headline: 'Neurologic Solutions Hires Andrew Gotshalk',
-    link: 'https://neurologicsolutions.net/neurologic-solutions-hires-andrew-gotshalk/',
-  },
-  {
-    date: '15 August 2024',
-    headline: 'Neurologic Solutions Receives the SBIR Phase 2 Award',
-    link: 'https://www.sbir.gov/awards/213755',
-  },
-  {
-    date: '15 September 2024',
-    headline:
-      'Neurologic Solutions Hires Mark Hays and Golnoosh Kamali',
-    link: 'https://neurologicsolutions.net/neurologic-solutions-hires-mark-hays-and-golnoosh-kamali/',
-  },
-  {
-    date: '22 January 2025',
-    headline:
-      'New epilepsy tool could cut misdiagnoses by nearly 70% using routine EEGs',
-    link: 'https://hub.jhu.edu/2025/01/22/episcalp-epilepsy-diagnosis/',
-  },
-  {
-    date: '25 September 2025',
-    headline:
-      'Baltimore biotech researchers court investors at Johns Hopkins showcase',
-    link: 'https://technical.ly/entrepreneurship/johns-hopkins-innovation-summit-2025/?nab=1',
-  },
-  {
-    date: '7 December 2025',
-    headline:
-      'Neurologic Solutions Gets the Maryland Innovation Initiative Technology Assessment Award',
-    link: 'https://www.tedcomd.com/mii-universityprojects',
-  },
-];
+const B = {
+  purple:       '#9986bf',
+  purpleDark:   '#7e6aa7',
+  purpleSoft:   'rgba(153,134,191,0.12)',
+  purpleBorder: 'rgba(153,134,191,0.28)',
+  orange:       '#ce7f57',
+  orangeDark:   '#b96d46',
+  orangeSoft:   'rgba(206,127,87,0.12)',
+  orangeBorder: 'rgba(206,127,87,0.28)',
+  ink:          '#2f2738',
+  muted:        '#6e647b',
+  line:         'rgba(47,39,56,0.10)',
+  bg:           '#fcfaf8',
+  card:         '#ffffff',
+};
+
+function formatDate(dateString: string) {
+  return new Date(dateString).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
 
 export default function PressSection() {
-  const lastThreeItems = pressItems.slice(-3);
+  const lastThreeItems = newsItems.slice(-3);
 
   return (
     <section className="py-24 px-6 bg-gray-50">
@@ -99,7 +65,7 @@ export default function PressSection() {
                   {item.date}
                 </p>
                 <h3 className="text-xl font-light leading-relaxed text-gray-900">
-                  {item.headline}
+                  {item.title}
                 </h3>
               </div>
             </a>

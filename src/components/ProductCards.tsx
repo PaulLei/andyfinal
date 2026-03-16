@@ -2,27 +2,28 @@ import { ArrowRight } from 'lucide-react';
 
 const products = [
   {
-    title: 'EzTrack',
-    description: 'EZTrack is a software analytics tool that can be used to assist in Neurosurgical planning of Epilepsy cases.',
-    price: 'From $349',
-    gradient: 'from-slate-900 to-slate-700',
-    image: '/eztrack-sz.jpg',
-    link: './eztrack',
+   title: 'EpiScalp',
+   description: 'EpiScalp is a software analytics tool that can be used to assist in diagnosing new seizure onset cases.',
+   price: 'From $499',
+   gradient: 'from-[#905c3c] via-[#7d5f78] to-[#664a85]',
+   dark: true,
+   image: '/Episcalp.jpg',
+   link: './episcalp',
+    
   },
   {
-    title: 'EpiScalp',
-    description: 'EpiScalp is a software analytics tool that can be used to assist in diagnosing new seizure onset cases.',
-    price: 'From $499',
-    gradient: 'from-gray-100 to-gray-300',
-    dark: false,
-    image: '/Episcalp.jpg',
-    link: './episcalp',
+   title: 'EZTrack',
+    description: 'EZTrack is a software analytics tool that can be used to assist in Neurosurgical planning of Epilepsy cases.',
+    price: 'From $349',
+    gradient: 'from-[#664a85] via-[#7d5f78] to-[#905c3c]',
+    image: '/eztrack-sz.jpg',
+    link: './eztrack',
   },
 ];
 
 export default function ProductCards() {
   return (
-    <section className="py-24 px-6 bg-[#F2F6FA]">
+    <section className="py-24 px-6 bg-[#9986bf]/10">
       <div className="max-w-7xl mx-auto">
         <div className="grid md:grid-cols-2 gap-8">
           {products.map((product, index) => (

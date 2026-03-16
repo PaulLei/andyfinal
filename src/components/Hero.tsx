@@ -44,8 +44,8 @@ export default function Hero() {
           preload="auto"
           aria-hidden
         >
-          <source src="/Groupwork-preview.mp4" type="video/mp4" />
-          <source src="/Groupwork.mp4" type="video/mp4" />
+          <source src="/Neurologic.mp4" type="video/mp4" />
+          <source src="/Neurologic.mp4" type="video/mp4" />
         </video>
 
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/10 to-black/40" />
@@ -61,14 +61,18 @@ export default function Hero() {
                   Empowering Providers, Transforming Lives:
                 </span>
 
-                <span className="mt-2 block bg-gradient-to-r from-blue-400 via-purple-400 to-amber-300 bg-clip-text font-black text-transparent">
+                <span className="mt-2 block bg-gradient-to-r from-[#d4b5ff] to-[#ffa94d] bg-clip-text font-black text-transparent">
                   EEG Analytics for
                 </span>
 
-                <span className="block bg-gradient-to-r from-blue-400 via-purple-400 to-amber-300 bg-clip-text font-black text-transparent">
+                <span className="mt-2 block bg-gradient-to-r from-[#d4b5ff] to-[#ffa94d] bg-clip-text font-black text-transparent">
                   Diagnostic Excellence
                 </span>
               </h1>
+
+              <h2 className="mb-2 text-sm font-bold uppercase tracking-widest text-slate-300">
+                Mission Statement
+              </h2>
 
               <p className="mb-8 max-w-2xl text-sm font-light leading-7 text-slate-200 sm:text-base sm:leading-8 md:text-lg">
                 Neurologic Solutions pioneers precision neurodata analysis to
@@ -78,39 +82,7 @@ export default function Hero() {
                 clinical outcomes across neurological disorders.
               </p>
 
-              <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-4">
-                <a
-                  href="./episcalp"
-                  className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-3 text-sm font-medium text-white shadow-md transition-all hover:from-blue-700 hover:to-purple-700 hover:shadow-lg"
-                >
-                  <span>Learn More</span>
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-
-                <a
-                  href="./Contact-Us"
-                  className="inline-flex min-h-[48px] items-center justify-center rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-slate-200 transition-colors hover:border-white/40 hover:text-white sm:w-auto sm:border-0 sm:px-0 sm:py-0 sm:underline"
-                >
-                  Contact Us
-                </a>
-
-                {/* Desktop premium scroll cue */}
-                <button
-                  type="button"
-                  onClick={() => scrollToSection("episcalp-process")}
-                  className={`group hidden lg:inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-200 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:bg-white/10 hover:text-white ${
-                    showScrollCue
-                      ? "translate-y-0 opacity-100"
-                      : "pointer-events-none translate-y-2 opacity-0"
-                  }`}
-                  aria-label="Scroll to EpiScalp process section"
-                >
-                  <span className="whitespace-nowrap">See how it works</span>
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 transition-colors group-hover:bg-white/15">
-                    <ChevronDown className="h-4 w-4 animate-bounce" />
-                  </span>
-                </button>
-              </div>
+              
             </div>
           </div>
         </div>
