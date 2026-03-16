@@ -74,8 +74,20 @@ export default function App() {
 
           {/* Products */}
           <Route path="/products" element={<Placeholder title="Products" />} />
-          <Route path="/episcalp" element={<Episcalp />} />
-          <Route path="/eztrack" element={<EZTrack />} />
+          <Route path="/episcalp" element={
+            <>
+              <Episcalp />
+              <Footer />
+            </>
+            }
+          />
+          <Route path="/eztrack" element={
+            <>
+              <EZTrack />
+              <Footer />
+            </>
+            }
+          />
 
           {/* Clinical */}
           <Route path="/clinical" element={<Placeholder title="Clinical" />} />
