@@ -27,8 +27,6 @@ function Home() {
     <>
       <Hero />
       <ProductCards />
-      <EpiscalpFeatureCarousel />
-      <EzTrackFeatureCarousel />
       <Technology />
       <PressSection />
       <Footer />

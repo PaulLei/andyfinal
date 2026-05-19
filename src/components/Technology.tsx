@@ -24,6 +24,46 @@ function getStats(pubs: typeof publications) {
   return { total, journals };
 }
 
+function getPublicationLabel(pub: (typeof publications)[number]) {
+  const title = pub.title?.toLowerCase() || '';
+  const journal = pub.journal?.toLowerCase() || '';
+
+  const isEpiScalp =
+    title.includes('episcalp') ||
+    title.includes('scalp eeg') ||
+    journal.includes('annals of neurology');
+
+  const isEZTrack =
+    title.includes('fragility') ||
+    title.includes('eztrack') ||
+    journal.includes('nature');
+
+  if (isEpiScalp) {
+    return {
+      label: 'EpiScalp Foundation',
+      color: B.purpleDark,
+      soft: B.purpleSoft,
+      border: B.purpleBorder,
+    };
+  }
+
+  if (isEZTrack) {
+    return {
+      label: 'EZTrack Foundation',
+      color: B.orangeDark,
+      soft: B.orangeSoft,
+      border: B.orangeBorder,
+    };
+  }
+
+  return {
+    label: 'Featured Research',
+    color: B.purpleDark,
+    soft: B.card,
+    border: B.line,
+  };
+}
+
 export default function Technology() {
   const featuredPubs = publications.filter((p) => p.featured);
   const { total, journals } = getStats(publications);
@@ -37,13 +77,12 @@ export default function Technology() {
 
   return (
     <section
-      className="py-20 px-6 sm:py-24"
+      className="py-16 px-6 sm:py-20"
       style={{ backgroundColor: B.bg, color: B.ink }}
     >
       <div className="max-w-6xl mx-auto">
-
-        <div className="mb-12 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
+        <div className="mb-10 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+          <div className="max-w-4xl">
             <div
               className="text-[11px] uppercase tracking-[0.22em] mb-4"
               style={{ color: B.purpleDark, fontWeight: 600 }}
@@ -52,21 +91,33 @@ export default function Technology() {
             </div>
 
             <h2
-              className="text-4xl sm:text-5xl leading-[1.0]"
+              className="text-4xl sm:text-5xl leading-[1.05]"
               style={{ fontWeight: 300 }}
             >
               Built on{' '}
               <span style={{ color: B.purpleDark, fontStyle: 'italic' }}>
-                research
+                peer-reviewed science
               </span>
               .
               <br />
-              Proven in{' '}
+              Validated in{' '}
               <span style={{ color: B.orangeDark, fontStyle: 'italic' }}>
-                practice
+                clinical research
               </span>
               .
             </h2>
+
+            <p
+              className="mt-5 max-w-3xl text-base leading-7"
+              style={{ color: B.muted }}
+            >
+              Our technology is grounded in over a decade of peer-reviewed
+              research with foundational findings published in Nature
+              Neuroscience, Brain, and Annals of Neurology. Both tools have been
+              developed and validated in collaboration with leading academic
+              medical centers, with the science continuously informing clinical
+              application.
+            </p>
           </div>
 
           {showStats && (
@@ -100,7 +151,7 @@ export default function Technology() {
 
         <div className="grid gap-4 md:grid-cols-2">
           {featuredPubs.map((pub, index) => {
-            const isPinned = index === 0;
+            const publicationStyle = getPublicationLabel(pub);
 
             return (
               <a
@@ -110,33 +161,29 @@ export default function Technology() {
                 rel="noopener noreferrer"
                 className="group flex flex-col rounded-[1.5rem] border p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:p-7"
                 style={{
-                  borderColor: isPinned ? B.purpleBorder : B.line,
-                  backgroundColor: isPinned ? B.purpleSoft : B.card,
-                  boxShadow: isPinned
-                    ? `inset 3px 0 0 ${B.purpleDark}`
-                    : undefined,
+                  borderColor: publicationStyle.border,
+                  backgroundColor: publicationStyle.soft,
+                  boxShadow: `inset 3px 0 0 ${publicationStyle.color}`,
                 }}
               >
                 <div className="flex flex-wrap items-center gap-2 mb-4">
-                  {isPinned && (
-                    <span
-                      className="rounded-full border px-2.5 py-0.5 text-[10px] uppercase tracking-[0.16em]"
-                      style={{
-                        borderColor: B.purpleBorder,
-                        color: B.purpleDark,
-                        backgroundColor: 'rgba(255,255,255,0.8)',
-                        fontWeight: 600,
-                      }}
-                    >
-                      Featured
-                    </span>
-                  )}
+                  <span
+                    className="rounded-full border px-2.5 py-0.5 text-[10px] uppercase tracking-[0.16em]"
+                    style={{
+                      borderColor: publicationStyle.border,
+                      color: publicationStyle.color,
+                      backgroundColor: 'rgba(255,255,255,0.8)',
+                      fontWeight: 600,
+                    }}
+                  >
+                    {publicationStyle.label}
+                  </span>
 
                   {pub.journal && (
                     <span
                       className="flex items-center gap-1 text-xs"
                       style={{
-                        color: isPinned ? B.purpleDark : B.orangeDark,
+                        color: publicationStyle.color,
                         fontWeight: 500,
                       }}
                     >
@@ -156,7 +203,7 @@ export default function Technology() {
                 <div className="flex items-start gap-3 mb-5 flex-1">
                   <Quote
                     className="h-4 w-4 shrink-0 mt-0.5 opacity-40"
-                    style={{ color: B.purpleDark }}
+                    style={{ color: publicationStyle.color }}
                   />
                   <p
                     className="text-base leading-7"
@@ -168,7 +215,7 @@ export default function Technology() {
 
                 <div
                   className="mt-4 flex items-center gap-1.5 text-xs opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ color: B.purpleDark }}
+                  style={{ color: publicationStyle.color }}
                 >
                   <ExternalLink className="h-3 w-3" />
                   View publication
@@ -191,7 +238,6 @@ export default function Technology() {
             View all publications
           </Link>
         </div>
-
       </div>
     </section>
   );
