@@ -7,7 +7,7 @@ const products = [
     description:
       "EpiScalp quantifies any scalp EEG, normal or abnormal, to support clinicians in earlier diagnosis of epilepsy in patients with first-time seizures",
     gradient: "from-[#905c3c] via-[#7d5f78] to-[#664a85]",
-    image: "/eps.png",
+    image: "/extrack.png",
     link: "/episcalp",
   },
   {
@@ -15,7 +15,7 @@ const products = [
     description:
       "EZTrack localizes epileptogenic regions from intracranial EEG to support surgical planning in patients with drug-resistant epilepsy.",
     gradient: "from-[#664a85] via-[#7d5f78] to-[#905c3c]",
-    image: "/extrack.png",
+    image: "/eps.png",
     link: "/eztrack",
   },
 ];

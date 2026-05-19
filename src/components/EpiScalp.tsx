@@ -112,13 +112,7 @@ const publications = [
     href: "#",
   },
   {
-    title:
-      "Clinical research foundation for quantitative EEG biomarkers in epilepsy diagnosis",
-    authors: "Neurologic Solutions research collaborators",
-    journal: "Clinical research",
-    year: "Published",
-    episcalp: true,
-    href: "#",
+    
   },
 ];
 
@@ -327,8 +321,16 @@ export default function EpiScalpPage() {
                 className="mt-6 max-w-4xl text-4xl leading-[1.02] sm:text-5xl lg:text-6xl"
                 style={{ fontWeight: 300 }}
               >
-                Quantitative epilepsy risk assessment from any scalp EEG.
+                Quantitative epilepsy risk assessment from 
               </h1>
+
+               <h1
+                className="-mt-2 max-w-4xl text-4xl leading-[1.02] sm:text-5xl lg:text-6xl"
+                style={{ fontWeight: 300, color: "#9986bf", fontStyle: "italic" }}
+              >
+                any scalp EEG
+              </h1>
+
 
               <p
                 className="mt-7 max-w-2xl text-lg leading-8 sm:text-xl"

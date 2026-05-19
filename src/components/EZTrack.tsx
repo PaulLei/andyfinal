@@ -317,7 +317,13 @@ export default function EZTrackPage() {
                 className="mt-6 max-w-4xl text-4xl leading-[1.02] sm:text-5xl lg:text-6xl"
                 style={{ fontWeight: 300 }}
               >
-                Epileptogenic localization through an interpretable biomarker
+                Epileptogenic localization through an 
+              </h1>
+              <h1
+                className="-mt-2 max-w-4xl text-4xl leading-[1.02] sm:text-5xl lg:text-6xl"
+                style={{ fontWeight: 300, color: "#9986bf", fontStyle: "italic" }}
+              >
+                interpretable biomarker
               </h1>
 
               <p
