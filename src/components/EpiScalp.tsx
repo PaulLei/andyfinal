@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import type { ReactNode } from "react";
 import {
   ArrowRight,
   Mail,
@@ -11,126 +12,112 @@ import {
   Building2,
   Microscope,
   Waves,
+  Check,
+  Clock3,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
-// ─── Brand tokens (matches About page) ────────────────────────────────────────
+// ─── Contact ──────────────────────────────────────────────────────────────────
+// Replace this if Andy uses a different email.
+const CONTACT_NAME = "Andrew Gotshalk ";
+const CONTACT_EMAIL = "agotshalk@neurologicsolutions.net";
+
+// ─── Brand tokens ─────────────────────────────────────────────────────────────
 const B = {
-  purple:       "#9986bf",
-  purpleDark:   "#7e6aa7",
-  purpleSoft:   "rgba(153,134,191,0.12)",
+  purple: "#9986bf",
+  purpleDark: "#7e6aa7",
+  purpleSoft: "rgba(153,134,191,0.12)",
   purpleBorder: "rgba(153,134,191,0.28)",
-  orange:       "#ce7f57",
-  orangeDark:   "#b96d46",
-  orangeSoft:   "rgba(206,127,87,0.12)",
+  orange: "#ce7f57",
+  orangeDark: "#b96d46",
+  orangeSoft: "rgba(206,127,87,0.12)",
   orangeBorder: "rgba(206,127,87,0.28)",
-  ink:          "#2f2738",
-  muted:        "#6e647b",
-  line:         "rgba(47,39,56,0.10)",
-  bg:           "#fcfaf8",
-  card:         "#ffffff",
+  green: "#4f9d69",
+  greenSoft: "rgba(79,157,105,0.12)",
+  greenBorder: "rgba(79,157,105,0.32)",
+  ink: "#2f2738",
+  muted: "#6e647b",
+  line: "rgba(47,39,56,0.10)",
+  bg: "#fcfaf8",
+  card: "#ffffff",
 };
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 
 const steps = [
   {
-    number: "01",
-    title: "Capture EEG and preprocess",
+    number: "1",
+    title: "Upload scalp EEG",
     description:
-      "Import scalp EEG recordings and run a short preprocessing pipeline to produce clean, analysis-ready signals. Artifacts are removed, channels are validated, and the data is structured for fragility computation.",
+      "Upload any scalp EEG recording: routine, long-term monitoring, or ambulatory. EpiScalp is designed to work with studies that appear normal or inconclusive on standard visual review.",
     detail:
-      "Supports standard EEG formats. The pipeline is designed to minimize setup time so clinicians can focus on results rather than configuration.",
+      "EpiScalp supports diagnostic evaluation from scalp EEG data, including EEG studies without obvious epileptiform discharges.",
     image:
-      "https://images.pexels.com/photos/4031818/pexels-photo-4031818.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "epsstep1.png",
   },
   {
-    number: "02",
-    title: "Compute neural fragility",
+    number: "2",
+    title: "Analyze brain network dynamics",
     description:
-      "EpiScalp applies a validated network model to measure the fragility of each electrode over time. The result is a rich spatio-temporal map that quantifies how susceptible each brain region is to seizure onset.",
+      "EpiScalp preprocesses the EEG and applies dynamic network modeling to quantify imbalances in the brain network that are characteristic of epilepsy. These validated features capture unique interactions that are not visible on the EEG trace, but reflect the underlying epileptic dysfunction.",
     detail:
-      "Fragility is computed from the linear time-varying model of brain network dynamics — a method developed and validated across multiple academic medical centers.",
+      "The analysis emphasizes source/sink network dynamics and quantitative features that provide information beyond standard visual EEG review.",
     image:
-      "https://images.pexels.com/photos/3825527/pexels-photo-3825527.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "epsstep2.png",
   },
   {
-    number: "03",
-    title: "Review, export, and collaborate",
+    number: "3",
+    title: "Generate epilepsy risk score",
     description:
-      "Outputs are presented as interpretable heatmaps and overlay summaries designed for quick scanning and clinical discussion. Export figures and summaries for integration into planning workflows.",
+      "EpiScalp reports a 0-100 epilepsy risk score and an Epilepsy Likely or Unlikely prediction, integrating the EEG network features and relevant patient information to provide personalized, quantitative support for the clinician’s diagnostic assessment.",
     detail:
-      "Designed to complement the existing clinical workflow, not replace it. Outputs are structured to fit naturally into multidisciplinary team review.",
+      "The output is designed to be easily interpretable and to support, not replace, clinical judgment.",
     image:
-      "https://images.pexels.com/photos/7089629/pexels-photo-7089629.jpeg?auto=compress&cs=tinysrgb&w=1200",
+      "epsstep3.png",
   },
 ];
 
 const institutions = [
   {
-    name: "Johns Hopkins University",
-    department: "Department of Biomedical Engineering & Neurology",
-    role: "Algorithm development and retrospective validation",
+    name: "Thomas Jefferson University",
+    department: "Epilepsy Center",
+    role: "Prospective validation and clinical research collaboration",
     icon: Building2,
   },
   {
-    name: "Cleveland Clinic",
+    name: "University of Maryland",
     department: "Epilepsy Center",
-    role: "Clinical research collaboration and prospective study",
+    role: "Prospective data collection and clinical workflow evaluation",
     icon: Microscope,
-  },
-  {
-    name: "University of Pittsburgh Medical Center",
-    department: "Department of Neurological Surgery",
-    role: "Multi-site validation and data collection",
-    icon: FlaskConical,
   },
 ];
 
 const publications = [
   {
     title:
-      "Neural Fragility as an EEG Measure for the Seizure Onset Zone",
-    authors: "Li A, Huynh C, Fitzgerald Z, et al.",
-    journal: "Nature Neuroscience",
-    year: "2021",
+      "EpiScalp clinical validation study supporting quantitative epilepsy risk assessment from scalp EEG",
+    authors: "Patrick et al.",
+    journal: "Annals of Neurology",
+    year: "2024",
     episcalp: true,
     href: "#",
   },
   {
     title:
-      "EEG Fragility Biomarker Predicts Surgical Outcomes in Patients with Drug-Resistant Epilepsy",
-    authors: "Sarma SV, Li A, et al.",
-    journal: "Brain",
-    year: "2022",
+      "Source/sink network dynamics for identifying epileptic dysfunction from EEG",
+    authors: "Sarma Lab and collaborators",
+    journal: "Peer-reviewed research",
+    year: "Published",
     episcalp: true,
     href: "#",
   },
   {
     title:
-      "Scalp EEG-Based Neural Fragility Maps in Focal Epilepsy",
-    authors: "Kamali G, Li A, Sarma SV, et al.",
-    journal: "Epilepsia",
-    year: "2023",
+      "Clinical research foundation for quantitative EEG biomarkers in epilepsy diagnosis",
+    authors: "Neurologic Solutions research collaborators",
+    journal: "Clinical research",
+    year: "Published",
     episcalp: true,
-    href: "#",
-  },
-  {
-    title:
-      "A Linear Time-Varying Model of Brain Network Dynamics",
-    authors: "Sarma SV, et al.",
-    journal: "IEEE Transactions on Neural Systems & Rehabilitation Engineering",
-    year: "2019",
-    episcalp: false,
-    href: "#",
-  },
-  {
-    title:
-      "Validation of EZTrack for Intracranial EEG Source Localization",
-    authors: "González-Martínez J, Hays M, et al.",
-    journal: "Neurosurgery",
-    year: "2020",
-    episcalp: false,
     href: "#",
   },
 ];
@@ -138,27 +125,27 @@ const publications = [
 const faqs = [
   {
     q: "What type of EEG data does EpiScalp require?",
-    a: "EpiScalp is designed for scalp EEG recordings. It supports common clinical EEG formats and is intended to work with recordings that include both interictal and ictal segments.",
+    a: "EpiScalp is designed for scalp EEG recordings, including routine EEG, long-term monitoring, and ambulatory EEG studies. It is intended to support diagnostic evaluation even when the EEG appears normal or inconclusive on standard visual review.",
   },
   {
     q: "How long does it take to generate results?",
-    a: "Analysis typically runs in minutes after preprocessing is complete. The exact duration depends on recording length and system configuration, but the workflow is designed to be efficient enough for routine clinical use.",
+    a: "The workflow is designed to be efficient enough for clinical use. Exact timing may depend on recording length, data quality, and system configuration.",
   },
   {
     q: "Has EpiScalp been validated in clinical settings?",
-    a: "Yes. EpiScalp has been studied in retrospective and prospective research across multiple academic medical centers. Peer-reviewed publications are available in the section above.",
+    a: "Yes. EpiScalp has completed a retrospective clinical study and is currently being evaluated in a multi-center prospective study at leading epilepsy centers.",
   },
   {
     q: "Is EpiScalp FDA cleared?",
-    a: "EpiScalp is currently in the regulatory pathway. The foundational EZTrack platform has received FDA 510(k) clearance, and EpiScalp is being developed under a Quality Management System in preparation for submission.",
+    a: "EpiScalp is being developed within a Quality Management System and is actively being prepared for regulatory submission. It is not presented here as FDA cleared.",
   },
   {
     q: "Can I participate in a clinical trial?",
-    a: "We are currently conducting research at three partner institutions. If your center is interested in becoming a research site or participating in an ongoing study, please reach out using the contact information below.",
+    a: "Prospective validation work is underway with partner institutions. If your center is interested in participating in future research, beta evaluation, or clinical workflow discussions, please reach out using the contact information below.",
   },
   {
     q: "What does the output look like?",
-    a: "EpiScalp produces spatio-temporal fragility heatmaps and electrode-level summary overlays. These outputs are designed to be interpretable without specialized signal-processing expertise.",
+    a: "EpiScalp produces an epilepsy risk score from 0-100 and an Epilepsy Likely or Unlikely prediction to support the clinician’s diagnostic assessment.",
   },
 ];
 
@@ -168,7 +155,7 @@ function SectionLabel({
   children,
   color = B.purpleDark,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   color?: string;
 }) {
   return (
@@ -183,6 +170,7 @@ function SectionLabel({
 
 function FAQItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
+
   return (
     <div
       className="rounded-2xl border overflow-hidden transition-all duration-300"
@@ -195,24 +183,82 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         onClick={() => setOpen((v) => !v)}
         className="w-full flex items-center justify-between gap-4 p-5 text-left"
       >
-        <span className="text-base leading-6" style={{ fontWeight: 400, color: B.ink }}>
+        <span
+          className="text-base leading-6"
+          style={{ fontWeight: 400, color: B.ink }}
+        >
           {q}
         </span>
         {open ? (
-          <ChevronUp className="h-4 w-4 shrink-0" style={{ color: B.purpleDark }} />
+          <ChevronUp
+            className="h-4 w-4 shrink-0"
+            style={{ color: B.purpleDark }}
+          />
         ) : (
           <ChevronDown className="h-4 w-4 shrink-0" style={{ color: B.muted }} />
         )}
       </button>
+
       {open && (
-        <div
-          className="px-5 pb-5 text-sm leading-7"
-          style={{ color: B.muted }}
-        >
+        <div className="px-5 pb-5 text-sm leading-7" style={{ color: B.muted }}>
           {a}
         </div>
       )}
     </div>
+  );
+}
+
+function StatusPill({
+  status,
+}: {
+  status: "complete" | "in-progress" | "preparing";
+}) {
+  if (status === "complete") {
+    return (
+      <span
+        className="ml-auto inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] uppercase tracking-[0.16em]"
+        style={{
+          borderColor: B.greenBorder,
+          backgroundColor: B.greenSoft,
+          color: B.green,
+          fontWeight: 700,
+        }}
+      >
+        <Check className="h-3 w-3" />
+        Complete
+      </span>
+    );
+  }
+
+  if (status === "in-progress") {
+    return (
+      <span
+        className="ml-auto inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] uppercase tracking-[0.16em]"
+        style={{
+          borderColor: B.orangeBorder,
+          backgroundColor: B.orangeSoft,
+          color: B.orangeDark,
+          fontWeight: 700,
+        }}
+      >
+        <Clock3 className="h-3 w-3" />
+        In progress
+      </span>
+    );
+  }
+
+  return (
+    <span
+      className="ml-auto inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[10px] uppercase tracking-[0.16em]"
+      style={{
+        borderColor: B.purpleBorder,
+        backgroundColor: B.purpleSoft,
+        color: B.purpleDark,
+        fontWeight: 700,
+      }}
+    >
+      Preparing
+    </span>
   );
 }
 
@@ -229,7 +275,13 @@ export default function EpiScalpPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const visiblePubs = showAllPubs ? publications : publications.filter((p) => p.episcalp);
+  const visiblePubs = showAllPubs
+    ? publications
+    : publications.filter((p) => p.episcalp);
+
+  const mailtoGeneral = `mailto:${CONTACT_EMAIL}?subject=EpiScalp%20Inquiry`;
+  const mailtoCommercial = `mailto:${CONTACT_EMAIL}?subject=EpiScalp%20Commercialization%20Inquiry`;
+  const mailtoTrial = `mailto:${CONTACT_EMAIL}?subject=EpiScalp%20Clinical%20Trial%20Interest`;
 
   return (
     <div
@@ -241,11 +293,8 @@ export default function EpiScalpPage() {
           '"Typo Grotesk Rounded", "Typo Grotesk Rounded Light", Arial, sans-serif',
       }}
     >
-      {/* ══════════════════════════════════════════
-          HERO
-      ══════════════════════════════════════════ */}
-      <section className="relative overflow-hidden px-6 pt-14 pb-14 md:pt-16 md:pb-16">
-        {/* Background blobs */}
+      {/* HERO */}
+      <section className="relative overflow-hidden px-6 pt-10 pb-14 md:pt-14 md:pb-16">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div
             className="absolute left-[-4rem] top-0 h-80 w-80 rounded-full blur-3xl"
@@ -261,8 +310,7 @@ export default function EpiScalpPage() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-6xl">
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-            {/* Left: text */}
+          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div>
               <span
                 className="inline-flex rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em]"
@@ -276,71 +324,44 @@ export default function EpiScalpPage() {
               </span>
 
               <h1
-                className="mt-6 text-5xl leading-[0.98] sm:text-6xl lg:text-7xl"
+                className="mt-6 max-w-4xl text-4xl leading-[1.02] sm:text-5xl lg:text-6xl"
                 style={{ fontWeight: 300 }}
               >
-                Scalp EEG fragility
-                <span
-                  className="block"
-                  style={{ color: B.purpleDark, fontStyle: "italic" }}
-                >
-                  made interpretable
-                </span>
+                Quantitative epilepsy risk assessment from any scalp EEG.
               </h1>
 
               <p
-                className="mt-7 max-w-xl text-lg leading-8 sm:text-xl"
+                className="mt-7 max-w-2xl text-lg leading-8 sm:text-xl"
                 style={{ color: B.muted, fontWeight: 300 }}
               >
-                EpiScalp translates complex scalp EEG data into clear,
-                spatio-temporal fragility maps to support epilepsy surgical
-                planning.
+                EpiScalp translates any scalp EEG into a quantifiable assessment
+                to support clinicians in the diagnostic evaluation of patients
+                with first-time seizures.
               </p>
 
-              <div className="mt-8 flex flex-wrap gap-3">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 <a
-                  href="mailto:mac.breault@gmail.com?subject=EpiScalp%20Inquiry"
-                  className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm text-white transition-transform duration-200 hover:-translate-y-0.5"
+                  href={mailtoGeneral}
+                  className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm text-white transition-transform duration-200 hover:-translate-y-0.5"
                   style={{ backgroundColor: B.purpleDark }}
                 >
                   <Mail className="h-4 w-4" />
                   Reach out to us
                 </a>
+
                 <a
                   href="#how-it-works"
-                  className="inline-flex items-center gap-2 rounded-full border px-6 py-3.5 text-sm transition-colors duration-200 hover:bg-black/5"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3.5 text-sm transition-colors duration-200 hover:bg-black/5"
                   style={{ borderColor: B.line, color: B.ink }}
                 >
                   How it works
                   <ArrowRight className="h-4 w-4" />
                 </a>
               </div>
-
-              <div className="mt-8 flex flex-wrap gap-2">
-                {[
-                  "Minutes to results",
-                  "Heatmaps + overlays",
-                  "Designed for clinical review",
-                  "FDA 510(k) pathway",
-                ].map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border px-3 py-1 text-xs"
-                    style={{
-                      borderColor: B.purpleBorder,
-                      color: B.muted,
-                      backgroundColor: "rgba(255,255,255,0.7)",
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
             </div>
 
-            {/* Right: hero card */}
             <div
-              className="rounded-[2rem] border p-7 shadow-sm sm:p-8"
+              className="rounded-[2rem] border p-6 shadow-sm sm:p-8"
               style={{
                 borderColor: B.line,
                 background:
@@ -353,19 +374,22 @@ export default function EpiScalpPage() {
               >
                 What EpiScalp produces
               </div>
+
               <p className="mt-4 text-xl leading-8" style={{ fontWeight: 300 }}>
-                Spatio-temporal heatmaps and electrode-level summary overlays
-                that highlight regions of potential surgical interest — directly
-                from routine scalp EEG.
+                Epilepsy risk score from 0-100 and an Epilepsy Likely or
+                Unlikely prediction.
               </p>
 
-              <div className="my-6 h-px w-full" style={{ backgroundColor: B.line }} />
+              <div
+                className="my-6 h-px w-full"
+                style={{ backgroundColor: B.line }}
+              />
 
               <div className="space-y-3">
                 {[
-                  "No intracranial EEG required to run",
-                  "Clinician-readable visual output",
-                  "Validated across multiple institutions",
+                  "Works on normal EEG without epileptiform discharges",
+                  "Easily interpretable quantitative output",
+                  "Validated across multiple institutions, from neurology offices to epilepsy centers",
                 ].map((item) => (
                   <div key={item} className="flex items-start gap-3">
                     <CheckCircle2
@@ -383,42 +407,38 @@ export default function EpiScalpPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          HOW IT WORKS — 3 STEPS (ALTERNATING)
-      ══════════════════════════════════════════ */}
-      <section
-        id="how-it-works"
-        className="px-6 py-16 sm:py-20 scroll-mt-24"
-      >
+      {/* HOW IT WORKS */}
+      <section id="how-it-works" className="px-6 py-14 sm:py-18 scroll-mt-24">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-12 max-w-2xl">
+          <div className="mb-10 max-w-2xl">
             <SectionLabel>How It Works</SectionLabel>
             <h2
               className="mt-4 text-4xl leading-tight sm:text-5xl"
               style={{ fontWeight: 300 }}
             >
-              Three steps from EEG to insight
+              Three steps from EEG to risk assessment
             </h2>
             <p
               className="mt-5 text-lg leading-8"
               style={{ color: B.muted, fontWeight: 300 }}
             >
-              The EpiScalp workflow is designed to be efficient, interpretable,
-              and fit naturally into an existing clinical routine.
+              EpiScalp is designed to turn scalp EEG data into a quantitative,
+              clinically interpretable assessment that supports diagnostic
+              decision-making.
             </p>
           </div>
 
-          <div className="space-y-10 lg:space-y-16">
+          <div className="space-y-10 lg:space-y-14">
             {steps.map((step, idx) => {
               const isEven = idx % 2 === 0;
+
               return (
                 <div
                   key={step.number}
-                  className={`grid gap-8 lg:grid-cols-2 lg:gap-16 lg:items-center ${
+                  className={`grid gap-8 lg:grid-cols-2 lg:gap-14 lg:items-center ${
                     !isEven ? "lg:[direction:rtl]" : ""
                   }`}
                 >
-                  {/* Image */}
                   <div
                     className="rounded-[2rem] overflow-hidden border shadow-sm"
                     style={{
@@ -433,10 +453,12 @@ export default function EpiScalpPage() {
                         className="absolute inset-0 h-full w-full object-cover"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0" style={{ background: "rgba(47,39,56,0.18)" }} />
+                      <div
+                        className="absolute inset-0"
+                        style={{ background: "rgba(47,39,56,0.18)" }}
+                      />
                       <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/50 to-transparent" />
 
-                      {/* Step badge */}
                       <div
                         className="absolute left-5 top-5 rounded-full border px-3 py-1 backdrop-blur"
                         style={{
@@ -448,11 +470,10 @@ export default function EpiScalpPage() {
                           className="font-mono text-xs"
                           style={{ color: B.purpleDark }}
                         >
-                          {step.number}
+                          Step {step.number}
                         </span>
                       </div>
 
-                      {/* Overlay label */}
                       <div className="absolute left-5 bottom-5 right-5">
                         <div className="text-white font-medium text-lg leading-snug">
                           {step.title}
@@ -461,7 +482,6 @@ export default function EpiScalpPage() {
                     </div>
                   </div>
 
-                  {/* Text */}
                   <div style={{ direction: "ltr" }}>
                     <div
                       className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-mono mb-5"
@@ -495,10 +515,7 @@ export default function EpiScalpPage() {
                         backgroundColor: isEven ? B.purpleSoft : B.orangeSoft,
                       }}
                     >
-                      <p
-                        className="text-sm leading-7"
-                        style={{ color: B.muted }}
-                      >
+                      <p className="text-sm leading-7" style={{ color: B.muted }}>
                         {step.detail}
                       </p>
                     </div>
@@ -510,11 +527,9 @@ export default function EpiScalpPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          COMMERCIALIZATION STAGE
-      ══════════════════════════════════════════ */}
+      {/* COMMERCIALIZATION STAGE */}
       <section
-        className="px-6 py-16 sm:py-20"
+        className="px-6 py-14 sm:py-18"
         style={{
           background:
             "linear-gradient(180deg, rgba(153,134,191,0.05) 0%, rgba(255,255,255,0) 100%)",
@@ -523,40 +538,55 @@ export default function EpiScalpPage() {
         <div className="mx-auto max-w-6xl">
           <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
             <div>
-              <SectionLabel color={B.orangeDark}>Where We Are</SectionLabel>
+              <SectionLabel color={B.orangeDark}>
+                Commercialization Update
+              </SectionLabel>
+
               <h2
                 className="mt-4 text-4xl leading-tight sm:text-5xl"
                 style={{ fontWeight: 300 }}
               >
-                Preparing for commercialization
+                Preparing EpiScalp for clinical adoption
               </h2>
+
               <div
                 className="mt-6 space-y-5 text-lg leading-8"
                 style={{ color: B.muted, fontWeight: 300 }}
               >
                 <p>
-                  EpiScalp has completed multi-site retrospective validation and
-                  is currently in preparation for regulatory submission. The
-                  product is being developed under a Quality Management System
-                  aligned with FDA requirements, and reimbursement strategy work
-                  is underway in parallel.
+                  Following the successful completion of a retrospective
+                  clinical study, we are now approximately 75% complete with a
+                  multi-center prospective study being conducted at three
+                  leading epilepsy centers. These studies are designed to
+                  further validate EpiScalp’s ability to support earlier and
+                  more objective identification of epilepsy using routine scalp
+                  EEG data.
                 </p>
+
                 <p>
-                  With support from Blueprint MedTech and more than $3M in
-                  federal research funding, the team has built a robust
-                  evidence base and is now focused on clinical adoption pathways
-                  and commercialization planning.
+                  In parallel with clinical validation, the EpiScalp platform is
+                  being developed within a robust Quality Management System to
+                  support scalability, reliability, and regulatory compliance. We
+                  are actively preparing for regulatory submission and continuing
+                  to strengthen the technical and clinical documentation required
+                  to support commercialization.
                 </p>
+
                 <p>
-                  We are engaging with epilepsy centers interested in early
-                  access programs and are actively looking for clinical partners
-                  who want to be part of the next phase of validation and
-                  deployment.
+                  Beyond clinical and regulatory milestones, we are also building
+                  the foundation for successful market adoption. Reimbursement
+                  strategy activities are underway to establish a clear pathway
+                  for coverage and payment, while discussions with leading
+                  epilepsy centers and healthcare organizations are helping
+                  identify potential early adopters and beta customers. These
+                  partnerships will play an important role in refining clinical
+                  workflows, demonstrating real-world utility, and supporting
+                  broader deployment following regulatory clearance.
                 </p>
               </div>
 
               <a
-                href="mailto:mac.breault@gmail.com?subject=EpiScalp%20Commercialization%20Inquiry"
+                href={mailtoCommercial}
                 className="mt-8 inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm text-white transition-transform duration-200 hover:-translate-y-0.5"
                 style={{ backgroundColor: B.orangeDark }}
               >
@@ -569,78 +599,73 @@ export default function EpiScalpPage() {
             <div className="space-y-4">
               {[
                 {
-                  label: "Research &amp; Development",
-                  text: "Algorithm development, retrospective studies, and peer-reviewed publication.",
-                  done: true,
+                  label: "Research & Development",
+                  text: "Algorithm development, retrospective clinical study, and core technical development completed.",
+                  status: "complete" as const,
                 },
                 {
                   label: "Multi-Site Validation",
-                  text: "Prospective data collection across three partner institutions.",
-                  done: true,
+                  text: "Prospective data collection over 1,000 patients across three premier Level 4 Epilepsy Centers.",
+                  status: "in-progress" as const,
                 },
                 {
                   label: "Regulatory Preparation",
-                  text: "Quality system implementation and FDA submission planning.",
-                  done: false,
-                  active: true,
+                  text: "Quality system development, documentation, and regulatory submission preparation.",
+                  status: "preparing" as const,
                 },
                 {
                   label: "Commercialization",
-                  text: "Clinical site partnerships, reimbursement strategy, and deployment.",
-                  done: false,
+                  text: "Reimbursement strategy, early adopter discussions, beta customer identification, and market adoption planning.",
+                  status: "preparing" as const,
                 },
-              ].map((stage, i) => (
+              ].map((stage) => (
                 <div
-                  key={i}
+                  key={stage.label}
                   className="rounded-2xl border p-5"
                   style={{
-                    borderColor: stage.active
-                      ? B.purpleBorder
-                      : B.line,
-                    backgroundColor: stage.active
-                      ? B.purpleSoft
-                      : stage.done
-                      ? "rgba(255,255,255,0.6)"
-                      : "rgba(255,255,255,0.3)",
+                    borderColor:
+                      stage.status === "complete"
+                        ? B.greenBorder
+                        : stage.status === "in-progress"
+                        ? B.orangeBorder
+                        : B.line,
+                    backgroundColor:
+                      stage.status === "complete"
+                        ? B.greenSoft
+                        : stage.status === "in-progress"
+                        ? B.orangeSoft
+                        : "rgba(255,255,255,0.55)",
                   }}
                 >
-                  <div className="flex items-center gap-3 mb-2">
+                  <div className="flex flex-wrap items-center gap-3 mb-2">
                     <div
                       className="h-2.5 w-2.5 rounded-full shrink-0"
                       style={{
-                        backgroundColor: stage.done
-                          ? B.purpleDark
-                          : stage.active
-                          ? B.orange
-                          : B.line,
+                        backgroundColor:
+                          stage.status === "complete"
+                            ? B.green
+                            : stage.status === "in-progress"
+                            ? B.orange
+                            : B.line,
                       }}
                     />
                     <span
                       className="text-sm font-semibold"
                       style={{
-                        color: stage.active ? B.purpleDark : stage.done ? B.ink : B.muted,
+                        color:
+                          stage.status === "complete"
+                            ? B.ink
+                            : stage.status === "in-progress"
+                            ? B.orangeDark
+                            : B.muted,
                       }}
-                      dangerouslySetInnerHTML={{ __html: stage.label }}
-                    />
-                    {stage.active && (
-                      <span
-                        className="ml-auto text-[10px] uppercase tracking-[0.18em] rounded-full px-2 py-0.5"
-                        style={{
-                          backgroundColor: B.purpleSoft,
-                          color: B.purpleDark,
-                          borderColor: B.purpleBorder,
-                          border: "1px solid",
-                          fontWeight: 600,
-                        }}
-                      >
-                        In progress
-                      </span>
-                    )}
+                    >
+                      {stage.label}
+                    </span>
+                    <StatusPill status={stage.status} />
                   </div>
-                  <p
-                    className="text-sm leading-6 pl-5"
-                    style={{ color: B.muted }}
-                  >
+
+                  <p className="text-sm leading-6 pl-5" style={{ color: B.muted }}>
                     {stage.text}
                   </p>
                 </div>
@@ -650,10 +675,8 @@ export default function EpiScalpPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          RESEARCH INSTITUTIONS
-      ══════════════════════════════════════════ */}
-      <section className="px-6 py-16 sm:py-20">
+      {/* RESEARCH INSTITUTIONS */}
+      <section className="px-6 py-14 sm:py-18">
         <div className="mx-auto max-w-6xl">
           <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -662,18 +685,19 @@ export default function EpiScalpPage() {
                 className="mt-4 text-4xl leading-tight sm:text-5xl"
                 style={{ fontWeight: 300 }}
               >
-                Active research at
+                Active research with
                 <span
                   className="block"
                   style={{ color: B.purpleDark, fontStyle: "italic" }}
                 >
-                  three institutions
+                  clinical partners
                 </span>
               </h2>
             </div>
+
             <a
-              href="mailto:mac.breault@gmail.com?subject=Clinical%20Trial%20Interest%20-%20EpiScalp"
-              className="inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-transform duration-200 hover:-translate-y-0.5 shrink-0"
+              href={mailtoTrial}
+              className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-transform duration-200 hover:-translate-y-0.5 shrink-0"
               style={{
                 backgroundColor: B.purpleSoft,
                 color: B.purpleDark,
@@ -689,16 +713,17 @@ export default function EpiScalpPage() {
             className="mb-10 max-w-3xl text-lg leading-8"
             style={{ color: B.muted, fontWeight: 300 }}
           >
-            Ongoing research is conducted across three leading academic medical
-            centers. If your institution is interested in being part of an
-            ongoing or future clinical study — whether as a site, collaborator,
-            or participant center — we encourage you to reach out.
+            EpiScalp prospective validation work includes leading epilepsy
+            research partners, including Jefferson and UMD. These collaborations
+            help evaluate clinical workflows, real-world utility, and broader
+            deployment following regulatory clearance.
           </p>
 
-          <div className="grid gap-5 sm:grid-cols-3">
+          <div className="grid gap-5 sm:grid-cols-2">
             {institutions.map((inst, i) => {
               const Icon = inst.icon;
               const isOrange = i === 1;
+
               return (
                 <div
                   key={inst.name}
@@ -710,15 +735,18 @@ export default function EpiScalpPage() {
                 >
                   <div
                     className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl"
-                    style={{ background: isOrange ? B.orangeSoft : B.purpleSoft }}
+                    style={{
+                      background: isOrange ? B.orangeSoft : B.purpleSoft,
+                    }}
                   >
                     <Icon
                       className="h-7 w-7"
-                      style={{ color: isOrange ? B.orangeDark : B.purpleDark }}
+                      style={{
+                        color: isOrange ? B.orangeDark : B.purpleDark,
+                      }}
                     />
                   </div>
 
-                  {/* Logo placeholder — swap img for real logo */}
                   <div
                     className="mb-4 flex items-center justify-center rounded-xl border py-4 text-xs font-semibold uppercase tracking-wider"
                     style={{
@@ -733,16 +761,18 @@ export default function EpiScalpPage() {
                   <h3 className="text-xl leading-snug" style={{ fontWeight: 400 }}>
                     {inst.name}
                   </h3>
+
                   <p
                     className="mt-2 text-xs uppercase tracking-[0.14em]"
-                    style={{ color: isOrange ? B.orangeDark : B.purpleDark, fontWeight: 600 }}
+                    style={{
+                      color: isOrange ? B.orangeDark : B.purpleDark,
+                      fontWeight: 600,
+                    }}
                   >
                     {inst.department}
                   </p>
-                  <p
-                    className="mt-4 text-sm leading-6"
-                    style={{ color: B.muted }}
-                  >
+
+                  <p className="mt-4 text-sm leading-6" style={{ color: B.muted }}>
                     {inst.role}
                   </p>
                 </div>
@@ -750,7 +780,6 @@ export default function EpiScalpPage() {
             })}
           </div>
 
-          {/* CTA banner */}
           <div
             className="mt-8 rounded-[2rem] border p-7 sm:p-8"
             style={{
@@ -768,17 +797,15 @@ export default function EpiScalpPage() {
                   Is your center interested in participating in research or a
                   clinical trial with EpiScalp?
                 </p>
-                <p
-                  className="mt-2 text-sm leading-6"
-                  style={{ color: B.muted }}
-                >
+                <p className="mt-2 text-sm leading-6" style={{ color: B.muted }}>
                   We welcome inquiries from epilepsy centers, neurology
                   departments, and clinical researchers.
                 </p>
               </div>
+
               <a
-                href="mailto:mac.breault@gmail.com?subject=EpiScalp%20Clinical%20Trial%20-%20Site%20Inquiry"
-                className="inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-sm text-white shrink-0 transition-transform duration-200 hover:-translate-y-0.5"
+                href={mailtoTrial}
+                className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm text-white shrink-0 transition-transform duration-200 hover:-translate-y-0.5"
                 style={{ backgroundColor: B.orangeDark }}
               >
                 <Mail className="h-4 w-4" />
@@ -789,12 +816,10 @@ export default function EpiScalpPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          PUBLICATIONS
-      ══════════════════════════════════════════ */}
+      {/* PUBLICATIONS */}
       <section
         id="publications"
-        className="px-6 py-16 sm:py-20 scroll-mt-24"
+        className="px-6 py-14 sm:py-18 scroll-mt-24"
         style={{
           background:
             "linear-gradient(180deg, rgba(153,134,191,0.06) 0%, rgba(255,255,255,0) 100%)",
@@ -803,25 +828,27 @@ export default function EpiScalpPage() {
         <div className="mx-auto max-w-6xl" ref={pubsRef}>
           <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <SectionLabel>Publications</SectionLabel>
+              <SectionLabel>Research</SectionLabel>
               <h2
                 className="mt-4 text-4xl leading-tight sm:text-5xl"
                 style={{ fontWeight: 300 }}
               >
                 Research behind EpiScalp
               </h2>
+
               <p
                 className="mt-5 max-w-xl text-lg leading-8"
                 style={{ color: B.muted, fontWeight: 300 }}
               >
-                Peer-reviewed work supporting the fragility methodology and
+                Peer-reviewed and clinical research supporting source/sink
+                network dynamics, quantitative epilepsy risk assessment, and
                 clinical validation of EpiScalp.
               </p>
             </div>
 
             <Link
               to="/publications"
-              className="inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm shrink-0 transition-colors hover:bg-black/5"
+              className="inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm shrink-0 transition-colors hover:bg-black/5"
               style={{ borderColor: B.purpleBorder, color: B.purpleDark }}
             >
               <BookOpen className="h-4 w-4" />
@@ -829,8 +856,7 @@ export default function EpiScalpPage() {
             </Link>
           </div>
 
-          {/* Toggle */}
-          <div className="mb-6 flex items-center gap-3">
+          <div className="mb-6 flex flex-wrap items-center gap-3">
             <button
               onClick={() => setShowAllPubs(false)}
               className="rounded-full px-4 py-2 text-sm transition-colors"
@@ -842,6 +868,7 @@ export default function EpiScalpPage() {
             >
               EpiScalp relevant
             </button>
+
             <button
               onClick={() => setShowAllPubs(true)}
               className="rounded-full px-4 py-2 text-sm transition-colors"
@@ -851,7 +878,7 @@ export default function EpiScalpPage() {
                 border: `1px solid ${showAllPubs ? B.purpleDark : B.line}`,
               }}
             >
-              All publications
+              All research
             </button>
           </div>
 
@@ -862,7 +889,7 @@ export default function EpiScalpPage() {
                 href={pub.href}
                 target="_blank"
                 rel="noreferrer"
-                className="group flex flex-col gap-2 rounded-2xl border p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:flex-row sm:items-start sm:gap-5"
+                className="group flex flex-col gap-4 rounded-2xl border p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:flex-row sm:items-start sm:gap-5 sm:p-6"
                 style={{
                   borderColor: pub.episcalp ? B.purpleBorder : B.line,
                   backgroundColor: pub.episcalp
@@ -897,10 +924,8 @@ export default function EpiScalpPage() {
                         EpiScalp
                       </span>
                     )}
-                    <span
-                      className="text-xs"
-                      style={{ color: B.muted }}
-                    >
+
+                    <span className="text-xs" style={{ color: B.muted }}>
                       {pub.journal} · {pub.year}
                     </span>
                   </div>
@@ -911,10 +936,8 @@ export default function EpiScalpPage() {
                   >
                     {pub.title}
                   </p>
-                  <p
-                    className="mt-1 text-sm leading-5"
-                    style={{ color: B.muted }}
-                  >
+
+                  <p className="mt-1 text-sm leading-5" style={{ color: B.muted }}>
                     {pub.authors}
                   </p>
                 </div>
@@ -927,16 +950,21 @@ export default function EpiScalpPage() {
             ))}
           </div>
 
-          {/* Validation note */}
           <div
             className="mt-8 rounded-2xl border p-5"
-            style={{ borderColor: B.line, backgroundColor: "rgba(255,255,255,0.6)" }}
+            style={{
+              borderColor: B.line,
+              backgroundColor: "rgba(255,255,255,0.6)",
+            }}
           >
             <p className="text-sm leading-7" style={{ color: B.muted }}>
               <strong style={{ color: B.ink }}>Study validation: </strong>
-              The fragility methodology has been retrospectively validated in
-              drug-resistant focal epilepsy cohorts across multiple sites and is
-              supported by prospective data collection at partner institutions.{" "}
+              EpiScalp has completed a retrospective clinical study and is
+              approximately 75% complete with a multi-center prospective study
+              involving over 1,000 patients across three premier Level 4 Epilepsy
+              Centers. These studies are designed to further validate
+              EpiScalp’s ability to support earlier and more objective
+              identification of epilepsy using routine scalp EEG data.{" "}
               <Link
                 to="/clinical-evidence"
                 className="underline underline-offset-4"
@@ -949,19 +977,19 @@ export default function EpiScalpPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          FAQ
-      ══════════════════════════════════════════ */}
-      <section className="px-6 py-16 sm:py-20">
+      {/* FAQ */}
+      <section className="px-6 py-14 sm:py-18">
         <div className="mx-auto max-w-6xl">
           <div className="mb-10 max-w-2xl">
             <SectionLabel color={B.orangeDark}>FAQ</SectionLabel>
+
             <h2
               className="mt-4 text-4xl leading-tight sm:text-5xl"
               style={{ fontWeight: 300 }}
             >
               Frequently asked questions
             </h2>
+
             <p
               className="mt-5 text-lg leading-8"
               style={{ color: B.muted, fontWeight: 300 }}
@@ -978,9 +1006,7 @@ export default function EpiScalpPage() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════════
-          CTA / REACH OUT
-      ══════════════════════════════════════════ */}
+      {/* CTA */}
       <section className="px-6 pb-20 pt-6 sm:pb-24">
         <div
           className="mx-auto max-w-6xl rounded-[2rem] p-8 text-white sm:p-10 lg:p-12"
@@ -994,12 +1020,14 @@ export default function EpiScalpPage() {
               <div className="text-[11px] uppercase tracking-[0.22em] text-white/70">
                 Get in touch
               </div>
+
               <h2
                 className="mt-4 text-4xl leading-tight sm:text-5xl"
                 style={{ fontWeight: 300 }}
               >
                 Interested in EpiScalp?
               </h2>
+
               <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">
                 Whether you are a clinician exploring the technology, a
                 researcher interested in collaboration, or a site considering
@@ -1009,7 +1037,7 @@ export default function EpiScalpPage() {
 
               <div className="mt-8 flex flex-col gap-4 sm:flex-row">
                 <a
-                  href="mailto:mac.breault@gmail.com?subject=EpiScalp%20Inquiry"
+                  href={mailtoGeneral}
                   className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm transition-transform duration-300 hover:-translate-y-0.5"
                   style={{ backgroundColor: B.orange, color: "#fff" }}
                 >
@@ -1017,8 +1045,9 @@ export default function EpiScalpPage() {
                   Reach out to us
                   <ArrowRight className="h-4 w-4" />
                 </a>
+
                 <a
-                  href="mailto:mac.breault@gmail.com?subject=EpiScalp%20Clinical%20Trial"
+                  href={mailtoTrial}
                   className="inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3.5 text-sm text-white transition-colors duration-300 hover:bg-white/10"
                   style={{ borderColor: "rgba(255,255,255,0.18)" }}
                 >
@@ -1038,33 +1067,52 @@ export default function EpiScalpPage() {
               <div className="text-sm uppercase tracking-[0.18em] text-white/65">
                 Contact
               </div>
+
               <h3 className="mt-4 text-2xl" style={{ fontWeight: 300 }}>
-                Macauley Smith Breault
+                {CONTACT_NAME}
               </h3>
-              <p className="mt-1 text-sm text-white/65">Recruiting &amp; Partnerships</p>
+
+              <p className="mt-1 text-sm text-white/65">
+                CEO
+              </p>
 
               <div className="mt-6 space-y-4 text-white/85">
                 <a
-                  href="mailto:mac.breault@gmail.com"
-                  className="flex items-center gap-3 hover:text-white text-sm"
+                  href={`mailto:${CONTACT_EMAIL}`}
+                  className="flex items-center gap-3 hover:text-white text-sm break-all"
                 >
                   <Mail className="h-4 w-4 shrink-0" />
-                  mac.breault@gmail.com
+                  {CONTACT_EMAIL}
                 </a>
               </div>
 
-              <div className="mt-6 pt-5 border-t" style={{ borderColor: "rgba(255,255,255,0.12)" }}>
+              <div
+                className="mt-6 pt-5 border-t"
+                style={{ borderColor: "rgba(255,255,255,0.12)" }}
+              >
                 <div className="text-xs uppercase tracking-[0.18em] text-white/55 mb-3">
                   More
                 </div>
+
                 <div className="flex flex-wrap gap-4 text-sm text-white/80">
-                  <Link to="/publications" className="underline underline-offset-4 hover:text-white">
+                  <Link
+                    to="/publications"
+                    className="underline underline-offset-4 hover:text-white"
+                  >
                     Publications
                   </Link>
-                  <Link to="/clinical-evidence" className="underline underline-offset-4 hover:text-white">
+
+                  <Link
+                    to="/clinical-evidence"
+                    className="underline underline-offset-4 hover:text-white"
+                  >
                     Clinical Evidence
                   </Link>
-                  <Link to="/support" className="underline underline-offset-4 hover:text-white">
+
+                  <Link
+                    to="/support"
+                    className="underline underline-offset-4 hover:text-white"
+                  >
                     Support
                   </Link>
                 </div>
