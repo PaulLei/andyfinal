@@ -4,9 +4,7 @@ import {
   ArrowRight,
   BadgeCheck,
   Brain,
-  ChevronRight,
-  FileText,
-  FlaskConical,
+  ExternalLink,
   ShieldCheck,
   Stethoscope,
 } from "lucide-react";
@@ -29,24 +27,24 @@ const BRAND = {
 
 const episcalpHighlights = [
   {
-    label: "Study cohort",
+    label: "Retrospective cohort",
     value: "198 patients",
-    note: "Routine scalp EEGs from patients with suspected epilepsy and normal initial EEGs.",
+    note: "Patients with suspected epilepsy and normal initial EEGs were used in the retrospective validation study.",
+  },
+  {
+    label: "Definitive classifications",
+    value: "168 of 198",
+    note: "Patients received very low or very high risk scores, leaving mid-range cases for continued clinical review.",
   },
   {
     label: "Accuracy",
     value: "93%",
-    note: "For definitive high- and low-risk classifications.",
+    note: "Reported for definitive high- and low-risk classifications.",
   },
   {
     label: "Sensitivity / Specificity",
     value: "92% / 95%",
-    note: "Reported on the current Technology page.",
-  },
-  {
-    label: "Potential misdiagnosis reduction",
-    value: "17%",
-    note: "Modeled reduction, described as a 68% reduction while preserving clinician review for mid-range cases.",
+    note: "Reported performance for the retrospective normal-EEG study population.",
   },
 ];
 
@@ -57,19 +55,19 @@ const eztrackHighlights = [
     note: "EZTrack is described by Neurologic Solutions as FDA 510(k) cleared.",
   },
   {
-    label: "Retrospective study",
-    value: "91 subjects",
-    note: "Multicenter retrospective study cited on the site.",
+    label: "Retrospective cohort",
+    value: "91 patients",
+    note: "The cited neural fragility study evaluated surgical-outcome prediction retrospectively.",
   },
   {
     label: "Prediction accuracy",
     value: "76%",
-    note: "Compared with 48% for clinicians, as stated on the Technology page.",
+    note: "Reported cross-validation accuracy for surgical outcome prediction.",
   },
   {
-    label: "Use case",
-    value: "Surgical planning",
-    note: "Designed to assist interpretation of intracranial EEG for seizure onset zone localization.",
+    label: "Failure prediction",
+    value: "43 of 47",
+    note: "Reported surgical failures predicted in the neural fragility publication.",
   },
 ];
 
@@ -80,17 +78,39 @@ const evidenceSections = [
     title: "Diagnostic support from routine scalp EEG",
     icon: Brain,
     accent: "purple",
-    summary:
-      "EpiScalp is presented by Neurologic Solutions as a diagnostic aid for epilepsy using routine resting-state scalp EEG, including cases with normal initial EEGs. The current Technology page describes a multicenter study in which EpiScalp generated high- and low-risk scores intended to help clinicians distinguish epilepsy from non-epileptic conditions.",
-    bullets: [
-      "Analyzes routine scalp EEG rather than relying only on obvious epileptiform discharges.",
-      "Uses dynamic network modeling and quantitative biomarkers derived from EEG recordings.",
-      "Produces a risk score intended to support, not replace, clinician judgment.",
-      "Positioned for earlier, more objective diagnostic support in challenging cases.",
-    ],
-    cards: episcalpHighlights,
+    productName: "EpiScalp",
     ctaHref: "/episcalp",
     ctaLabel: "Explore EpiScalp",
+    publicationTitle:
+      "Diagnosing Epilepsy with Normal Interictal EEG Using Dynamic Network Models",
+    publicationHref: "https://onlinelibrary.wiley.com/doi/10.1002/ana.27168",
+    summary: (
+      <>
+        EpiScalp is being developed as a diagnostic-support tool that analyzes
+        routine scalp EEG to help estimate epilepsy risk, including in patients
+        whose initial EEG appears normal. The clearest current evidence story is
+        the retrospective normal-EEG study, which evaluated patients with
+        suspected epilepsy and reported strong performance for definitive
+        high- and low-risk classifications.
+      </>
+    ),
+    researchBlurb: (
+      <>
+        The retrospective study is the best anchor for this section: it explains
+        how EpiScalp uses dynamic network features from interictal scalp EEG to
+        produce a quantitative epilepsy-risk score. The SBIR work can be
+        mentioned as part of the continuing development and validation path, but
+        it should not replace the retrospective study as the main evidence
+        message.
+      </>
+    ),
+    bullets: [
+      "Analyzes routine resting-state scalp EEG, including cases where the initial EEG does not show clear epileptiform abnormalities.",
+      "Produces a quantitative risk score intended to support, not replace, clinician judgment.",
+      "Reported 93% accuracy, 92% sensitivity, and 95% specificity for definitive classifications in the retrospective normal-EEG study.",
+      "SBIR-supported work can be framed as the next development and validation layer rather than the primary evidence claim.",
+    ],
+    cards: episcalpHighlights,
   },
   {
     id: "eztrack-evidence",
@@ -98,43 +118,37 @@ const evidenceSections = [
     title: "Interpretable seizure localization support",
     icon: Activity,
     accent: "orange",
-    summary:
-      "EZTrack is presented by Neurologic Solutions as a software tool for analyzing intracranial EEG in focal or multifocal drug-resistant epilepsy. The current site describes it as FDA 510(k) cleared and highlights retrospective evidence showing improved surgical-outcome prediction compared with clinicians alone.",
-    bullets: [
-      "Converts intracranial EEG into a spatiotemporal fragility heatmap.",
-      "Built to assist neurologists and neurosurgeons in surgical planning.",
-      "Emphasizes interpretability through visual output rather than a black-box-only result.",
-      "Designed to reduce time spent reviewing complex recordings while preserving clinical context.",
-    ],
-    cards: eztrackHighlights,
+    productName: "EZTrack",
     ctaHref: "/eztrack",
     ctaLabel: "Explore EZTrack",
-  },
-];
-
-const publications = [
-  {
-    title:
-      "Source-sink connectivity: a novel interictal EEG marker for seizure localization",
-    venue: "Brain (2022)",
-    href: "https://doi.org/10.1093/brain/awac300",
-  },
-  {
-    title: "Neural fragility as an EEG marker of the seizure onset zone",
-    venue: "Nature Neuroscience (2021)",
-    href: "https://doi.org/10.1038/s41593-021-00901-w",
-  },
-  {
-    title:
-      "Linear time-varying model characterizes invasive EEG signals generated from complex epileptic networks",
-    venue: "EMBC (2017)",
-    href: "https://doi.org/10.1109/EMBC.2017.8037439",
-  },
-  {
-    title:
-      "Fragility in Dynamic Networks: Application to Neural Networks in the Epileptic Cortex",
-    venue: "Neural Computation (2014)",
-    href: "https://doi.org/10.1162/NECO_a_00644",
+    publicationTitle: "Neural fragility as an EEG marker of the seizure onset zone",
+    publicationHref: "https://pmc.ncbi.nlm.nih.gov/articles/PMC8547387/",
+    summary: (
+      <>
+        EZTrack is positioned around intracranial EEG analysis for patients with
+        drug-resistant epilepsy being evaluated for surgery. The public evidence
+        should be described carefully: the cited neural fragility work reports a
+        retrospective 91-patient analysis and cross-validation results for
+        surgical-outcome prediction, not a broad prospective clinical trial.
+      </>
+    ),
+    researchBlurb: (
+      <>
+        The strongest public support for EZTrack comes from the neural fragility
+        publication and the company’s product language. The study information
+        appears directionally consistent across those sources: 91 patients, 76%
+        outcome-prediction accuracy, and 43 of 47 surgical failures predicted.
+        To avoid overclaiming, the copy below describes these as retrospective
+        and cross-validated results.
+      </>
+    ),
+    bullets: [
+      "Analyzes intracranial EEG to identify fragile regions associated with epileptogenic tissue.",
+      "Presents results through interpretable visual output intended for clinical review and surgical planning.",
+      "Public materials report 76% surgical-outcome prediction accuracy in a 91-patient retrospective analysis.",
+      "Best framed as localization and surgical-planning support, not as a stand-alone replacement for multidisciplinary epilepsy-surgery review.",
+    ],
+    cards: eztrackHighlights,
   },
 ];
 
@@ -161,6 +175,35 @@ function AccentCard({
     >
       {children}
     </div>
+  );
+}
+
+function PublicationLink({
+  href,
+  title,
+  accent,
+}: {
+  href: string;
+  title: string;
+  accent: "purple" | "orange";
+}) {
+  const isPurple = accent === "purple";
+
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="mt-5 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-all duration-300 hover:-translate-y-0.5"
+      style={{
+        borderColor: isPurple ? BRAND.purpleBorder : BRAND.orangeBorder,
+        background: isPurple ? BRAND.purpleSoft : BRAND.orangeSoft,
+        color: isPurple ? BRAND.purpleDark : BRAND.orangeDark,
+      }}
+    >
+      <span>Read supporting publication</span>
+      <ExternalLink className="h-4 w-4" />
+    </a>
   );
 }
 
@@ -221,7 +264,7 @@ export default function ClinicalEvidencePage() {
                 className="block italic"
                 style={{ color: BRAND.purpleDark }}
               >
-                our clinical approach
+                quantitative epilepsy care
               </span>
             </h1>
 
@@ -229,10 +272,10 @@ export default function ClinicalEvidencePage() {
               className="mt-5 max-w-4xl text-lg leading-8"
               style={{ color: BRAND.muted, fontWeight: 300 }}
             >
-              Neurologic Solutions is building quantitative EEG-based tools to
-              support epilepsy diagnosis and treatment planning. This page
-              summarizes the current evidence presented by the company for
-              EpiScalp and EZTrack.
+              Neurologic Solutions develops EEG-based software tools designed to
+              support epilepsy diagnosis, seizure localization, and treatment
+              planning. The evidence below highlights the public research and
+              validation work connected to EpiScalp and EZTrack.
             </p>
           </div>
         </div>
@@ -260,6 +303,7 @@ export default function ClinicalEvidencePage() {
               <BadgeCheck className="h-4 w-4" />
               Overview
             </a>
+
             <a
               href="#episcalp-evidence"
               className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm"
@@ -272,6 +316,7 @@ export default function ClinicalEvidencePage() {
               <Brain className="h-4 w-4" />
               EpiScalp
             </a>
+
             <a
               href="#eztrack-evidence"
               className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm"
@@ -283,18 +328,6 @@ export default function ClinicalEvidencePage() {
             >
               <Activity className="h-4 w-4" />
               EZTrack
-            </a>
-            <a
-              href="#publications"
-              className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm"
-              style={{
-                borderColor: BRAND.line,
-                background: "white",
-                color: BRAND.ink,
-              }}
-            >
-              <FileText className="h-4 w-4" />
-              Publications
             </a>
           </div>
         </div>
@@ -310,19 +343,21 @@ export default function ClinicalEvidencePage() {
             >
               Overview
             </div>
+
             <h2
               className="mt-3 text-3xl leading-tight sm:text-4xl"
               style={{ fontWeight: 300 }}
             >
-              Two evidence tracks, two clinical questions
+              Two products, two clinical questions
             </h2>
+
             <p
               className="mt-4 text-base leading-7 sm:text-lg sm:leading-8"
               style={{ color: BRAND.muted, fontWeight: 300 }}
             >
-              EpiScalp is positioned around diagnostic support from routine scalp
-              EEG. EZTrack is positioned around seizure localization support from
-              intracranial EEG for surgical decision-making.
+              EpiScalp focuses on diagnostic support from routine scalp EEG.
+              EZTrack focuses on interpretable seizure-localization support from
+              intracranial EEG for surgical planning.
             </p>
           </div>
 
@@ -333,8 +368,12 @@ export default function ClinicalEvidencePage() {
                   className="flex h-12 w-12 items-center justify-center rounded-2xl"
                   style={{ background: BRAND.purpleSoft }}
                 >
-                  <Brain className="h-6 w-6" style={{ color: BRAND.purpleDark }} />
+                  <Brain
+                    className="h-6 w-6"
+                    style={{ color: BRAND.purpleDark }}
+                  />
                 </div>
+
                 <div>
                   <h3 className="text-2xl" style={{ fontWeight: 300 }}>
                     EpiScalp
@@ -346,9 +385,10 @@ export default function ClinicalEvidencePage() {
               </div>
 
               <p className="text-base leading-7" style={{ color: BRAND.muted }}>
-                Built to turn minutes of routine resting-state scalp EEG into a
-                quantitative risk score that may help clinicians identify epilepsy
-                even when the initial EEG appears normal.
+                Built to turn routine resting-state scalp EEG into a
+                quantitative risk score that may help clinicians evaluate
+                suspected epilepsy, including cases where the EEG initially
+                appears normal.
               </p>
             </AccentCard>
 
@@ -363,6 +403,7 @@ export default function ClinicalEvidencePage() {
                     style={{ color: BRAND.orangeDark }}
                   />
                 </div>
+
                 <div>
                   <h3 className="text-2xl" style={{ fontWeight: 300 }}>
                     EZTrack
@@ -374,9 +415,9 @@ export default function ClinicalEvidencePage() {
               </div>
 
               <p className="text-base leading-7" style={{ color: BRAND.muted }}>
-                Built to help interpret intracranial EEG using neural fragility
-                visualizations that support seizure onset zone assessment and
-                neurosurgical planning.
+                Built to help clinicians interpret intracranial EEG using neural
+                fragility visualizations that support seizure onset zone
+                assessment and neurosurgical planning.
               </p>
             </AccentCard>
           </div>
@@ -442,6 +483,43 @@ export default function ClinicalEvidencePage() {
                     {section.summary}
                   </p>
 
+                  <div
+                    className="mt-5 rounded-[1.5rem] border p-5"
+                    style={{
+                      borderColor: isPurple
+                        ? BRAND.purpleBorder
+                        : BRAND.orangeBorder,
+                      background: isPurple
+                        ? "rgba(153,134,191,0.07)"
+                        : "rgba(206,127,87,0.07)",
+                    }}
+                  >
+                    <div
+                      className="text-[11px] uppercase tracking-[0.2em]"
+                      style={{
+                        color: isPurple
+                          ? BRAND.purpleDark
+                          : BRAND.orangeDark,
+                        fontWeight: 600,
+                      }}
+                    >
+                      Research behind the technology
+                    </div>
+
+                    <p
+                      className="mt-3 text-sm leading-7 sm:text-base"
+                      style={{ color: BRAND.muted, fontWeight: 300 }}
+                    >
+                      {section.researchBlurb}
+                    </p>
+
+                    <PublicationLink
+                      href={section.publicationHref}
+                      title={section.publicationTitle}
+                      accent={section.accent as "purple" | "orange"}
+                    />
+                  </div>
+
                   <div className="mt-6 space-y-3">
                     {section.bullets.map((bullet) => (
                       <div key={bullet} className="flex items-start gap-3">
@@ -503,12 +581,14 @@ export default function ClinicalEvidencePage() {
                       >
                         {card.label}
                       </div>
+
                       <div
                         className="mt-3 text-3xl leading-none"
                         style={{ fontWeight: 300 }}
                       >
                         {card.value}
                       </div>
+
                       <p
                         className="mt-4 text-sm leading-6"
                         style={{ color: BRAND.muted }}
@@ -523,140 +603,6 @@ export default function ClinicalEvidencePage() {
           </section>
         );
       })}
-
-      {/* Methodology / interpretation */}
-      <section className="px-6 py-10 sm:py-12">
-        <div className="mx-auto max-w-6xl">
-          <div className="grid gap-6 lg:grid-cols-3">
-            <AccentCard className="p-7">
-              <div
-                className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{ background: BRAND.purpleSoft }}
-              >
-                <FlaskConical
-                  className="h-6 w-6"
-                  style={{ color: BRAND.purpleDark }}
-                />
-              </div>
-              <h3 className="text-2xl" style={{ fontWeight: 300 }}>
-                Study framing
-              </h3>
-              <p className="mt-4 text-sm leading-7" style={{ color: BRAND.muted }}>
-                This page is written as a clinical-evidence summary, not as an
-                independent meta-analysis. The numbers shown are drawn from the
-                company’s current public site and related public materials.
-              </p>
-            </AccentCard>
-
-            <AccentCard className="p-7">
-              <div
-                className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{ background: BRAND.orangeSoft }}
-              >
-                <BadgeCheck
-                  className="h-6 w-6"
-                  style={{ color: BRAND.orangeDark }}
-                />
-              </div>
-              <h3 className="text-2xl" style={{ fontWeight: 300 }}>
-                Clinical positioning
-              </h3>
-              <p className="mt-4 text-sm leading-7" style={{ color: BRAND.muted }}>
-                The current public language positions both products as decision
-                support tools intended to work alongside clinical review, not as
-                stand-alone replacements for physician judgment.
-              </p>
-            </AccentCard>
-
-            <AccentCard className="p-7">
-              <div
-                className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{ background: "rgba(47,39,56,0.06)" }}
-              >
-                <FileText className="h-6 w-6" style={{ color: BRAND.ink }} />
-              </div>
-              <h3 className="text-2xl" style={{ fontWeight: 300 }}>
-                Next validation layer
-              </h3>
-              <p className="mt-4 text-sm leading-7" style={{ color: BRAND.muted }}>
-                As the site evolves, this section can be extended with prospective
-                validation graphics, institution logos, subgroup breakdowns, and
-                product-linked publication filters.
-              </p>
-            </AccentCard>
-          </div>
-        </div>
-      </section>
-
-      {/* Publications */}
-      <section id="publications" className="px-6 py-10 sm:py-12">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-8 max-w-3xl">
-            <div
-              className="text-[11px] uppercase tracking-[0.22em]"
-              style={{ color: BRAND.purpleDark, fontWeight: 600 }}
-            >
-              Publications
-            </div>
-            <h2
-              className="mt-3 text-3xl leading-tight sm:text-4xl"
-              style={{ fontWeight: 300 }}
-            >
-              Research behind the technology
-            </h2>
-            <p
-              className="mt-4 text-base leading-7 sm:text-lg sm:leading-8"
-              style={{ color: BRAND.muted, fontWeight: 300 }}
-            >
-              These papers form part of the public research foundation linked from
-              the current Neurologic Solutions Technology page.
-            </p>
-          </div>
-
-          <div className="grid gap-4">
-            {publications.map((pub, index) => (
-              <a
-                key={pub.title}
-                href={pub.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group block"
-              >
-                <div
-                  className="flex flex-col gap-4 rounded-[2rem] border p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md sm:flex-row sm:items-center sm:justify-between"
-                  style={{
-                    borderColor: BRAND.line,
-                    backgroundColor:
-                      index % 2 === 0
-                        ? "rgba(255,255,255,0.86)"
-                        : "rgba(153,134,191,0.03)",
-                  }}
-                >
-                  <div>
-                    <h3
-                      className="text-xl leading-tight"
-                      style={{ color: BRAND.ink, fontWeight: 300 }}
-                    >
-                      {pub.title}
-                    </h3>
-                    <p className="mt-2 text-sm" style={{ color: BRAND.muted }}>
-                      {pub.venue}
-                    </p>
-                  </div>
-
-                  <div
-                    className="inline-flex items-center gap-2 text-sm"
-                    style={{ color: BRAND.purpleDark }}
-                  >
-                    <span>Open publication</span>
-                    <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

@@ -7,30 +7,22 @@ import {
   Stethoscope,
   ArrowRight,
   Mail,
-  Phone,
   Briefcase,
   Target,
 } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 /**
  * ABOUT PAGE
  *
- * Updated to match the newer Publications page feel:
- * - softer brand purple/orange palette
- * - less white space
- * - stronger visual hierarchy
- * - clearer mission statement
- * - more polished values section
- * - cleaner timeline cards
- * - generic careers / application CTA
- *
- * Notes based on feedback:
- * - removed EpiScalp / EZTrack promo cards from About
- * - reinforced the "why" / problem statement
- * - kept the timeline concept
- * - added a mission statement block
- * - included generic application instead of active hiring roles
- * - switched away from blue-heavy styling
+ * Updated based on latest company feedback:
+ * - revised mission statement
+ * - revised EEG problem statement
+ * - updated "Why We Exist" language
+ * - simplified leadership section with Team page link
+ * - updated journey dates and commercialization language
+ * - simplified careers section to one email CTA
+ * - removed recruiting contact information
  *
  * Assumes the Typo Grotesk font family is loaded globally.
  */
@@ -77,7 +69,7 @@ export default function AboutPage() {
       icon: Sparkles,
       title: 'Precision Innovation',
       description:
-        'We combine advanced analytics, brain-network modeling, and clinical insight to make EEG data more actionable.',
+        'We combine advanced analytics, dynamic network modeling, and clinical insight to make EEG data more actionable.',
     },
   ];
 
@@ -101,16 +93,16 @@ export default function AboutPage() {
         'More than $3M in research funding supported EpiScalp development and retrospective study work.',
     },
     {
-      year: '2023',
+      year: '2024',
       title: 'Translation / Clinical Validation',
       description:
         'An SBIR Phase II award supported clinical validation and early commercialization activity.',
     },
     {
-      year: '2025',
+      year: '2026',
       title: 'Preparation for Commercialization',
       description:
-        'Blueprint MedTech support advanced regulatory planning, reimbursement strategy, and quality-system implementation.',
+        'NIH Blueprint MedTech support advanced regulatory planning, reimbursement strategy, quality-system implementation and software UI / integration development.',
     },
   ];
 
@@ -225,7 +217,7 @@ export default function AboutPage() {
               <p className="mt-4 text-xl leading-8" style={{ fontWeight: 300 }}>
                 To transform complex brain data into precise, interpretable
                 biomarkers that help clinicians diagnose and treat neurological
-                disorders more effectively.
+                disorders quickly and more effectively.
               </p>
 
               <div
@@ -266,8 +258,8 @@ export default function AboutPage() {
                 style={{ color: BRAND.purpleDark }}
               />
               <p className="text-sm leading-6" style={{ color: BRAND.muted }}>
-                EEG contains rich information, but much of it is difficult to use
-                quickly in routine practice.
+                EEG contains rich information, but much of it is hidden and
+                appears visually inconclusive.
               </p>
             </div>
 
@@ -348,8 +340,7 @@ export default function AboutPage() {
 
                 <p>
                   Our work is rooted in the combination of advanced biomedical
-                  engineering, dynamical systems thinking, and clinical epilepsy
-                  expertise.
+                  engineering, dynamic network modeling, and clinical expertise.
                 </p>
               </div>
             </div>
@@ -487,34 +478,47 @@ export default function AboutPage() {
 
       {/* =========================================================
           LEADERSHIP SNAPSHOT
-          - simpler than full team page
-          - keeps about page informative without making it crowded
       ========================================================== */}
       <section className="px-6 py-16 sm:py-20">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-10 max-w-2xl">
-            <div
-              className="text-[11px] uppercase tracking-[0.22em]"
-              style={{ color: BRAND.orangeDark, fontWeight: 600 }}
-            >
-              Leadership
+          <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <div
+                className="text-[11px] uppercase tracking-[0.22em]"
+                style={{ color: BRAND.orangeDark, fontWeight: 600 }}
+              >
+                Leadership
+              </div>
+
+              <h2
+                className="mt-4 text-4xl leading-tight sm:text-5xl"
+                style={{ fontWeight: 300 }}
+              >
+                Leadership team
+              </h2>
+
+              <p
+                className="mt-5 text-lg leading-8"
+                style={{ color: BRAND.muted, fontWeight: 300 }}
+              >
+                Neurologic Solutions brings together expertise in biomedical
+                engineering, clinical neurology, product development, and site
+                engagement.
+              </p>
             </div>
 
-            <h2
-              className="mt-4 text-4xl leading-tight sm:text-5xl"
-              style={{ fontWeight: 300 }}
+            <Link
+              to="/team"
+              className="inline-flex w-fit items-center gap-2 rounded-full border px-5 py-3 text-sm transition-all duration-300 hover:-translate-y-0.5"
+              style={{
+                borderColor: BRAND.purpleBorder,
+                background: BRAND.purpleSoft,
+                color: BRAND.purpleDark,
+              }}
             >
-              The team behind the mission
-            </h2>
-
-            <p
-              className="mt-5 text-lg leading-8"
-              style={{ color: BRAND.muted, fontWeight: 300 }}
-            >
-              Neurologic Solutions brings together expertise in biomedical
-              engineering, clinical neurology, product development, and site
-              engagement.
-            </p>
+              <span>Meet the full team</span>
+              <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -538,10 +542,13 @@ export default function AboutPage() {
                     fontWeight: 600,
                   }}
                 >
-                  Team
+                  Leadership
                 </div>
 
-                <h3 className="mt-3 text-xl leading-tight" style={{ fontWeight: 300 }}>
+                <h3
+                  className="mt-3 text-xl leading-tight"
+                  style={{ fontWeight: 300 }}
+                >
                   {person.name}
                 </h3>
 
@@ -622,6 +629,7 @@ export default function AboutPage() {
                     <h3 className="text-2xl" style={{ fontWeight: 300 }}>
                       {item.title}
                     </h3>
+
                     <p
                       className="mt-3 max-w-3xl text-base leading-7"
                       style={{ color: BRAND.muted, fontWeight: 300 }}
@@ -647,7 +655,7 @@ export default function AboutPage() {
               'linear-gradient(135deg, rgba(47,39,56,1) 0%, rgba(85,72,109,1) 50%, rgba(153,134,191,1) 100%)',
           }}
         >
-          <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div>
               <div className="text-[11px] uppercase tracking-[0.22em] text-white/70">
                 Careers
@@ -657,78 +665,29 @@ export default function AboutPage() {
                 className="mt-4 text-4xl leading-tight sm:text-5xl"
                 style={{ fontWeight: 300 }}
               >
-                Interested in joining the mission?
+                Interested in joining our team?
               </h2>
 
               <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">
-                We do not have posted openings right now, but we welcome general
-                applications from people who are aligned with our mission. Send us
-                your information, resume or CV, and any supporting materials for
-                future consideration.
+                We welcome general inquiries from people who are aligned with our
+                mission. Send us your information, resume or CV, and any relevant
+                supporting materials for future consideration.
               </p>
-
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-                <a
-                  href="mailto:mac.breault@gmail.com?subject=General%20Application%20-%20Neurologic%20Solutions"
-                  className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm transition-transform duration-300 hover:-translate-y-0.5"
-                  style={{
-                    backgroundColor: BRAND.orange,
-                    color: '#fff',
-                  }}
-                >
-                  <Briefcase className="h-4 w-4" />
-                  <span>Submit General Application</span>
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-
-                <a
-                  href="mailto:mac.breault@gmail.com"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3.5 text-sm text-white transition-colors duration-300 hover:bg-white/10"
-                  style={{ borderColor: 'rgba(255,255,255,0.18)' }}
-                >
-                  <Mail className="h-4 w-4" />
-                  <span>Email Recruiting Contact</span>
-                </a>
-              </div>
             </div>
 
-            <div
-              className="rounded-[2rem] border p-7"
-              style={{
-                borderColor: 'rgba(255,255,255,0.16)',
-                backgroundColor: 'rgba(255,255,255,0.08)',
-              }}
-            >
-              <div className="text-sm uppercase tracking-[0.18em] text-white/65">
-                Recruiting Contact
-              </div>
-
-              <h3 className="mt-4 text-2xl" style={{ fontWeight: 300 }}>
-                Macauley Smith Breault
-              </h3>
-
-              <div className="mt-6 space-y-4 text-white/85">
-                <a
-                  href="mailto:mac.breault@gmail.com"
-                  className="flex items-center gap-3 hover:text-white"
-                >
-                  <Mail className="h-4 w-4 shrink-0" />
-                  <span>mac.breault@gmail.com</span>
-                </a>
-
-                <a
-                  href="tel:9089632301"
-                  className="flex items-center gap-3 hover:text-white"
-                >
-                  <Phone className="h-4 w-4 shrink-0" />
-                  <span>908-963-2301</span>
-                </a>
-              </div>
-
-              <p className="mt-6 text-sm leading-6 text-white/65">
-                Suggested materials: resume or CV, area of interest, brief
-                introduction, and any relevant portfolio, publications, or links.
-              </p>
+            <div className="flex lg:justify-end">
+              <a
+                href="mailto:info@neurologicsolutions.net?subject=General%20Interest%20-%20Neurologic%20Solutions"
+                className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm transition-transform duration-300 hover:-translate-y-0.5"
+                style={{
+                  backgroundColor: BRAND.orange,
+                  color: '#fff',
+                }}
+              >
+                <Mail className="h-4 w-4" />
+                <span>Email Us</span>
+                <ArrowRight className="h-4 w-4" />
+              </a>
             </div>
           </div>
         </div>
