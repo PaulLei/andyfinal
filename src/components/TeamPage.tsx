@@ -7,6 +7,7 @@ type Person = {
   role: string;
   image?: string;
   bioSlug?: string;
+  linkedIn?: string;
 };
 
 type Section = {
@@ -39,79 +40,91 @@ const sections: Section[] = [
         role: "CEO",
         image: "/AndrewG.jpg",
         bioSlug: "andrew-gotshalk",
+        
       },
       {
         name: "Sridevi Sarma, PhD",
         role: "President and Co-Founder",
         image: "/SrideviS.jpg",
         bioSlug: "sridevi-sarma",
+        
       },
       {
         name: "Jorge Gonzelez-Martinez, MD PhD",
         role: "CMO and Co-Founder",
         image: "/JorgeG.jpg",
         bioSlug: "jorge-gonzelez-martinez",
+      
       },
       {
         name: "Mark Hays, PhD",
         role: "Director of Product Development",
         image: "/MarkH.jpg",
         bioSlug: "mark-hays",
+       
       },
       {
         name: "Golnoosh Kamali, PhD",
         role: "Director of Site Engagement",
         image: "/GolnooshK.jpg",
         bioSlug: "golnoosh-kamali",
+       
       },
     ],
   },
-  {
-    heading: "Consultants",
-    people: [
-      {
-        name: "John Gale, PhD",
-        role: "Domain Expert",
-        image: "/JohnG.jpg",
-        bioSlug: "john-gale",
-      },
-      {
-        name: "Kristín Gunnarsdóttir",
-        role: "Data Scientist",
-        image: "/KristinG.jpg",
-      },
-      {
-        name: "Chas McKhann",
-        role: "Business Consultant",
-        image: "/ChasM.jpg",
-      },
-    ],
-  },
-  {
-    heading: "Board Of Advisors",
+ {
+    heading: "Advisors",
     people: [
       {
         name: "William S Anderson, MA, MD, PhD",
         role: "Advisor",
         image: "/WilliamA.jpg",
         bioSlug: "william-s-anderson",
+        
       },
       {
         name: "Chuck Montague, PhD",
         role: "Advisor",
         image: "/ChuckM.jpg",
         bioSlug: "chuck-montague",
+      
       },
       {
         name: "Ian Tolfree, PhD",
         role: "Advisor",
         image: "/IanT.jpg",
         bioSlug: "ian-tolfree",
+        
       },
       {
         name: "Myron Weisfeldt, MD",
         role: "Advisor",
         image: "/MyronW.jpg",
+        bioSlug: "myron-weisfeldt",
+       
+      },
+    ],
+  },
+    {
+    heading: "Consultants",
+    people: [
+      {
+        name: "John Gale, PhD",
+        role: "Domain Expert",
+        image: "/JohnG.jpg",
+        linkedIn: "https://linkedin.com/in/placeholder",
+      },
+      {
+        name: "Kristín Gunnarsdóttir",
+        role: "Data Scientist",
+        image: "/KristinG.jpg",
+        linkedIn: "https://www.linkedin.com/in/kristin-maria-gunnarsdottir/?originalSubdomain=is",
+      },
+      {
+        name: "Chas McKhann",
+        role: "Business Consultant",
+        image: "/ChasM.jpg",
+        linkedIn: "https://www.linkedin.com/in/chasmckhann/",
       },
     ],
   },
@@ -178,48 +191,68 @@ function PersonImage({ person }: { person: Person }) {
 
 function PersonCard({ person }: { person: Person }) {
   const showBio = person.bioSlug ? hasProfileBio(person.bioSlug) : false;
+  const hasLinkedIn = !!person.linkedIn;
 
   const cardClasses =
-    "group block overflow-hidden rounded-3xl border bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl";
+    "group flex flex-col overflow-hidden rounded-3xl border bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl";
 
   const content = (
     <>
       <PersonImage person={person} />
 
-      <div className="px-5 py-5 text-center">
-        <div
-          className="text-[12px] font-semibold uppercase tracking-[0.16em]"
-          style={{ color: BRAND.purpleDark }}
-        >
-          {person.name}
-        </div>
-
-        <div
-          className="mt-2 min-h-[2.75rem] text-sm leading-6"
-          style={{ color: BRAND.muted }}
-        >
-          {person.role}
-        </div>
-
-        {showBio ? (
+      <div className="px-6 py-6 text-center flex flex-col justify-between flex-1">
+        <div>
           <div
-            className="mt-4 inline-flex items-center gap-2 text-sm font-medium transition-colors"
+            className="text-[12px] font-semibold uppercase tracking-[0.16em]"
+            style={{ color: BRAND.purpleDark }}
+          >
+            {person.name}
+          </div>
+
+          <div
+            className="mt-3 text-sm leading-6"
             style={{ color: BRAND.muted }}
           >
-            <span className="group-hover:text-[color:var(--hover-color)] [--hover-color:#7e6aa7]">
-              View bio
-            </span>
-            <ArrowRight
-              className="h-4 w-4 transition-transform group-hover:translate-x-1"
-              style={{ color: BRAND.purpleDark }}
-            />
+            {person.role}
           </div>
-        ) : (
-          <div className="mt-4 h-[20px]" />
-        )}
+        </div>
+
+        <div className="mt-6 flex items-center justify-center">
+          {(showBio || hasLinkedIn) && (
+            <div
+              className="inline-flex items-center gap-2 text-sm font-medium transition-colors"
+              style={{ color: BRAND.muted }}
+            >
+              <span className="group-hover:text-[color:var(--hover-color)] [--hover-color:#7e6aa7]">
+                {hasLinkedIn ? "View profile" : "View bio"}
+              </span>
+              <ArrowRight
+                className="h-4 w-4 transition-transform group-hover:translate-x-1"
+                style={{ color: BRAND.purpleDark }}
+              />
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
+
+  if (hasLinkedIn) {
+    return (
+      <a
+        href={person.linkedIn}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={cardClasses}
+        style={{
+          borderColor: BRAND.line,
+          backgroundColor: BRAND.card,
+        }}
+      >
+        {content}
+      </a>
+    );
+  }
 
   if (!showBio || !person.bioSlug) {
     return (

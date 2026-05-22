@@ -125,7 +125,9 @@ export const teamProfiles: TeamProfile[] = [
     role: "Advisor",
     image: "/MyronW.jpg",
     shortBio: "",
-    bio: [],
+    bio: [
+     " Myron Weisfeldt, MD is the Senior Medical Director of Johns Hopkins Technology Ventures and a University Distinguished Service Professor. From 2001 to 2014 Dr. Weisfeldt was Professor of Medicine and Chairman of the Department of Medicine at Johns Hopkins School of Medicine. He was also Physician-in-Chief of the Johns Hopkins Hospital. Dr. Weisfeldt received his MD from the Johns Hopkins University. From 1975 to 1991, was Director of the Cardiology Division at the Johns Hopkins. Dr. Weisfeldt was the study chair for a large-scale ongoing clinical trials network to conduct randomized definitive trials of devices, drugs, and other therapies for out-of-hospital cardiac arrest and severe traumatic injury. He is a member of the National Academy of Medicine."
+    ],
   },
 ];
 
