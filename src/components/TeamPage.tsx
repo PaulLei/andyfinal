@@ -112,7 +112,7 @@ const sections: Section[] = [
         name: "John Gale, PhD",
         role: "Domain Expert",
         image: "/JohnG.jpg",
-        linkedIn: "https://linkedin.com/in/placeholder",
+        bioSlug: "john-gale",
       },
       {
         name: "Kristín Gunnarsdóttir",

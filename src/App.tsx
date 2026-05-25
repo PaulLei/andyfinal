@@ -14,6 +14,7 @@ import Episcalp from "./components/EpiScalp";
 import AboutPage from "./components/AboutPage";
 import TeamPage from "./components/TeamPage";
 import NewsPage from "./components/NewsPage";
+import NewsReportPage from "./components/NewsReportPage";
 import PublicationsPage from "./components/PublicationsPage";
 import ClinicalEvidencePage from "./components/ClinicalEvidence.tsx";
 import ContactPage from "./components/ContactPage";
@@ -155,6 +156,15 @@ export default function App() {
             element={
               <>
                 <NewsPage />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/news-report/:id"
+            element={
+              <>
+                <NewsReportPage />
                 <Footer />
               </>
             }

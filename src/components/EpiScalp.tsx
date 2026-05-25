@@ -119,27 +119,27 @@ const publications = [
 const faqs = [
   {
     q: "What type of EEG data does EpiScalp require?",
-    a: "EpiScalp is designed for scalp EEG recordings, including routine EEG, long-term monitoring, and ambulatory EEG studies. It is intended to support diagnostic evaluation even when the EEG appears normal or inconclusive on standard visual review.",
+    a: "EpiScalp is designed for any standard scalp EEG recordings. It supports common clinical EEG formats and is intended to work with recordings that include both interictal and ictal segments.",
   },
   {
     q: "How long does it take to generate results?",
-    a: "The workflow is designed to be efficient enough for clinical use. Exact timing may depend on recording length, data quality, and system configuration.",
+    a: "Analysis typically runs in minutes. The exact duration depends on recording length and system configuration, but the workflow is designed to be efficient enough for routine clinical use.",
   },
   {
     q: "Has EpiScalp been validated in clinical settings?",
-    a: "Yes. EpiScalp has completed a retrospective clinical study and is currently being evaluated in a multi-center prospective study at leading epilepsy centers.",
+    a: "Yes. EpiScalp has been studied in retrospective and prospective research across multiple academic medical centers. Peer-reviewed publications are available in the section above and can also be found in our Publications page. EpiScalp is also currently being tested and validated as part of a NINDs SBIR Phase 2 study at 3 leading Level 4 Epilepsy Centers.",
   },
   {
     q: "Is EpiScalp FDA cleared?",
-    a: "EpiScalp is being developed within a Quality Management System and is actively being prepared for regulatory submission. It is not presented here as FDA cleared.",
+    a: "Not yet. EpiScalp is being developed under a Quality Management System in preparation for a 510k submission by Q4 of 2026.",
   },
   {
     q: "Can I participate in a clinical trial?",
-    a: "Prospective validation work is underway with partner institutions. If your center is interested in participating in future research, beta evaluation, or clinical workflow discussions, please reach out using the contact information below.",
+    a: "We are currently conducting a prospective clinical trial at three partner institutions. If your center is interested in becoming a research site or participating in an ongoing study, please reach out using the contact information below.",
   },
   {
     q: "What does the output look like?",
-    a: "EpiScalp produces an epilepsy risk score from 0-100 and an Epilepsy Likely or Unlikely prediction to support the clinician’s diagnostic assessment.",
+    a: "EpiScalp produces a risk score, from 0-100 and an epilepsy prediction (Epilepsy Likely, Epilepsy Unlikely, Uncertain) on the likelihood a patient has epilepsy.",
   },
 ];
 

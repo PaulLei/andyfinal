@@ -1,5 +1,6 @@
 import { Calendar, ArrowRight, Search, Newspaper, Filter } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { newsItems, NewsCategory } from '../data/news';
 
 const BRAND = {
@@ -73,6 +74,7 @@ function getCategoryStyles(category: NewsCategory) {
 export default function NewsPage() {
   const [activeCategory, setActiveCategory] = useState<'All' | NewsCategory>('All');
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate();
 
   const filteredNews = useMemo(() => {
     return newsItems
@@ -262,20 +264,39 @@ export default function NewsPage() {
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {filteredNews.map((item) => {
               const categoryStyles = getCategoryStyles(item.category);
+              // Use internal report if: has internalReport AND (no link OR link is empty)
+              const hasInternalReport = !!item.internalReport && (!item.link || !item.link.trim());
+              const itemPath = item.title.toLowerCase().replace(/\s+/g, '-');
+
+              // Handle click to navigate internally or externally
+              const handleClick = (e: React.MouseEvent) => {
+                if (hasInternalReport) {
+                  e.preventDefault();
+                  navigate(`/news-report/${itemPath}`);
+                }
+              };
 
               return (
                 <a
                   key={`${item.title}-${item.date}`}
-                  href={item.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href={hasInternalReport ? '#' : item.link}
+                  onClick={handleClick}
+                  target={!hasInternalReport ? '_blank' : undefined}
+                  rel={!hasInternalReport ? 'noopener noreferrer' : undefined}
                   className="group block"
                 >
                   <article
                     className="flex h-full flex-col overflow-hidden rounded-[2rem] border bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                     style={{ borderColor: BRAND.line }}
                   >
-                    <div className={`h-48 w-full ${item.image}`} />
+                    <div 
+                      className={`h-48 w-full ${item.image.startsWith('.') || item.image.startsWith('/') ? 'bg-cover bg-center' : item.image}`}
+                      style={{
+                        backgroundImage: (item.image.startsWith('.') || item.image.startsWith('/')) 
+                          ? `url('${item.image}')` 
+                          : 'none'
+                      }}
+                    />
 
                     <div className="flex flex-1 flex-col p-6">
                       <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
@@ -317,7 +338,7 @@ export default function NewsPage() {
                         className="mt-5 inline-flex items-center gap-2 text-sm transition-transform duration-300 group-hover:translate-x-1"
                         style={{ color: BRAND.purpleDark }}
                       >
-                        <span>Read more</span>
+                        <span>{hasInternalReport ? 'Read report' : 'Read more'}</span>
                         <ArrowRight className="h-4 w-4" />
                       </div>
                     </div>

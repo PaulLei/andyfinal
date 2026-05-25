@@ -130,27 +130,27 @@ const publications = [
 const faqs = [
   {
     q: "What type of EEG data does EZTrack require?",
-    a: "EZTrack is designed for intracranial EEG recordings, including SEEG and ECoG. Users may also upload electrode annotations to exclude channels with non-neural signals from analysis.",
+    a: "EZTrack is designed for any intracranial EEG recording: SEEG or ECoG. It supports common clinical iEEG formats.",
   },
   {
     q: "How long does it take to generate results?",
-    a: "EZTrack is designed to analyze hours of intracranial EEG data in minutes, reducing the burden of manual review while preserving clinically interpretable output.",
+    a: "EZTrack takes minutes to run with exact duration depending on recording length and operating system configurations. ",
   },
   {
     q: "Has EZTrack been validated in clinical settings?",
-    a: "Yes. EZTrack has been clinically validated across 91 surgical cases, demonstrating strong performance and usability in real-world clinical settings.",
+    a: "Yes. EZTrack has been clinically validated across 91 surgical cases. Peer-reviewed publications are available in the section above.",
   },
   {
     q: "Is EZTrack FDA cleared?",
-    a: "Yes. EZTrack has received FDA 510(k) clearance.",
+    a: "Yes. EZTrack received 510(k) clearance in 2019 (K201910).",
   },
   {
-    q: "Who is EZTrack designed for?",
-    a: "EZTrack is designed for epilepsy centers, neurosurgical planning teams, epileptologists, and clinical teams involved in the evaluation of patients with drug-resistant epilepsy.",
+    q: "Can I participate in a clinical trial?",
+    a: " At this point we don’t have any clinical trials going on. However, we are always interested in collaborating with other researchers. Please contact us to discuss further. ",
   },
   {
     q: "What does the output look like?",
-    a: "EZTrack produces a spatiotemporal heatmap displaying the Fragility Index across all electrodes, highlighting high-fragility regions to inform surgical planning.",
+    a: "EZTrack produces spatio-temporal fragility heatmaps and electrode-level summary overlays. These outputs are designed to be interpretable without specialized signal-processing expertise.",
   },
 ];
 
