@@ -20,7 +20,7 @@ const NAV_ITEMS = [
       {
         label: "EZTrack",
         href: "/eztrack",
-        desc: "Simplified EEG Fragility for Surgical Planning",
+        desc: "Epileptogenic Localization for Surgical Planning",
       },
     ],
   },

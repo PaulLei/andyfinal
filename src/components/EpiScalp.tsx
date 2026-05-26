@@ -11,15 +11,13 @@ import {
   CheckCircle2,
   Building2,
   Microscope,
-  Waves,
   Check,
   Clock3,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // ─── Contact ──────────────────────────────────────────────────────────────────
-// Replace this if Andy uses a different email.
-const CONTACT_NAME = "Andrew Gotshalk ";
+const CONTACT_NAME = "Andrew Gotshalk";
 const CONTACT_EMAIL = "agotshalk@neurologicsolutions.net";
 
 // ─── Brand tokens ─────────────────────────────────────────────────────────────
@@ -52,8 +50,7 @@ const steps = [
       "Upload any scalp EEG recording: routine, long-term monitoring, or ambulatory. EpiScalp is designed to work with studies that appear normal or inconclusive on standard visual review.",
     detail:
       "EpiScalp supports diagnostic evaluation from scalp EEG data, including EEG studies without obvious epileptiform discharges.",
-    image:
-      "epsstep1.png",
+    image: "epsstep1.png",
   },
   {
     number: "2",
@@ -62,8 +59,7 @@ const steps = [
       "EpiScalp preprocesses the EEG and applies dynamic network modeling to quantify imbalances in the brain network that are characteristic of epilepsy. These validated features capture unique interactions that are not visible on the EEG trace, but reflect the underlying epileptic dysfunction.",
     detail:
       "The analysis emphasizes source/sink network dynamics and quantitative features that provide information beyond standard visual EEG review.",
-    image:
-      "epsstep2.png",
+    image: "epsstep2.png",
   },
   {
     number: "3",
@@ -72,8 +68,7 @@ const steps = [
       "EpiScalp reports a 0-100 epilepsy risk score and an Epilepsy Likely or Unlikely prediction, integrating the EEG network features and relevant patient information to provide personalized, quantitative support for the clinician’s diagnostic assessment.",
     detail:
       "The output is designed to be easily interpretable and to support, not replace, clinical judgment.",
-    image:
-      "epsstep3.png",
+    image: "epsstep3.png",
   },
 ];
 
@@ -82,13 +77,25 @@ const institutions = [
     name: "Thomas Jefferson University",
     department: "Epilepsy Center",
     role: "Prospective validation and clinical research collaboration",
-    icon: Building2,
+    logo: "jefferson.png",
+    logoScale: 2.2,
+    fallbackIcon: Building2,
   },
   {
     name: "University of Maryland",
     department: "Epilepsy Center",
     role: "Prospective data collection and clinical workflow evaluation",
-    icon: Microscope,
+    logo: "umm.png",
+    logoScale: 1,
+    fallbackIcon: Microscope,
+  },
+  {
+    name: "Johns Hopkins Hospital",
+    department: "Epilepsy Center",
+    role: "Prospective clinical research collaboration and validation support",
+    logo: "jhu.png",
+    logoScale: 1.65,
+    fallbackIcon: Building2,
   },
 ];
 
@@ -110,9 +117,6 @@ const publications = [
     year: "Published",
     episcalp: true,
     href: "#",
-  },
-  {
-    
   },
 ];
 
@@ -139,7 +143,7 @@ const faqs = [
   },
   {
     q: "What does the output look like?",
-    a: "EpiScalp produces a risk score, from 0-100 and an epilepsy prediction (Epilepsy Likely, Epilepsy Unlikely, Uncertain) on the likelihood a patient has epilepsy.",
+    a: "EpiScalp produces a risk score, from 0-100 and an epilepsy prediction: Epilepsy Likely, Epilepsy Unlikely, or Uncertain, on the likelihood a patient has epilepsy.",
   },
 ];
 
@@ -167,7 +171,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
   return (
     <div
-      className="rounded-2xl border overflow-hidden transition-all duration-300"
+      className="overflow-hidden rounded-2xl border transition-all duration-300"
       style={{
         borderColor: open ? B.purpleBorder : B.line,
         backgroundColor: open ? "rgba(153,134,191,0.04)" : B.card,
@@ -175,7 +179,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
     >
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between gap-4 p-5 text-left"
+        className="flex w-full items-center justify-between gap-4 p-5 text-left"
       >
         <span
           className="text-base leading-6"
@@ -183,13 +187,17 @@ function FAQItem({ q, a }: { q: string; a: string }) {
         >
           {q}
         </span>
+
         {open ? (
           <ChevronUp
             className="h-4 w-4 shrink-0"
             style={{ color: B.purpleDark }}
           />
         ) : (
-          <ChevronDown className="h-4 w-4 shrink-0" style={{ color: B.muted }} />
+          <ChevronDown
+            className="h-4 w-4 shrink-0"
+            style={{ color: B.muted }}
+          />
         )}
       </button>
 
@@ -256,6 +264,70 @@ function StatusPill({
   );
 }
 
+function InstitutionLogo({
+  logo,
+  name,
+  isOrange,
+  logoScale = 1,
+  fallbackIcon: FallbackIcon,
+}: {
+  logo: string;
+  name: string;
+  isOrange: boolean;
+  logoScale?: number;
+  fallbackIcon: typeof Building2;
+}) {
+  const [logoError, setLogoError] = useState(false);
+
+  return (
+    <div
+      className="mb-5 flex h-20 w-full items-center justify-center overflow-hidden rounded-2xl border bg-white px-5 py-4"
+      style={{
+        borderColor: B.line,
+      }}
+    >
+      {!logoError ? (
+        <div className="flex h-12 w-[220px] items-center justify-center overflow-hidden">
+          <img
+            src={logo}
+            alt={`${name} logo`}
+            className="max-h-12 max-w-[220px] object-contain"
+            loading="lazy"
+            onError={() => setLogoError(true)}
+            style={{
+              transform: `scale(${logoScale})`,
+              transformOrigin: "center",
+            }}
+          />
+        </div>
+      ) : (
+        <div className="flex items-center gap-3">
+          <div
+            className="flex h-12 w-12 items-center justify-center rounded-xl"
+            style={{
+              backgroundColor: isOrange ? B.orangeSoft : B.purpleSoft,
+            }}
+          >
+            <FallbackIcon
+              className="h-6 w-6"
+              style={{
+                color: isOrange ? B.orangeDark : B.purpleDark,
+              }}
+            />
+          </div>
+
+          <span
+            className="text-sm font-semibold leading-5"
+            style={{ color: B.ink }}
+          >
+            {name}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function EpiScalpPage() {
@@ -265,7 +337,10 @@ export default function EpiScalpPage() {
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
+
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -288,12 +363,13 @@ export default function EpiScalpPage() {
       }}
     >
       {/* HERO */}
-      <section className="relative overflow-hidden px-6 pt-10 pb-14 md:pt-14 md:pb-16">
-        <div className="absolute inset-0 z-0 pointer-events-none">
+      <section className="relative overflow-hidden px-6 pb-14 pt-10 md:pb-16 md:pt-14">
+        <div className="pointer-events-none absolute inset-0 z-0">
           <div
             className="absolute left-[-4rem] top-0 h-80 w-80 rounded-full blur-3xl"
             style={{ background: B.purpleSoft }}
           />
+
           <div
             className="absolute right-[-4rem] top-1/4 h-96 w-96 rounded-full blur-3xl"
             style={{
@@ -321,16 +397,19 @@ export default function EpiScalpPage() {
                 className="mt-6 max-w-4xl text-4xl leading-[1.02] sm:text-5xl lg:text-6xl"
                 style={{ fontWeight: 300 }}
               >
-                Quantitative epilepsy risk assessment from 
+                Quantitative epilepsy risk assessment from
               </h1>
 
-               <h1
+              <h1
                 className="-mt-2 max-w-4xl text-4xl leading-[1.02] sm:text-5xl lg:text-6xl"
-                style={{ fontWeight: 300, color: "#9986bf", fontStyle: "italic" }}
+                style={{
+                  fontWeight: 300,
+                  color: B.purple,
+                  fontStyle: "italic",
+                }}
               >
                 any scalp EEG
               </h1>
-
 
               <p
                 className="mt-7 max-w-2xl text-lg leading-8 sm:text-xl"
@@ -398,7 +477,10 @@ export default function EpiScalpPage() {
                       className="mt-0.5 h-4 w-4 shrink-0"
                       style={{ color: B.purpleDark }}
                     />
-                    <span className="text-sm leading-6" style={{ color: B.muted }}>
+                    <span
+                      className="text-sm leading-6"
+                      style={{ color: B.muted }}
+                    >
                       {item}
                     </span>
                   </div>
@@ -410,16 +492,18 @@ export default function EpiScalpPage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="how-it-works" className="px-6 py-14 sm:py-18 scroll-mt-24">
+      <section id="how-it-works" className="scroll-mt-24 px-6 py-14 sm:py-18">
         <div className="mx-auto max-w-6xl">
           <div className="mb-10 max-w-2xl">
             <SectionLabel>How It Works</SectionLabel>
+
             <h2
               className="mt-4 text-4xl leading-tight sm:text-5xl"
               style={{ fontWeight: 300 }}
             >
               Three steps from EEG to risk assessment
             </h2>
+
             <p
               className="mt-5 text-lg leading-8"
               style={{ color: B.muted, fontWeight: 300 }}
@@ -437,35 +521,30 @@ export default function EpiScalpPage() {
               return (
                 <div
                   key={step.number}
-                  className={`grid gap-8 lg:grid-cols-2 lg:gap-14 lg:items-center ${
+                  className={`grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-14 ${
                     !isEven ? "lg:[direction:rtl]" : ""
                   }`}
                 >
                   <div
-                    className="rounded-[2rem] overflow-hidden border shadow-sm"
+                    className="overflow-hidden rounded-[2rem] border shadow-sm"
                     style={{
                       borderColor: B.line,
                       direction: "ltr",
                     }}
                   >
-                    <div className="relative aspect-[16/10]">
+                    <div className="aspect-[16/10]">
                       <img
                         src={step.image}
                         alt={step.title}
-                        className="absolute inset-0 h-full w-full object-cover"
+                        className="h-full w-full object-cover"
                         loading="lazy"
                       />
-                      <div className="absolute left-5 bottom-5 right-5">
-                        <div className="text-white font-medium text-lg leading-snug">
-                          {step.title}
-                        </div>
-                      </div>
                     </div>
                   </div>
 
                   <div style={{ direction: "ltr" }}>
                     <div
-                      className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-mono mb-5"
+                      className="mb-5 inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-xs"
                       style={{
                         borderColor: isEven ? B.purpleBorder : B.orangeBorder,
                         color: isEven ? B.purpleDark : B.orangeDark,
@@ -537,11 +616,11 @@ export default function EpiScalpPage() {
                 <p>
                   Following the successful completion of a retrospective
                   clinical study, we are now approximately 75% complete with a
-                  multi-center prospective study being conducted at three
-                  leading epilepsy centers. These studies are designed to
-                  further validate EpiScalp’s ability to support earlier and
-                  more objective identification of epilepsy using routine scalp
-                  EEG data.
+                  multi-center prospective study being conducted at three leading
+                  epilepsy centers. These studies are designed to further
+                  validate EpiScalp’s ability to support earlier and more
+                  objective identification of epilepsy using routine scalp EEG
+                  data.
                 </p>
 
                 <p>
@@ -608,28 +687,29 @@ export default function EpiScalpPage() {
                       stage.status === "complete"
                         ? B.greenBorder
                         : stage.status === "in-progress"
-                        ? B.orangeBorder
-                        : B.line,
+                          ? B.orangeBorder
+                          : B.line,
                     backgroundColor:
                       stage.status === "complete"
                         ? B.greenSoft
                         : stage.status === "in-progress"
-                        ? B.orangeSoft
-                        : "rgba(255,255,255,0.55)",
+                          ? B.orangeSoft
+                          : "rgba(255,255,255,0.55)",
                   }}
                 >
-                  <div className="flex flex-wrap items-center gap-3 mb-2">
+                  <div className="mb-2 flex flex-wrap items-center gap-3">
                     <div
-                      className="h-2.5 w-2.5 rounded-full shrink-0"
+                      className="h-2.5 w-2.5 shrink-0 rounded-full"
                       style={{
                         backgroundColor:
                           stage.status === "complete"
                             ? B.green
                             : stage.status === "in-progress"
-                            ? B.orange
-                            : B.line,
+                              ? B.orange
+                              : B.line,
                       }}
                     />
+
                     <span
                       className="text-sm font-semibold"
                       style={{
@@ -637,16 +717,17 @@ export default function EpiScalpPage() {
                           stage.status === "complete"
                             ? B.ink
                             : stage.status === "in-progress"
-                            ? B.orangeDark
-                            : B.muted,
+                              ? B.orangeDark
+                              : B.muted,
                       }}
                     >
                       {stage.label}
                     </span>
+
                     <StatusPill status={stage.status} />
                   </div>
 
-                  <p className="text-sm leading-6 pl-5" style={{ color: B.muted }}>
+                  <p className="pl-5 text-sm leading-6" style={{ color: B.muted }}>
                     {stage.text}
                   </p>
                 </div>
@@ -662,6 +743,7 @@ export default function EpiScalpPage() {
           <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <SectionLabel color={B.purpleDark}>Research Partners</SectionLabel>
+
               <h2
                 className="mt-4 text-4xl leading-tight sm:text-5xl"
                 style={{ fontWeight: 300 }}
@@ -678,7 +760,7 @@ export default function EpiScalpPage() {
 
             <a
               href={mailtoTrial}
-              className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-transform duration-200 hover:-translate-y-0.5 shrink-0"
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-transform duration-200 hover:-translate-y-0.5"
               style={{
                 backgroundColor: B.purpleSoft,
                 color: B.purpleDark,
@@ -695,49 +777,32 @@ export default function EpiScalpPage() {
             style={{ color: B.muted, fontWeight: 300 }}
           >
             EpiScalp prospective validation work includes leading epilepsy
-            research partners, including Jefferson and UMD. These collaborations
-            help evaluate clinical workflows, real-world utility, and broader
-            deployment following regulatory clearance.
+            research partners, including Jefferson, University of Maryland, and
+            Johns Hopkins Hospital. These collaborations help evaluate clinical
+            workflows, real-world utility, and broader deployment following
+            regulatory clearance.
           </p>
 
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {institutions.map((inst, i) => {
-              const Icon = inst.icon;
-              const isOrange = i === 1;
+              const isOrange = i % 2 === 1;
 
               return (
                 <div
                   key={inst.name}
-                  className="rounded-[2rem] border p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="flex h-full flex-col rounded-[2rem] border p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                   style={{
                     borderColor: isOrange ? B.orangeBorder : B.purpleBorder,
                     backgroundColor: B.card,
                   }}
                 >
-                  <div
-                    className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl"
-                    style={{
-                      background: isOrange ? B.orangeSoft : B.purpleSoft,
-                    }}
-                  >
-                    <Icon
-                      className="h-7 w-7"
-                      style={{
-                        color: isOrange ? B.orangeDark : B.purpleDark,
-                      }}
-                    />
-                  </div>
-
-                  <div
-                    className="mb-4 flex items-center justify-center rounded-xl border py-4 text-xs font-semibold uppercase tracking-wider"
-                    style={{
-                      borderColor: B.line,
-                      color: B.muted,
-                      backgroundColor: "rgba(0,0,0,0.02)",
-                    }}
-                  >
-                    [Institution Logo]
-                  </div>
+                  <InstitutionLogo
+                    logo={inst.logo}
+                    name={inst.name}
+                    isOrange={isOrange}
+                    logoScale={inst.logoScale}
+                    fallbackIcon={inst.fallbackIcon}
+                  />
 
                   <h3 className="text-xl leading-snug" style={{ fontWeight: 400 }}>
                     {inst.name}
@@ -753,7 +818,10 @@ export default function EpiScalpPage() {
                     {inst.department}
                   </p>
 
-                  <p className="mt-4 text-sm leading-6" style={{ color: B.muted }}>
+                  <p
+                    className="mt-4 text-sm leading-6"
+                    style={{ color: B.muted }}
+                  >
                     {inst.role}
                   </p>
                 </div>
@@ -778,6 +846,7 @@ export default function EpiScalpPage() {
                   Is your center interested in participating in research or a
                   clinical trial with EpiScalp?
                 </p>
+
                 <p className="mt-2 text-sm leading-6" style={{ color: B.muted }}>
                   We welcome inquiries from epilepsy centers, neurology
                   departments, and clinical researchers.
@@ -786,7 +855,7 @@ export default function EpiScalpPage() {
 
               <a
                 href={mailtoTrial}
-                className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm text-white shrink-0 transition-transform duration-200 hover:-translate-y-0.5"
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm text-white transition-transform duration-200 hover:-translate-y-0.5"
                 style={{ backgroundColor: B.orangeDark }}
               >
                 <Mail className="h-4 w-4" />
@@ -800,7 +869,7 @@ export default function EpiScalpPage() {
       {/* PUBLICATIONS */}
       <section
         id="publications"
-        className="px-6 py-14 sm:py-18 scroll-mt-24"
+        className="scroll-mt-24 px-6 py-14 sm:py-18"
         style={{
           background:
             "linear-gradient(180deg, rgba(153,134,191,0.06) 0%, rgba(255,255,255,0) 100%)",
@@ -810,6 +879,7 @@ export default function EpiScalpPage() {
           <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <SectionLabel>Research</SectionLabel>
+
               <h2
                 className="mt-4 text-4xl leading-tight sm:text-5xl"
                 style={{ fontWeight: 300 }}
@@ -829,7 +899,7 @@ export default function EpiScalpPage() {
 
             <Link
               to="/publications"
-              className="inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm shrink-0 transition-colors hover:bg-black/5"
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm transition-colors hover:bg-black/5"
               style={{ borderColor: B.purpleBorder, color: B.purpleDark }}
             >
               <BookOpen className="h-4 w-4" />
@@ -870,7 +940,7 @@ export default function EpiScalpPage() {
                 href={pub.href}
                 target="_blank"
                 rel="noreferrer"
-                className="group flex flex-col gap-4 rounded-2xl border p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:flex-row sm:items-start sm:gap-5 sm:p-6"
+                className="group flex flex-col gap-4 rounded-2xl border p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:p-6"
                 style={{
                   borderColor: pub.episcalp ? B.purpleBorder : B.line,
                   backgroundColor: pub.episcalp
@@ -878,20 +948,8 @@ export default function EpiScalpPage() {
                     : B.card,
                 }}
               >
-                <div
-                  className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-xl shrink-0"
-                  style={{
-                    background: pub.episcalp ? B.purpleSoft : "rgba(0,0,0,0.04)",
-                  }}
-                >
-                  <Waves
-                    className="h-5 w-5"
-                    style={{ color: pub.episcalp ? B.purpleDark : B.muted }}
-                  />
-                </div>
-
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                <div className="min-w-0 flex-1">
+                  <div className="mb-2 flex flex-wrap items-center gap-2">
                     {pub.episcalp && (
                       <span
                         className="rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-[0.16em]"
@@ -924,7 +982,7 @@ export default function EpiScalpPage() {
                 </div>
 
                 <ExternalLink
-                  className="h-4 w-4 shrink-0 mt-1 opacity-40 group-hover:opacity-100 transition-opacity"
+                  className="h-4 w-4 shrink-0 opacity-40 transition-opacity group-hover:opacity-100"
                   style={{ color: B.purpleDark }}
                 />
               </a>
@@ -943,9 +1001,9 @@ export default function EpiScalpPage() {
               EpiScalp has completed a retrospective clinical study and is
               approximately 75% complete with a multi-center prospective study
               involving over 1,000 patients across three premier Level 4 Epilepsy
-              Centers. These studies are designed to further validate
-              EpiScalp’s ability to support earlier and more objective
-              identification of epilepsy using routine scalp EEG data.{" "}
+              Centers. These studies are designed to further validate EpiScalp’s
+              ability to support earlier and more objective identification of
+              epilepsy using routine scalp EEG data.{" "}
               <Link
                 to="/clinical-evidence"
                 className="underline underline-offset-4"
@@ -1053,14 +1111,12 @@ export default function EpiScalpPage() {
                 {CONTACT_NAME}
               </h3>
 
-              <p className="mt-1 text-sm text-white/65">
-                CEO
-              </p>
+              <p className="mt-1 text-sm text-white/65">CEO</p>
 
               <div className="mt-6 space-y-4 text-white/85">
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="flex items-center gap-3 hover:text-white text-sm break-all"
+                  className="flex items-center gap-3 break-all text-sm hover:text-white"
                 >
                   <Mail className="h-4 w-4 shrink-0" />
                   {CONTACT_EMAIL}
@@ -1068,10 +1124,10 @@ export default function EpiScalpPage() {
               </div>
 
               <div
-                className="mt-6 pt-5 border-t"
+                className="mt-6 border-t pt-5"
                 style={{ borderColor: "rgba(255,255,255,0.12)" }}
               >
-                <div className="text-xs uppercase tracking-[0.18em] text-white/55 mb-3">
+                <div className="mb-3 text-xs uppercase tracking-[0.18em] text-white/55">
                   More
                 </div>
 

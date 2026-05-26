@@ -1,4 +1,4 @@
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export default function Hero() {
@@ -36,7 +36,6 @@ export default function Hero() {
 
         <video
           className="absolute inset-0 h-full w-full object-cover opacity-30"
-          poster="/images/montage-poster.jpg"
           autoPlay
           loop
           muted
@@ -44,7 +43,6 @@ export default function Hero() {
           preload="auto"
           aria-hidden
         >
-          <source src="/Neurologic.mp4" type="video/mp4" />
           <source src="/Neurologic.mp4" type="video/mp4" />
         </video>
 
@@ -54,18 +52,22 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-20 w-full">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 xl:px-12">
-          <div className="flex min-h-screen items-center py-16 sm:py-20 lg:py-24">
-            <div className="w-full max-w-4xl">
-              <h1 className="mb-6 text-[2.25rem] leading-[1.08] tracking-tight text-white sm:text-5xl sm:leading-tight md:text-6xl lg:text-7xl lg:leading-[1.05]">
+          <div className="flex min-h-[calc(100vh-8rem)] items-center py-16 sm:py-20 lg:py-24">
+            <div className="w-full max-w-5xl overflow-visible">
+              <h1 className="mb-6 overflow-visible text-[2.25rem] leading-[1.14] tracking-tight text-white sm:text-5xl sm:leading-[1.12] md:text-6xl lg:text-7xl lg:leading-[1.12]">
                 <span className="block font-extralight">
-                  Empowering Providers, Transforming Lives:
+                  Empowering Providers,
                 </span>
 
-                <span className="mt-2 block bg-gradient-to-r from-[#d4b5ff] to-[#ffa94d] bg-clip-text font-black text-transparent">
+                <span className="block font-extralight">
+                  Transforming Lives:
+                </span>
+
+                <span className="mt-3 block overflow-visible bg-gradient-to-r from-[#d4b5ff] to-[#ffa94d] bg-clip-text pb-2 font-black leading-[1.12] text-transparent">
                   EEG Analytics for
                 </span>
 
-                <span className="mt-2 block bg-gradient-to-r from-[#d4b5ff] to-[#ffa94d] bg-clip-text font-black text-transparent">
+                <span className="block overflow-visible bg-gradient-to-r from-[#d4b5ff] to-[#ffa94d] bg-clip-text pb-2 font-black leading-[1.12] text-transparent">
                   Diagnostic Excellence
                 </span>
               </h1>
@@ -81,13 +83,11 @@ export default function Hero() {
                 quantitative biomarkers that turn brain data into better
                 clinical outcomes across neurological disorders.
               </p>
-
-              
             </div>
           </div>
         </div>
 
-        {/* Mobile premium floating scroll cue */}
+        {/* Mobile floating scroll cue */}
         <div
           className={`pointer-events-none absolute inset-x-0 bottom-8 z-30 flex justify-center px-4 transition-all duration-500 lg:hidden ${
             showScrollCue

@@ -18,9 +18,8 @@ import {
 import { Link } from "react-router-dom";
 
 // ─── Contact ──────────────────────────────────────────────────────────────────
-// Replace with Andy's exact email if different.
-const CONTACT_NAME = "Andy";
-const CONTACT_EMAIL = "andy@neurologicsolutions.com";
+const CONTACT_NAME = "Andrew Gotshalk";
+const CONTACT_EMAIL = "agotshalk@neurologicsolutions.net";
 
 // ─── Brand tokens ─────────────────────────────────────────────────────────────
 const B = {
@@ -52,8 +51,7 @@ const steps = [
       "Upload any intracranial EEG recording: SEEG or ECoG. EZTrack allows you to upload additional electrode annotations to exclude channels with non-neural signals from the analysis.",
     detail:
       "Designed for intracranial EEG workflows, including stereoelectroencephalography and electrocorticography recordings used in epilepsy surgery evaluation.",
-    image:
-      "/ezstep1.png",
+    image: "/ezstep1.png",
   },
   {
     number: "2",
@@ -62,8 +60,7 @@ const steps = [
       "EZTrack preprocesses the data and computes the Fragility Index, a validated neural biomarker for localizing the epileptogenic zone. Regions of high fragility, or instability within the epileptic network, have been shown to correspond to the epileptogenic zone and predict surgical outcome.",
     detail:
       "Fragility analysis helps reduce the burden of manual review by highlighting network instability patterns that may be clinically meaningful for surgical planning.",
-    image:
-      "/ezstep2.png",
+    image: "/ezstep2.png",
   },
   {
     number: "3",
@@ -72,29 +69,34 @@ const steps = [
       "EZTrack generates an interpretable spatiotemporal heatmap of the Fragility Index across all electrodes, immediately highlighting regions of high fragility to support neurosurgical planning in patients with drug-resistant epilepsy.",
     detail:
       "The output is designed for clinical review and multidisciplinary discussion, helping teams identify regions that may inform surgical decision-making.",
-    image:
-      "/ezstep3.png",
+    image: "/ezstep3.png",
   },
 ];
 
 const institutions = [
   {
-    name: "Johns Hopkins University",
-    department: "Department of Biomedical Engineering & Neurology",
-    role: "Algorithm development and clinical research foundation",
-    icon: Building2,
-  },
-  {
-    name: "Cleveland Clinic",
+    name: "Thomas Jefferson University",
     department: "Epilepsy Center",
-    role: "Clinical validation and surgical case evaluation",
-    icon: Microscope,
+    role: "Prospective validation and clinical research collaboration",
+    logo: "jefferson.png",
+    logoScale: 2.2,
+    fallbackIcon: Building2,
   },
   {
-    name: "University of Pittsburgh Medical Center",
-    department: "Department of Neurological Surgery",
-    role: "Clinical research collaboration and workflow evaluation",
-    icon: FlaskConical,
+    name: "University of Maryland",
+    department: "Epilepsy Center",
+    role: "Prospective data collection and clinical workflow evaluation",
+    logo: "umm.png",
+    logoScale: 1,
+    fallbackIcon: Microscope,
+  },
+  {
+    name: "Johns Hopkins Hospital",
+    department: "Epilepsy Center",
+    role: "Prospective clinical research collaboration and validation support",
+    logo: "jhu.png",
+    logoScale: 1.65,
+    fallbackIcon: Building2,
   },
 ];
 
@@ -134,7 +136,7 @@ const faqs = [
   },
   {
     q: "How long does it take to generate results?",
-    a: "EZTrack takes minutes to run with exact duration depending on recording length and operating system configurations. ",
+    a: "EZTrack takes minutes to run with exact duration depending on recording length and operating system configurations.",
   },
   {
     q: "Has EZTrack been validated in clinical settings?",
@@ -146,7 +148,7 @@ const faqs = [
   },
   {
     q: "Can I participate in a clinical trial?",
-    a: " At this point we don’t have any clinical trials going on. However, we are always interested in collaborating with other researchers. Please contact us to discuss further. ",
+    a: "At this point we don’t have any clinical trials going on. However, we are always interested in collaborating with other researchers. Please contact us to discuss further.",
   },
   {
     q: "What does the output look like?",
@@ -178,7 +180,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
   return (
     <div
-      className="rounded-2xl border overflow-hidden transition-all duration-300"
+      className="overflow-hidden rounded-2xl border transition-all duration-300"
       style={{
         borderColor: open ? B.purpleBorder : B.line,
         backgroundColor: open ? "rgba(153,134,191,0.04)" : B.card,
@@ -186,7 +188,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
     >
       <button
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center justify-between gap-4 p-5 text-left"
+        className="flex w-full items-center justify-between gap-4 p-5 text-left"
       >
         <span
           className="text-base leading-6"
@@ -201,7 +203,10 @@ function FAQItem({ q, a }: { q: string; a: string }) {
             style={{ color: B.purpleDark }}
           />
         ) : (
-          <ChevronDown className="h-4 w-4 shrink-0" style={{ color: B.muted }} />
+          <ChevronDown
+            className="h-4 w-4 shrink-0"
+            style={{ color: B.muted }}
+          />
         )}
       </button>
 
@@ -252,6 +257,70 @@ function StatusPill({
   );
 }
 
+function InstitutionLogo({
+  logo,
+  name,
+  isOrange,
+  logoScale = 1,
+  fallbackIcon: FallbackIcon,
+}: {
+  logo: string;
+  name: string;
+  isOrange: boolean;
+  logoScale?: number;
+  fallbackIcon: typeof Building2;
+}) {
+  const [logoError, setLogoError] = useState(false);
+
+  return (
+    <div
+      className="mb-5 flex h-20 w-full items-center justify-center overflow-hidden rounded-2xl border bg-white px-5 py-4"
+      style={{
+        borderColor: B.line,
+      }}
+    >
+      {!logoError ? (
+        <div className="flex h-12 w-[220px] items-center justify-center overflow-hidden">
+          <img
+            src={logo}
+            alt={`${name} logo`}
+            className="max-h-12 max-w-[220px] object-contain"
+            loading="lazy"
+            onError={() => setLogoError(true)}
+            style={{
+              transform: `scale(${logoScale})`,
+              transformOrigin: "center",
+            }}
+          />
+        </div>
+      ) : (
+        <div className="flex items-center gap-3">
+          <div
+            className="flex h-12 w-12 items-center justify-center rounded-xl"
+            style={{
+              backgroundColor: isOrange ? B.orangeSoft : B.purpleSoft,
+            }}
+          >
+            <FallbackIcon
+              className="h-6 w-6"
+              style={{
+                color: isOrange ? B.orangeDark : B.purpleDark,
+              }}
+            />
+          </div>
+
+          <span
+            className="text-sm font-semibold leading-5"
+            style={{ color: B.ink }}
+          >
+            {name}
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}
+
 // ─── Main Page ────────────────────────────────────────────────────────────────
 
 export default function EZTrackPage() {
@@ -261,7 +330,10 @@ export default function EZTrackPage() {
 
   useEffect(() => {
     const handleScroll = () => setScrollY(window.scrollY);
+
     window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -284,12 +356,13 @@ export default function EZTrackPage() {
       }}
     >
       {/* HERO */}
-      <section className="relative overflow-hidden px-6 pt-10 pb-14 md:pt-14 md:pb-16">
-        <div className="absolute inset-0 z-0 pointer-events-none">
+      <section className="relative overflow-hidden px-6 pb-14 pt-10 md:pb-16 md:pt-14">
+        <div className="pointer-events-none absolute inset-0 z-0">
           <div
             className="absolute left-[-4rem] top-0 h-80 w-80 rounded-full blur-3xl"
             style={{ background: B.purpleSoft }}
           />
+
           <div
             className="absolute right-[-4rem] top-1/4 h-96 w-96 rounded-full blur-3xl"
             style={{
@@ -317,11 +390,16 @@ export default function EZTrackPage() {
                 className="mt-6 max-w-4xl text-4xl leading-[1.02] sm:text-5xl lg:text-6xl"
                 style={{ fontWeight: 300 }}
               >
-                Epileptogenic localization through an 
+                Epileptogenic localization through an
               </h1>
+
               <h1
                 className="-mt-2 max-w-4xl text-4xl leading-[1.02] sm:text-5xl lg:text-6xl"
-                style={{ fontWeight: 300, color: "#9986bf", fontStyle: "italic" }}
+                style={{
+                  fontWeight: 300,
+                  color: B.purple,
+                  fontStyle: "italic",
+                }}
               >
                 interpretable biomarker
               </h1>
@@ -394,7 +472,10 @@ export default function EZTrackPage() {
                       className="mt-0.5 h-4 w-4 shrink-0"
                       style={{ color: B.purpleDark }}
                     />
-                    <span className="text-sm leading-6" style={{ color: B.muted }}>
+                    <span
+                      className="text-sm leading-6"
+                      style={{ color: B.muted }}
+                    >
                       {item}
                     </span>
                   </div>
@@ -406,7 +487,7 @@ export default function EZTrackPage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section id="how-it-works" className="px-6 py-14 sm:py-18 scroll-mt-24">
+      <section id="how-it-works" className="scroll-mt-24 px-6 py-14 sm:py-18">
         <div className="mx-auto max-w-6xl">
           <div className="mb-10 max-w-2xl">
             <SectionLabel>How It Works</SectionLabel>
@@ -434,12 +515,12 @@ export default function EZTrackPage() {
               return (
                 <div
                   key={step.number}
-                  className={`grid gap-8 lg:grid-cols-2 lg:gap-14 lg:items-center ${
+                  className={`grid gap-8 lg:grid-cols-2 lg:items-center lg:gap-14 ${
                     !isEven ? "lg:[direction:rtl]" : ""
                   }`}
                 >
                   <div
-                    className="rounded-[2rem] overflow-hidden border shadow-sm"
+                    className="overflow-hidden rounded-[2rem] border shadow-sm"
                     style={{
                       borderColor: B.line,
                       direction: "ltr",
@@ -452,17 +533,12 @@ export default function EZTrackPage() {
                         className="absolute inset-0 h-full w-full object-cover"
                         loading="lazy"
                       />
-                      <div className="absolute left-5 bottom-5 right-5">
-                        <div className="text-white font-medium text-lg leading-snug">
-                          {step.title}
-                        </div>
-                      </div>
                     </div>
                   </div>
 
                   <div style={{ direction: "ltr" }}>
                     <div
-                      className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-mono mb-5"
+                      className="mb-5 inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-xs"
                       style={{
                         borderColor: isEven ? B.purpleBorder : B.orangeBorder,
                         color: isEven ? B.purpleDark : B.orangeDark,
@@ -549,10 +625,10 @@ export default function EZTrackPage() {
                   With development and regulatory milestones achieved, current
                   efforts are focused on commercial readiness, including
                   engagement with prospective beta customers, workflow
-                  integration planning, and preparation for broader market launch.
-                  These early partnerships will help support initial deployment,
-                  gather user feedback, and accelerate adoption within leading
-                  epilepsy centers.
+                  integration planning, and preparation for broader market
+                  launch. These early partnerships will help support initial
+                  deployment, gather user feedback, and accelerate adoption
+                  within leading epilepsy centers.
                 </p>
               </div>
 
@@ -599,14 +675,12 @@ export default function EZTrackPage() {
                         ? B.greenBorder
                         : B.orangeBorder,
                     backgroundColor:
-                      stage.status === "complete"
-                        ? B.greenSoft
-                        : B.orangeSoft,
+                      stage.status === "complete" ? B.greenSoft : B.orangeSoft,
                   }}
                 >
-                  <div className="flex flex-wrap items-center gap-3 mb-2">
+                  <div className="mb-2 flex flex-wrap items-center gap-3">
                     <div
-                      className="h-2.5 w-2.5 rounded-full shrink-0"
+                      className="h-2.5 w-2.5 shrink-0 rounded-full"
                       style={{
                         backgroundColor:
                           stage.status === "complete" ? B.green : B.orange,
@@ -617,9 +691,7 @@ export default function EZTrackPage() {
                       className="text-sm font-semibold"
                       style={{
                         color:
-                          stage.status === "complete"
-                            ? B.ink
-                            : B.orangeDark,
+                          stage.status === "complete" ? B.ink : B.orangeDark,
                       }}
                     >
                       {stage.label}
@@ -628,7 +700,7 @@ export default function EZTrackPage() {
                     <StatusPill status={stage.status} />
                   </div>
 
-                  <p className="text-sm leading-6 pl-5" style={{ color: B.muted }}>
+                  <p className="pl-5 text-sm leading-6" style={{ color: B.muted }}>
                     {stage.text}
                   </p>
                 </div>
@@ -661,7 +733,7 @@ export default function EZTrackPage() {
 
             <a
               href={mailtoBeta}
-              className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-transform duration-200 hover:-translate-y-0.5 shrink-0"
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-transform duration-200 hover:-translate-y-0.5"
               style={{
                 backgroundColor: B.purpleSoft,
                 color: B.purpleDark,
@@ -685,8 +757,7 @@ export default function EZTrackPage() {
 
           <div className="grid gap-5 sm:grid-cols-3">
             {institutions.map((inst, i) => {
-              const Icon = inst.icon;
-              const isOrange = i === 1;
+              const isOrange = i % 2 === 1;
 
               return (
                 <div
@@ -697,30 +768,13 @@ export default function EZTrackPage() {
                     backgroundColor: B.card,
                   }}
                 >
-                  <div
-                    className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl"
-                    style={{
-                      background: isOrange ? B.orangeSoft : B.purpleSoft,
-                    }}
-                  >
-                    <Icon
-                      className="h-7 w-7"
-                      style={{
-                        color: isOrange ? B.orangeDark : B.purpleDark,
-                      }}
-                    />
-                  </div>
-
-                  <div
-                    className="mb-4 flex items-center justify-center rounded-xl border py-4 text-xs font-semibold uppercase tracking-wider"
-                    style={{
-                      borderColor: B.line,
-                      color: B.muted,
-                      backgroundColor: "rgba(0,0,0,0.02)",
-                    }}
-                  >
-                    [Institution Logo]
-                  </div>
+                  <InstitutionLogo
+                    logo={inst.logo}
+                    name={inst.name}
+                    isOrange={isOrange}
+                    logoScale={inst.logoScale}
+                    fallbackIcon={inst.fallbackIcon}
+                  />
 
                   <h3 className="text-xl leading-snug" style={{ fontWeight: 400 }}>
                     {inst.name}
@@ -770,7 +824,7 @@ export default function EZTrackPage() {
 
               <a
                 href={mailtoBeta}
-                className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm text-white shrink-0 transition-transform duration-200 hover:-translate-y-0.5"
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm text-white transition-transform duration-200 hover:-translate-y-0.5"
                 style={{ backgroundColor: B.orangeDark }}
               >
                 <Mail className="h-4 w-4" />
@@ -784,7 +838,7 @@ export default function EZTrackPage() {
       {/* PUBLICATIONS */}
       <section
         id="publications"
-        className="px-6 py-14 sm:py-18 scroll-mt-24"
+        className="scroll-mt-24 px-6 py-14 sm:py-18"
         style={{
           background:
             "linear-gradient(180deg, rgba(153,134,191,0.06) 0%, rgba(255,255,255,0) 100%)",
@@ -813,7 +867,7 @@ export default function EZTrackPage() {
 
             <Link
               to="/publications"
-              className="inline-flex items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm shrink-0 transition-colors hover:bg-black/5"
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border px-5 py-3 text-sm transition-colors hover:bg-black/5"
               style={{ borderColor: B.purpleBorder, color: B.purpleDark }}
             >
               <BookOpen className="h-4 w-4" />
@@ -863,9 +917,11 @@ export default function EZTrackPage() {
                 }}
               >
                 <div
-                  className="mt-0.5 flex h-10 w-10 items-center justify-center rounded-xl shrink-0"
+                  className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
                   style={{
-                    background: pub.eztrack ? B.purpleSoft : "rgba(0,0,0,0.04)",
+                    background: pub.eztrack
+                      ? B.purpleSoft
+                      : "rgba(0,0,0,0.04)",
                   }}
                 >
                   <Waves
@@ -874,8 +930,8 @@ export default function EZTrackPage() {
                   />
                 </div>
 
-                <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                <div className="min-w-0 flex-1">
+                  <div className="mb-2 flex flex-wrap items-center gap-2">
                     {pub.eztrack && (
                       <span
                         className="rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-[0.16em]"
@@ -908,7 +964,7 @@ export default function EZTrackPage() {
                 </div>
 
                 <ExternalLink
-                  className="h-4 w-4 shrink-0 mt-1 opacity-40 group-hover:opacity-100 transition-opacity"
+                  className="mt-1 h-4 w-4 shrink-0 opacity-40 transition-opacity group-hover:opacity-100"
                   style={{ color: B.purpleDark }}
                 />
               </a>
@@ -1034,14 +1090,12 @@ export default function EZTrackPage() {
                 {CONTACT_NAME}
               </h3>
 
-              <p className="mt-1 text-sm text-white/65">
-                Partnerships &amp; Product Inquiries
-              </p>
+              <p className="mt-1 text-sm text-white/65">CEO</p>
 
               <div className="mt-6 space-y-4 text-white/85">
                 <a
                   href={`mailto:${CONTACT_EMAIL}`}
-                  className="flex items-center gap-3 hover:text-white text-sm break-all"
+                  className="flex items-center gap-3 break-all text-sm hover:text-white"
                 >
                   <Mail className="h-4 w-4 shrink-0" />
                   {CONTACT_EMAIL}
@@ -1049,10 +1103,10 @@ export default function EZTrackPage() {
               </div>
 
               <div
-                className="mt-6 pt-5 border-t"
+                className="mt-6 border-t pt-5"
                 style={{ borderColor: "rgba(255,255,255,0.12)" }}
               >
-                <div className="text-xs uppercase tracking-[0.18em] text-white/55 mb-3">
+                <div className="mb-3 text-xs uppercase tracking-[0.18em] text-white/55">
                   More
                 </div>
 
