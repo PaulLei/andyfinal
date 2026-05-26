@@ -53,7 +53,7 @@ const steps = [
     detail:
       "Designed for intracranial EEG workflows, including stereoelectroencephalography and electrocorticography recordings used in epilepsy surgery evaluation.",
     image:
-      "eztstep1.png",
+      "/ezstep1.png",
   },
   {
     number: "2",
@@ -63,7 +63,7 @@ const steps = [
     detail:
       "Fragility analysis helps reduce the burden of manual review by highlighting network instability patterns that may be clinically meaningful for surgical planning.",
     image:
-      "eztstep2.png",
+      "/ezstep2.png",
   },
   {
     number: "3",
@@ -73,7 +73,7 @@ const steps = [
     detail:
       "The output is designed for clinical review and multidisciplinary discussion, helping teams identify regions that may inform surgical decision-making.",
     image:
-      "eztstep3.png",
+      "/ezstep3.png",
   },
 ];
 
@@ -452,28 +452,6 @@ export default function EZTrackPage() {
                         className="absolute inset-0 h-full w-full object-cover"
                         loading="lazy"
                       />
-
-                      <div
-                        className="absolute inset-0"
-                        style={{ background: "rgba(47,39,56,0.18)" }}
-                      />
-                      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/50 to-transparent" />
-
-                      <div
-                        className="absolute left-5 top-5 rounded-full border px-3 py-1 backdrop-blur"
-                        style={{
-                          borderColor: "rgba(255,255,255,0.3)",
-                          backgroundColor: "rgba(255,255,255,0.85)",
-                        }}
-                      >
-                        <span
-                          className="font-mono text-xs"
-                          style={{ color: B.purpleDark }}
-                        >
-                          Step {step.number}
-                        </span>
-                      </div>
-
                       <div className="absolute left-5 bottom-5 right-5">
                         <div className="text-white font-medium text-lg leading-snug">
                           {step.title}
