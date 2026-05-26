@@ -455,27 +455,6 @@ export default function EpiScalpPage() {
                         className="absolute inset-0 h-full w-full object-cover"
                         loading="lazy"
                       />
-                      <div
-                        className="absolute inset-0"
-                        style={{ background: "rgba(47,39,56,0.18)" }}
-                      />
-                      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/50 to-transparent" />
-
-                      <div
-                        className="absolute left-5 top-5 rounded-full border px-3 py-1 backdrop-blur"
-                        style={{
-                          borderColor: "rgba(255,255,255,0.3)",
-                          backgroundColor: "rgba(255,255,255,0.85)",
-                        }}
-                      >
-                        <span
-                          className="font-mono text-xs"
-                          style={{ color: B.purpleDark }}
-                        >
-                          Step {step.number}
-                        </span>
-                      </div>
-
                       <div className="absolute left-5 bottom-5 right-5">
                         <div className="text-white font-medium text-lg leading-snug">
                           {step.title}
