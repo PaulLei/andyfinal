@@ -1,5 +1,5 @@
 import { publications } from '../data/publications';
-import { ExternalLink, BookOpen, Quote } from 'lucide-react';
+import { ExternalLink, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const B = {
@@ -18,13 +18,107 @@ const B = {
   card: '#ffffff',
 };
 
+type Publication = (typeof publications)[number];
+
 function getStats(pubs: typeof publications) {
   const total = pubs.length;
   const journals = new Set(pubs.map((p) => p.journal).filter(Boolean)).size;
   return { total, journals };
 }
 
-function getPublicationLabel(pub: (typeof publications)[number]) {
+function asText(value: unknown) {
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+function getLastNameFromAuthorName(authorName: string) {
+  const cleaned = authorName
+    .replace(/\s+/g, ' ')
+    .replace(/\.$/, '')
+    .trim();
+
+  if (!cleaned) return '';
+
+  if (cleaned.includes(',')) {
+    return cleaned.split(',')[0].trim();
+  }
+
+  const parts = cleaned.split(' ').filter(Boolean);
+
+  if (parts.length === 1) {
+    return parts[0];
+  }
+
+  const lastPart = parts[parts.length - 1];
+  const secondToLastPart = parts[parts.length - 2];
+
+  const lastPartLooksLikeInitial =
+    /^[A-Z]\.?$/i.test(lastPart) || /^[A-Z]{1,3}\.?$/i.test(lastPart);
+
+  if (lastPartLooksLikeInitial && secondToLastPart) {
+    return parts[0];
+  }
+
+  return lastPart;
+}
+
+function getAuthorLabel(pub: Publication) {
+  const record = pub as Record<string, unknown>;
+
+  const directLastName =
+    asText(record.firstAuthorLastName) ||
+    asText(record.first_author_last_name) ||
+    asText(record.authorLastName) ||
+    asText(record.author_last_name);
+
+  if (directLastName) {
+    return `${directLastName} et al.`;
+  }
+
+  const authors = record.authors;
+
+  if (Array.isArray(authors) && authors.length > 0) {
+    const firstAuthor = asText(authors[0]);
+    const lastName = getLastNameFromAuthorName(firstAuthor);
+
+    if (lastName) {
+      return `${lastName} et al.`;
+    }
+  }
+
+  const authorText =
+    asText(record.authors) ||
+    asText(record.author) ||
+    asText(record.authorText) ||
+    asText(record.author_text);
+
+  if (authorText) {
+    const firstAuthor = authorText
+      .split(';')[0]
+      .split(' and ')[0]
+      .split(' & ')[0]
+      .trim();
+
+    const lastName = getLastNameFromAuthorName(firstAuthor);
+
+    if (lastName) {
+      return `${lastName} et al.`;
+    }
+  }
+
+  return '';
+}
+
+function getCitation(pub: Publication) {
+
+  const record = pub as Record<string, unknown>;
+
+  return (
+    asText(record.citation) ||
+    [pub.journal, pub.year].filter(Boolean).join(' ')
+  );
+}
+
+function getPublicationLabel(pub: Publication) {
   const title = pub.title?.toLowerCase() || '';
   const journal = pub.journal?.toLowerCase() || '';
 
@@ -77,11 +171,11 @@ export default function Technology() {
 
   return (
     <section
-      className="py-16 px-6 sm:py-20"
+      className="py-12 px-6 sm:py-16"
       style={{ backgroundColor: B.bg, color: B.ink }}
     >
       <div className="max-w-6xl mx-auto">
-        <div className="mb-10 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="mb-8 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
           <div className="max-w-4xl">
             <div
               className="text-[11px] uppercase tracking-[0.22em] mb-4"
@@ -149,9 +243,11 @@ export default function Technology() {
           )}
         </div>
 
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="grid gap-3 md:grid-cols-2">
           {featuredPubs.map((pub, index) => {
             const publicationStyle = getPublicationLabel(pub);
+            const authorLabel = getAuthorLabel(pub);
+            const citation = getCitation(pub);
 
             return (
               <a
@@ -159,14 +255,14 @@ export default function Technology() {
                 href={pub.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col rounded-[1.5rem] border p-6 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:p-7"
+                className="group flex flex-col rounded-[1.25rem] border p-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:p-5"
                 style={{
                   borderColor: publicationStyle.border,
                   backgroundColor: publicationStyle.soft,
                   boxShadow: `inset 3px 0 0 ${publicationStyle.color}`,
                 }}
               >
-                <div className="flex flex-wrap items-center gap-2 mb-4">
+                <div className="mb-3 flex flex-wrap items-center gap-2">
                   <span
                     className="rounded-full border px-2.5 py-0.5 text-[10px] uppercase tracking-[0.16em]"
                     style={{
@@ -179,19 +275,6 @@ export default function Technology() {
                     {publicationStyle.label}
                   </span>
 
-                  {pub.journal && (
-                    <span
-                      className="flex items-center gap-1 text-xs"
-                      style={{
-                        color: publicationStyle.color,
-                        fontWeight: 500,
-                      }}
-                    >
-                      <BookOpen className="h-3 w-3" />
-                      {pub.journal}
-                    </span>
-                  )}
-
                   <span
                     className="ml-auto text-xs tabular-nums"
                     style={{ color: B.muted }}
@@ -200,21 +283,37 @@ export default function Technology() {
                   </span>
                 </div>
 
-                <div className="flex items-start gap-3 mb-5 flex-1">
-                  <Quote
-                    className="h-4 w-4 shrink-0 mt-0.5 opacity-40"
-                    style={{ color: publicationStyle.color }}
-                  />
-                  <p
-                    className="text-base leading-7"
-                    style={{ color: B.ink, fontWeight: 400 }}
+                {authorLabel && (
+                  <div
+                    className="mb-2 text-sm"
+                    style={{ color: publicationStyle.color, fontWeight: 600 }}
                   >
-                    {pub.title}
-                  </p>
-                </div>
+                    {authorLabel}
+                  </div>
+                )}
+
+                <p
+                  className="text-sm leading-6"
+                  style={{ color: B.ink, fontWeight: 400 }}
+                >
+                  {pub.title}
+                </p>
+
+                {citation && (
+                  <div
+                    className="mt-3 flex items-start gap-1.5 text-xs leading-5"
+                    style={{ color: B.muted }}
+                  >
+                    <BookOpen
+                      className="mt-0.5 h-3.5 w-3.5 shrink-0"
+                      style={{ color: publicationStyle.color }}
+                    />
+                    <span>{citation}</span>
+                  </div>
+                )}
 
                 <div
-                  className="mt-4 flex items-center gap-1.5 text-xs opacity-0 group-hover:opacity-100 transition-opacity"
+                  className="mt-4 flex items-center gap-1.5 text-xs opacity-0 transition-opacity group-hover:opacity-100"
                   style={{ color: publicationStyle.color }}
                 >
                   <ExternalLink className="h-3 w-3" />
@@ -225,7 +324,7 @@ export default function Technology() {
           })}
         </div>
 
-        <div className="mt-8 flex justify-center">
+        <div className="mt-7 flex justify-center">
           <Link
             to="/publications"
             className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"

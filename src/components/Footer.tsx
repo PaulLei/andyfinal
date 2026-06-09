@@ -133,9 +133,9 @@ export default function Footer() {
                 Email:{" "}
                 <a
                   className={linkClass}
-                  href="mailto:help@neurologicsolutions.net"
+                  href="mailto:info@neurologicsolutions.net"
                 >
-                  help@neurologicsolutions.net
+                  info@neurologicsolutions.net
                 </a>
               </li>
               <li className={bodyClass}>
