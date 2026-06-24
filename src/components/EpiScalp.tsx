@@ -94,7 +94,7 @@ const institutions = [
     department: "Epilepsy Center",
     role: "Prospective clinical research collaboration and validation support",
     logo: "jhu.png",
-    logoScale: 1.65,
+    logoScale: 1,
     fallbackIcon: Building2,
   },
 ];
@@ -287,17 +287,21 @@ function InstitutionLogo({
       }}
     >
       {!logoError ? (
-        <div className="flex h-12 w-[220px] items-center justify-center overflow-hidden">
+        <div className="flex h-12 w-full max-w-[220px] items-center justify-center overflow-hidden">
           <img
             src={logo}
             alt={`${name} logo`}
-            className="max-h-12 max-w-[220px] object-contain"
+            className="max-h-full max-w-full object-contain"
             loading="lazy"
             onError={() => setLogoError(true)}
-            style={{
-              transform: `scale(${logoScale})`,
-              transformOrigin: "center",
-            }}
+            style={
+              logoScale !== 1
+                ? {
+                    transform: `scale(${logoScale})`,
+                    transformOrigin: "center",
+                  }
+                : undefined
+            }
           />
         </div>
       ) : (
@@ -920,17 +924,7 @@ export default function EpiScalpPage() {
               EpiScalp relevant
             </button>
 
-            <button
-              onClick={() => setShowAllPubs(true)}
-              className="rounded-full px-4 py-2 text-sm transition-colors"
-              style={{
-                backgroundColor: showAllPubs ? B.purpleDark : "transparent",
-                color: showAllPubs ? "#fff" : B.muted,
-                border: `1px solid ${showAllPubs ? B.purpleDark : B.line}`,
-              }}
-            >
-              All research
-            </button>
+           
           </div>
 
           <div className="space-y-4">

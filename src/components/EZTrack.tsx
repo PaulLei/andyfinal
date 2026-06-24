@@ -11,7 +11,6 @@ import {
   CheckCircle2,
   Building2,
   Microscope,
-  Waves,
   Check,
   Clock3,
 } from "lucide-react";
@@ -75,11 +74,11 @@ const steps = [
 
 const institutions = [
   {
-    name: "Thomas Jefferson University",
+    name: "University of Miami Health System",
     department: "Epilepsy Center",
     role: "Prospective validation and clinical research collaboration",
-    logo: "jefferson.png",
-    logoScale: 2.2,
+    logo: "umiami.png",
+    logoScale: 1,
     fallbackIcon: Building2,
   },
   {
@@ -95,9 +94,25 @@ const institutions = [
     department: "Epilepsy Center",
     role: "Prospective clinical research collaboration and validation support",
     logo: "jhu.png",
-    logoScale: 1.65,
+    logoScale: 1,
     fallbackIcon: Building2,
   },
+  {
+    name: "National Institutes of Health (NIH)",
+    department: "Epilepsy Center",
+    role: "Prospective clinical research collaboration and validation support",
+    logo: "nih.png",
+    logoScale: 1,
+    fallbackIcon: Microscope,
+  },
+  {
+    name: "Cleveland Clinic",
+    department: "Epilepsy Center",
+    role: "Prospective clinical research collaboration and validation support",
+    logo: "cleveland.png",
+    logoScale: 1.5,
+    fallbackIcon: Microscope,
+  }
 ];
 
 const publications = [
@@ -280,17 +295,21 @@ function InstitutionLogo({
       }}
     >
       {!logoError ? (
-        <div className="flex h-12 w-[220px] items-center justify-center overflow-hidden">
+        <div className="flex h-16 w-full max-w-[240px] items-center justify-center overflow-hidden">
           <img
             src={logo}
             alt={`${name} logo`}
-            className="max-h-12 max-w-[220px] object-contain"
+            className="max-h-full max-w-full object-contain"
             loading="lazy"
             onError={() => setLogoError(true)}
-            style={{
-              transform: `scale(${logoScale})`,
-              transformOrigin: "center",
-            }}
+            style={
+              logoScale !== 1
+                ? {
+                    transform: `scale(${logoScale})`,
+                    transformOrigin: "center",
+                  }
+                : undefined
+            }
           />
         </div>
       ) : (
@@ -340,6 +359,9 @@ export default function EZTrackPage() {
   const visiblePubs = showAllPubs
     ? publications
     : publications.filter((p) => p.eztrack);
+
+  const topInstitutions = institutions.slice(0, 3);
+  const bottomInstitutions = institutions.slice(3);
 
   const mailtoGeneral = `mailto:${CONTACT_EMAIL}?subject=EZTrack%20Inquiry`;
   const mailtoCommercial = `mailto:${CONTACT_EMAIL}?subject=EZTrack%20Commercialization%20Inquiry`;
@@ -755,47 +777,92 @@ export default function EZTrackPage() {
             highlight high-fragility regions relevant to surgical planning.
           </p>
 
-          <div className="grid gap-5 sm:grid-cols-3">
-            {institutions.map((inst, i) => {
-              const isOrange = i % 2 === 1;
+          <div className="space-y-5">
+            <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
+              {topInstitutions.map((inst, i) => {
+                const isOrange = i % 2 === 1;
 
-              return (
-                <div
-                  key={inst.name}
-                  className="rounded-[2rem] border p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                  style={{
-                    borderColor: isOrange ? B.orangeBorder : B.purpleBorder,
-                    backgroundColor: B.card,
-                  }}
-                >
-                  <InstitutionLogo
-                    logo={inst.logo}
-                    name={inst.name}
-                    isOrange={isOrange}
-                    logoScale={inst.logoScale}
-                    fallbackIcon={inst.fallbackIcon}
-                  />
-
-                  <h3 className="text-xl leading-snug" style={{ fontWeight: 400 }}>
-                    {inst.name}
-                  </h3>
-
-                  <p
-                    className="mt-2 text-xs uppercase tracking-[0.14em]"
+                return (
+                  <div
+                    key={inst.name}
+                    className="rounded-[2rem] border p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full"
                     style={{
-                      color: isOrange ? B.orangeDark : B.purpleDark,
-                      fontWeight: 600,
+                      borderColor: isOrange ? B.orangeBorder : B.purpleBorder,
+                      backgroundColor: B.card,
                     }}
                   >
-                    {inst.department}
-                  </p>
+                    <InstitutionLogo
+                      logo={inst.logo}
+                      name={inst.name}
+                      isOrange={isOrange}
+                      logoScale={inst.logoScale}
+                      fallbackIcon={inst.fallbackIcon}
+                    />
 
-                  <p className="mt-4 text-sm leading-6" style={{ color: B.muted }}>
-                    {inst.role}
-                  </p>
-                </div>
-              );
-            })}
+                    <h3 className="text-xl leading-snug" style={{ fontWeight: 400 }}>
+                      {inst.name}
+                    </h3>
+
+                    <p
+                      className="mt-2 text-xs uppercase tracking-[0.14em]"
+                      style={{
+                        color: isOrange ? B.orangeDark : B.purpleDark,
+                        fontWeight: 600,
+                      }}
+                    >
+                      {inst.department}
+                    </p>
+
+                    <p className="mt-4 text-sm leading-6" style={{ color: B.muted }}>
+                      {inst.role}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(2,minmax(0,22rem))] justify-center items-stretch">
+              {bottomInstitutions.map((inst, i) => {
+                const isOrange = (i + topInstitutions.length) % 2 === 1;
+
+                return (
+                  <div
+                    key={inst.name}
+                    className="rounded-[2rem] border p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg h-full"
+                    style={{
+                      borderColor: isOrange ? B.orangeBorder : B.purpleBorder,
+                      backgroundColor: B.card,
+                    }}
+                  >
+                    <InstitutionLogo
+                      logo={inst.logo}
+                      name={inst.name}
+                      isOrange={isOrange}
+                      logoScale={inst.logoScale}
+                      fallbackIcon={inst.fallbackIcon}
+                    />
+
+                    <h3 className="text-xl leading-snug" style={{ fontWeight: 400 }}>
+                      {inst.name}
+                    </h3>
+
+                    <p
+                      className="mt-2 text-xs uppercase tracking-[0.14em]"
+                      style={{
+                        color: isOrange ? B.orangeDark : B.purpleDark,
+                        fontWeight: 600,
+                      }}
+                    >
+                      {inst.department}
+                    </p>
+
+                    <p className="mt-4 text-sm leading-6" style={{ color: B.muted }}>
+                      {inst.role}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
           <div
@@ -888,17 +955,7 @@ export default function EZTrackPage() {
               EZTrack relevant
             </button>
 
-            <button
-              onClick={() => setShowAllPubs(true)}
-              className="rounded-full px-4 py-2 text-sm transition-colors"
-              style={{
-                backgroundColor: showAllPubs ? B.purpleDark : "transparent",
-                color: showAllPubs ? "#fff" : B.muted,
-                border: `1px solid ${showAllPubs ? B.purpleDark : B.line}`,
-              }}
-            >
-              All research
-            </button>
+           
           </div>
 
           <div className="space-y-4">
@@ -916,20 +973,6 @@ export default function EZTrackPage() {
                     : B.card,
                 }}
               >
-                <div
-                  className="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
-                  style={{
-                    background: pub.eztrack
-                      ? B.purpleSoft
-                      : "rgba(0,0,0,0.04)",
-                  }}
-                >
-                  <Waves
-                    className="h-5 w-5"
-                    style={{ color: pub.eztrack ? B.purpleDark : B.muted }}
-                  />
-                </div>
-
                 <div className="min-w-0 flex-1">
                   <div className="mb-2 flex flex-wrap items-center gap-2">
                     {pub.eztrack && (
