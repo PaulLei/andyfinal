@@ -255,14 +255,14 @@ export default function Technology() {
                 href={pub.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col rounded-[1.25rem] border p-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:p-5"
+                className="group flex flex-col rounded-[1.25rem] border p-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:p-4"
                 style={{
                   borderColor: publicationStyle.border,
                   backgroundColor: publicationStyle.soft,
                   boxShadow: `inset 3px 0 0 ${publicationStyle.color}`,
                 }}
               >
-                <div className="mb-3 flex flex-wrap items-center gap-2">
+                <div className="mb-2 flex flex-wrap items-center gap-2">
                   <span
                     className="rounded-full border px-2.5 py-0.5 text-[10px] uppercase tracking-[0.16em]"
                     style={{
@@ -298,6 +298,15 @@ export default function Technology() {
                 >
                   {pub.title}
                 </p>
+
+                {pub.journal && (
+                  <p
+                    className="mt-3 text-xs leading-5"
+                    style={{ color: B.muted }}
+                  >
+                    {pub.journal}
+                  </p>
+                )}
 
                 {citation && (
                   <div
