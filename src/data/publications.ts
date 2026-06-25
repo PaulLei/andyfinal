@@ -27,8 +27,6 @@ export const publications: Publication[] = [
     tags: ['Foundational', 'EpiScalp'],
     featured: true,
     mainFeature: true,
-    blurb:
-      'A main EpiScalp publication describing the use of dynamic network models to support epilepsy diagnosis from interictal EEG, including patients with normal interictal EEG findings.',
   },
   {
     year: 2022,

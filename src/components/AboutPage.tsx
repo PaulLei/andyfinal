@@ -7,7 +7,6 @@ import {
   Stethoscope,
   ArrowRight,
   Mail,
-  Briefcase,
   Target,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -23,6 +22,7 @@ import { Link } from 'react-router-dom';
  * - updated journey dates and commercialization language
  * - simplified careers section to one email CTA
  * - removed recruiting contact information
+ * - tightened spacing across sections/cards to reduce extra white space
  *
  * Assumes the Typo Grotesk font family is loaded globally.
  */
@@ -131,7 +131,7 @@ export default function AboutPage() {
 
   return (
     <div
-      className="min-h-screen overflow-x-hidden pt-24"
+      className="min-h-screen overflow-x-hidden pt-20"
       style={{
         backgroundColor: BRAND.bg,
         color: BRAND.ink,
@@ -142,27 +142,27 @@ export default function AboutPage() {
       {/* =========================================================
           HERO
       ========================================================== */}
-      <section className="relative overflow-hidden px-6 pt-14 pb-14 md:pt-16 md:pb-16">
+      <section className="relative overflow-hidden px-6 pt-8 pb-8 md:pt-10 md:pb-10">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div
-            className="absolute left-[-4rem] top-0 h-80 w-80 rounded-full blur-3xl"
+            className="absolute left-[-4rem] top-0 h-72 w-72 rounded-full blur-3xl"
             style={{ background: BRAND.purpleSoft }}
           />
           <div
-            className="absolute right-[-4rem] top-1/4 h-96 w-96 rounded-full blur-3xl"
+            className="absolute right-[-4rem] top-1/4 h-80 w-80 rounded-full blur-3xl"
             style={{
               background: BRAND.orangeSoft,
               transform: `translateY(${scrollY * 0.15}px)`,
             }}
           />
           <div
-            className="absolute bottom-[-4rem] left-1/2 h-64 w-64 -translate-x-1/2 rounded-full blur-3xl"
+            className="absolute bottom-[-4rem] left-1/2 h-56 w-56 -translate-x-1/2 rounded-full blur-3xl"
             style={{ background: BRAND.purpleSoft }}
           />
         </div>
 
         <div className="relative z-10 mx-auto max-w-6xl">
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+          <div className="grid gap-7 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div>
               <span
                 className="inline-flex rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em]"
@@ -176,7 +176,7 @@ export default function AboutPage() {
               </span>
 
               <h1
-                className="mt-6 max-w-5xl text-5xl leading-[0.98] sm:text-6xl lg:text-7xl"
+                className="mt-4 max-w-5xl text-4xl leading-tight sm:text-5xl lg:text-6xl"
                 style={{ fontWeight: 300 }}
               >
                 Pioneering precision in
@@ -189,7 +189,7 @@ export default function AboutPage() {
               </h1>
 
               <p
-                className="mt-7 max-w-3xl text-lg leading-8 sm:text-xl"
+                className="mt-5 max-w-3xl text-base leading-7 sm:text-lg sm:leading-8"
                 style={{ color: BRAND.muted, fontWeight: 300 }}
               >
                 Neurologic Solutions is dedicated to empowering clinicians with
@@ -200,7 +200,7 @@ export default function AboutPage() {
 
             {/* Right-side mission card */}
             <div
-              className="rounded-[2rem] border p-7 shadow-sm sm:p-8"
+              className="rounded-[2rem] border p-5 shadow-sm sm:p-6"
               style={{
                 borderColor: BRAND.line,
                 background:
@@ -214,14 +214,14 @@ export default function AboutPage() {
                 Mission
               </div>
 
-              <p className="mt-4 text-xl leading-8" style={{ fontWeight: 300 }}>
+              <p className="mt-3 text-lg leading-7" style={{ fontWeight: 300 }}>
                 To transform complex brain data into precise, interpretable
                 biomarkers that help clinicians diagnose and treat neurological
                 disorders quickly and more effectively.
               </p>
 
               <div
-                className="my-6 h-px w-full"
+                className="my-4 h-px w-full"
                 style={{ backgroundColor: BRAND.line }}
               />
 
@@ -233,7 +233,7 @@ export default function AboutPage() {
               </div>
 
               <p
-                className="mt-4 text-base leading-7"
+                className="mt-3 text-sm leading-6 sm:text-base sm:leading-7"
                 style={{ color: BRAND.muted, fontWeight: 300 }}
               >
                 We aim to harness the analytic power of brain data to create
@@ -245,16 +245,16 @@ export default function AboutPage() {
           </div>
 
           {/* Small supporting cards */}
-          <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          <div className="mt-5 grid gap-3 sm:grid-cols-3">
             <div
-              className="rounded-2xl border p-5 shadow-sm"
+              className="rounded-2xl border p-4 shadow-sm"
               style={{
                 borderColor: BRAND.purpleBorder,
                 backgroundColor: 'rgba(255,255,255,0.82)',
               }}
             >
               <Brain
-                className="mb-3 h-5 w-5"
+                className="mb-2 h-5 w-5"
                 style={{ color: BRAND.purpleDark }}
               />
               <p className="text-sm leading-6" style={{ color: BRAND.muted }}>
@@ -264,14 +264,14 @@ export default function AboutPage() {
             </div>
 
             <div
-              className="rounded-2xl border p-5 shadow-sm"
+              className="rounded-2xl border p-4 shadow-sm"
               style={{
                 borderColor: BRAND.orangeBorder,
                 backgroundColor: 'rgba(255,255,255,0.82)',
               }}
             >
               <Stethoscope
-                className="mb-3 h-5 w-5"
+                className="mb-2 h-5 w-5"
                 style={{ color: BRAND.orangeDark }}
               />
               <p className="text-sm leading-6" style={{ color: BRAND.muted }}>
@@ -281,14 +281,14 @@ export default function AboutPage() {
             </div>
 
             <div
-              className="rounded-2xl border p-5 shadow-sm"
+              className="rounded-2xl border p-4 shadow-sm"
               style={{
                 borderColor: BRAND.purpleBorder,
                 backgroundColor: 'rgba(255,255,255,0.82)',
               }}
             >
               <Target
-                className="mb-3 h-5 w-5"
+                className="mb-2 h-5 w-5"
                 style={{ color: BRAND.purpleDark }}
               />
               <p className="text-sm leading-6" style={{ color: BRAND.muted }}>
@@ -303,9 +303,9 @@ export default function AboutPage() {
       {/* =========================================================
           WHY WE EXIST
       ========================================================== */}
-      <section className="px-6 py-16 sm:py-20">
+      <section className="px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-6xl">
-          <div className="grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
+          <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-start">
             <div>
               <div
                 className="text-[11px] uppercase tracking-[0.22em]"
@@ -315,14 +315,14 @@ export default function AboutPage() {
               </div>
 
               <h2
-                className="mt-4 text-4xl leading-tight sm:text-5xl"
+                className="mt-3 text-3xl leading-tight sm:text-4xl"
                 style={{ fontWeight: 300 }}
               >
                 Better neurological care starts with better use of brain data
               </h2>
 
               <div
-                className="mt-6 space-y-5 text-lg leading-8"
+                className="mt-4 space-y-3 text-base leading-7 sm:text-lg sm:leading-8"
                 style={{ color: BRAND.muted, fontWeight: 300 }}
               >
                 <p>
@@ -346,7 +346,7 @@ export default function AboutPage() {
             </div>
 
             <div
-              className="rounded-[2rem] border p-7 shadow-sm"
+              className="rounded-[2rem] border p-5 shadow-sm sm:p-6"
               style={{
                 borderColor: BRAND.line,
                 backgroundColor: BRAND.card,
@@ -359,7 +359,7 @@ export default function AboutPage() {
                 What We Focus On
               </div>
 
-              <div className="mt-5 space-y-4">
+              <div className="mt-4 space-y-3">
                 {[
                   'Reliable EEG analytics',
                   'Quantitative biomarkers',
@@ -368,14 +368,14 @@ export default function AboutPage() {
                 ].map((item) => (
                   <div
                     key={item}
-                    className="flex items-start gap-3 rounded-2xl border p-4"
+                    className="flex items-start gap-3 rounded-2xl border p-3"
                     style={{
                       borderColor: BRAND.line,
                       background: 'rgba(153,134,191,0.04)',
                     }}
                   >
                     <div
-                      className="mt-1 h-2.5 w-2.5 rounded-full"
+                      className="mt-1.5 h-2 w-2 rounded-full"
                       style={{ backgroundColor: BRAND.purple }}
                     />
                     <p
@@ -396,14 +396,14 @@ export default function AboutPage() {
           VALUES
       ========================================================== */}
       <section
-        className="px-6 py-16 sm:py-20"
+        className="px-6 py-10 sm:py-12"
         style={{
           background:
             'linear-gradient(180deg, rgba(153,134,191,0.05) 0%, rgba(255,255,255,0) 100%)',
         }}
       >
         <div className="mx-auto max-w-6xl">
-          <div className="mb-10 max-w-2xl">
+          <div className="mb-6 max-w-2xl">
             <div
               className="text-[11px] uppercase tracking-[0.22em]"
               style={{ color: BRAND.purpleDark, fontWeight: 600 }}
@@ -412,14 +412,14 @@ export default function AboutPage() {
             </div>
 
             <h2
-              className="mt-4 text-4xl leading-tight sm:text-5xl"
+              className="mt-3 text-3xl leading-tight sm:text-4xl"
               style={{ fontWeight: 300 }}
             >
               What drives our work
             </h2>
 
             <p
-              className="mt-5 text-lg leading-8"
+              className="mt-3 text-base leading-7 sm:text-lg sm:leading-8"
               style={{ color: BRAND.muted, fontWeight: 300 }}
             >
               These values shape how we build products, collaborate with
@@ -427,7 +427,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-4 md:grid-cols-3">
             {values.map((value, index) => {
               const Icon = value.icon;
               const isMiddle = index === 1;
@@ -435,7 +435,7 @@ export default function AboutPage() {
               return (
                 <div
                   key={value.title}
-                  className="rounded-[2rem] border p-7 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  className="rounded-[2rem] border p-5 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg sm:p-6"
                   style={{
                     borderColor: isMiddle
                       ? BRAND.orangeBorder
@@ -444,7 +444,7 @@ export default function AboutPage() {
                   }}
                 >
                   <div
-                    className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl"
+                    className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl"
                     style={{
                       background: isMiddle
                         ? BRAND.orangeSoft
@@ -452,19 +452,19 @@ export default function AboutPage() {
                     }}
                   >
                     <Icon
-                      className="h-7 w-7"
+                      className="h-6 w-6"
                       style={{
                         color: isMiddle ? BRAND.orangeDark : BRAND.purpleDark,
                       }}
                     />
                   </div>
 
-                  <h3 className="text-2xl" style={{ fontWeight: 300 }}>
+                  <h3 className="text-xl" style={{ fontWeight: 300 }}>
                     {value.title}
                   </h3>
 
                   <p
-                    className="mt-4 text-base leading-7"
+                    className="mt-3 text-sm leading-6 sm:text-base sm:leading-7"
                     style={{ color: BRAND.muted, fontWeight: 300 }}
                   >
                     {value.description}
@@ -479,9 +479,9 @@ export default function AboutPage() {
       {/* =========================================================
           LEADERSHIP SNAPSHOT
       ========================================================== */}
-      <section className="px-6 py-16 sm:py-20">
+      <section className="px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-10 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
             <div className="max-w-2xl">
               <div
                 className="text-[11px] uppercase tracking-[0.22em]"
@@ -491,14 +491,14 @@ export default function AboutPage() {
               </div>
 
               <h2
-                className="mt-4 text-4xl leading-tight sm:text-5xl"
+                className="mt-3 text-3xl leading-tight sm:text-4xl"
                 style={{ fontWeight: 300 }}
               >
                 Leadership team
               </h2>
 
               <p
-                className="mt-5 text-lg leading-8"
+                className="mt-3 text-base leading-7 sm:text-lg sm:leading-8"
                 style={{ color: BRAND.muted, fontWeight: 300 }}
               >
                 Neurologic Solutions brings together expertise in biomedical
@@ -509,7 +509,7 @@ export default function AboutPage() {
 
             <Link
               to="/team"
-              className="inline-flex w-fit items-center gap-2 rounded-full border px-5 py-3 text-sm transition-all duration-300 hover:-translate-y-0.5"
+              className="inline-flex w-fit items-center gap-2 rounded-full border px-5 py-2.5 text-sm transition-all duration-300 hover:-translate-y-0.5"
               style={{
                 borderColor: BRAND.purpleBorder,
                 background: BRAND.purpleSoft,
@@ -521,11 +521,11 @@ export default function AboutPage() {
             </Link>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {leadership.map((person, index) => (
               <div
                 key={person.name}
-                className="rounded-3xl border p-6 shadow-sm"
+                className="rounded-3xl border p-5 shadow-sm"
                 style={{
                   borderColor:
                     index % 2 === 0 ? BRAND.purpleBorder : BRAND.orangeBorder,
@@ -546,14 +546,14 @@ export default function AboutPage() {
                 </div>
 
                 <h3
-                  className="mt-3 text-xl leading-tight"
+                  className="mt-2 text-lg leading-tight sm:text-xl"
                   style={{ fontWeight: 300 }}
                 >
                   {person.name}
                 </h3>
 
                 <p
-                  className="mt-2 text-sm leading-6"
+                  className="mt-1.5 text-sm leading-6"
                   style={{ color: BRAND.muted }}
                 >
                   {person.role}
@@ -567,9 +567,9 @@ export default function AboutPage() {
       {/* =========================================================
           TIMELINE
       ========================================================== */}
-      <section className="px-6 py-16 sm:py-20">
+      <section className="px-6 py-10 sm:py-12">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-10 max-w-2xl">
+          <div className="mb-6 max-w-2xl">
             <div
               className="text-[11px] uppercase tracking-[0.22em]"
               style={{ color: BRAND.purpleDark, fontWeight: 600 }}
@@ -578,7 +578,7 @@ export default function AboutPage() {
             </div>
 
             <h2
-              className="mt-4 text-4xl leading-tight sm:text-5xl"
+              className="mt-3 text-3xl leading-tight sm:text-4xl"
               style={{ fontWeight: 300 }}
             >
               Building toward smarter neurological care
@@ -594,11 +594,11 @@ export default function AboutPage() {
               }}
             />
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               {timeline.map((item, index) => (
                 <div
                   key={`${item.year}-${item.title}`}
-                  className="grid gap-4 rounded-[2rem] border p-6 md:grid-cols-[90px_24px_1fr] md:gap-6"
+                  className="grid gap-3 rounded-[2rem] border p-5 md:grid-cols-[80px_24px_1fr] md:gap-5"
                   style={{
                     borderColor: BRAND.line,
                     backgroundColor:
@@ -626,12 +626,12 @@ export default function AboutPage() {
                   </div>
 
                   <div>
-                    <h3 className="text-2xl" style={{ fontWeight: 300 }}>
+                    <h3 className="text-xl sm:text-2xl" style={{ fontWeight: 300 }}>
                       {item.title}
                     </h3>
 
                     <p
-                      className="mt-3 max-w-3xl text-base leading-7"
+                      className="mt-2 max-w-3xl text-sm leading-6 sm:text-base sm:leading-7"
                       style={{ color: BRAND.muted, fontWeight: 300 }}
                     >
                       {item.description}
@@ -647,28 +647,28 @@ export default function AboutPage() {
       {/* =========================================================
           CAREERS / GENERAL APPLICATION
       ========================================================== */}
-      <section className="px-6 pb-20 pt-6 sm:pb-24">
+      <section className="px-6 pb-14 pt-4 sm:pb-16">
         <div
-          className="mx-auto max-w-6xl rounded-[2rem] p-8 text-white sm:p-10 lg:p-12"
+          className="mx-auto max-w-6xl rounded-[2rem] p-6 text-white sm:p-8 lg:p-10"
           style={{
             background:
               'linear-gradient(135deg, rgba(47,39,56,1) 0%, rgba(85,72,109,1) 50%, rgba(153,134,191,1) 100%)',
           }}
         >
-          <div className="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+          <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
             <div>
               <div className="text-[11px] uppercase tracking-[0.22em] text-white/70">
                 Careers
               </div>
 
               <h2
-                className="mt-4 text-4xl leading-tight sm:text-5xl"
+                className="mt-3 text-3xl leading-tight sm:text-4xl"
                 style={{ fontWeight: 300 }}
               >
                 Interested in joining our team?
               </h2>
 
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">
+              <p className="mt-3 max-w-2xl text-base leading-7 text-white/80 sm:text-lg sm:leading-8">
                 We welcome general inquiries from people who are aligned with our
                 mission. Send us your information, resume or CV, and any relevant
                 supporting materials for future consideration.
@@ -678,7 +678,7 @@ export default function AboutPage() {
             <div className="flex lg:justify-end">
               <a
                 href="mailto:info@neurologicsolutions.net?subject=General%20Interest%20-%20Neurologic%20Solutions"
-                className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm transition-transform duration-300 hover:-translate-y-0.5"
+                className="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm transition-transform duration-300 hover:-translate-y-0.5"
                 style={{
                   backgroundColor: BRAND.orange,
                   color: '#fff',

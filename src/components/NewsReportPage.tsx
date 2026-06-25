@@ -1,5 +1,5 @@
 import { ArrowLeft, Calendar, ArrowUpRight } from 'lucide-react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { newsItems } from '../data/news';
 
 const BRAND = {
@@ -59,7 +59,6 @@ export default function NewsReportPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  // Find the news item by title (URL-encoded)
   const newsItem = newsItems.find(
     (item) => item.title.toLowerCase().replace(/\s+/g, '-') === id?.toLowerCase()
   );
@@ -67,7 +66,7 @@ export default function NewsReportPage() {
   if (!newsItem || !newsItem.internalReport) {
     return (
       <div
-        className="min-h-screen pt-24"
+        className="min-h-screen pt-20"
         style={{
           backgroundColor: BRAND.bg,
           color: BRAND.ink,
@@ -75,16 +74,18 @@ export default function NewsReportPage() {
             '"Typo Grotesk Rounded", "Typo Grotesk Rounded Light", Arial, sans-serif',
         }}
       >
-        <div className="max-w-4xl mx-auto px-6 py-12">
+        <div className="mx-auto max-w-4xl px-6 py-8">
           <button
             onClick={() => navigate('/blog-news')}
-            className="inline-flex items-center gap-2 mb-8 text-sm font-medium transition-transform hover:-translate-x-1"
+            className="mb-6 inline-flex items-center gap-2 text-sm font-medium transition-transform hover:-translate-x-1"
             style={{ color: BRAND.purpleDark }}
           >
             <ArrowLeft className="h-4 w-4" />
             Back to News
           </button>
-          <h1 className="text-4xl font-bold mb-4">Report Not Found</h1>
+
+          <h1 className="mb-3 text-4xl font-bold">Report Not Found</h1>
+
           <p style={{ color: BRAND.muted }}>
             This internal report is not available. Please return to the news page.
           </p>
@@ -97,7 +98,7 @@ export default function NewsReportPage() {
 
   return (
     <div
-      className="min-h-screen pt-24"
+      className="min-h-screen pt-20"
       style={{
         backgroundColor: BRAND.bg,
         color: BRAND.ink,
@@ -106,8 +107,8 @@ export default function NewsReportPage() {
       }}
     >
       {/* Back Button */}
-      <div className="px-6 py-6">
-        <div className="max-w-4xl mx-auto">
+      <div className="px-6 py-4">
+        <div className="mx-auto max-w-4xl">
           <button
             onClick={() => navigate('/blog-news')}
             className="inline-flex items-center gap-2 text-sm font-medium transition-transform hover:-translate-x-1"
@@ -120,10 +121,9 @@ export default function NewsReportPage() {
       </div>
 
       {/* Header */}
-      <section className="px-6 py-6">
-        <div className="max-w-4xl mx-auto">
-          {/* Category & Date */}
-          <div className="flex flex-wrap items-center gap-4 mb-6">
+      <section className="px-6 py-2">
+        <div className="mx-auto max-w-4xl">
+          <div className="mb-4 flex flex-wrap items-center gap-3">
             <span
               className="rounded-full border px-3 py-1 text-xs font-semibold"
               style={{
@@ -134,6 +134,7 @@ export default function NewsReportPage() {
             >
               {newsItem.category}
             </span>
+
             <div
               className="inline-flex items-center gap-1 text-xs"
               style={{ color: BRAND.muted }}
@@ -143,26 +144,23 @@ export default function NewsReportPage() {
             </div>
           </div>
 
-          {/* Title */}
           <h1
-            className="text-4xl md:text-5xl lg:text-6xl leading-tight mb-8"
+            className="mb-5 text-4xl leading-tight md:text-5xl lg:text-6xl"
             style={{ fontWeight: 300 }}
           >
             {newsItem.title}
           </h1>
 
-          {/* Excerpt */}
           <p
-            className="text-xl leading-8 mb-8"
+            className="mb-6 text-lg leading-7 md:text-xl md:leading-8"
             style={{ color: BRAND.muted, fontWeight: 300 }}
           >
             {newsItem.excerpt}
           </p>
 
-          {/* Image */}
           {newsItem.image && (
             <div
-              className="rounded-2xl overflow-hidden mb-12 h-96 bg-cover bg-center"
+              className="mb-6 h-64 overflow-hidden rounded-2xl bg-cover bg-center md:h-80"
               style={{
                 backgroundImage: `url('${newsItem.image}')`,
                 border: `1px solid ${BRAND.line}`,
@@ -173,57 +171,60 @@ export default function NewsReportPage() {
       </section>
 
       {/* Report Content */}
-      <section className="px-6 py-8">
-        <div className="max-w-4xl mx-auto">
+      <section className="px-6 py-4 pb-10">
+        <div className="mx-auto max-w-4xl">
           <div
-            className="prose prose-lg max-w-none rounded-2xl border p-8"
+            className="prose prose-lg max-w-none rounded-2xl border p-5 md:p-6"
             style={{
               borderColor: BRAND.line,
               backgroundColor: BRAND.card,
               color: BRAND.ink,
             }}
           >
-            {/* Parse markdown-style formatting */}
             {newsItem.internalReport.split('\n\n').map((paragraph, idx) => {
-              // Handle headers (lines starting with #)
               if (paragraph.startsWith('# ')) {
                 return (
                   <h2
                     key={idx}
-                    className="text-3xl font-semibold mt-8 mb-4"
+                    className="mb-3 mt-5 text-3xl font-semibold first:mt-0"
                     style={{ color: BRAND.purpleDark }}
                   >
                     {paragraph.replace('# ', '')}
                   </h2>
                 );
               }
+
               if (paragraph.startsWith('## ')) {
                 return (
                   <h3
                     key={idx}
-                    className="text-2xl font-semibold mt-6 mb-3"
+                    className="mb-2 mt-5 text-2xl font-semibold first:mt-0"
                     style={{ color: BRAND.purpleDark }}
                   >
                     {paragraph.replace('## ', '')}
                   </h3>
                 );
               }
+
               if (paragraph.startsWith('### ')) {
                 return (
                   <h4
                     key={idx}
-                    className="text-xl font-semibold mt-4 mb-2"
+                    className="mb-2 mt-4 text-xl font-semibold first:mt-0"
                     style={{ color: BRAND.orange }}
                   >
                     {paragraph.replace('### ', '')}
                   </h4>
                 );
               }
-              // Handle lists
+
               if (paragraph.startsWith('- ')) {
-                const items = paragraph.split('\n').filter((line) => line.startsWith('- '));
+                const items = paragraph
+                  .split('\n')
+                  .filter((line) => line.startsWith('- '));
+
                 return (
-                  <ul key={idx} className="list-disc list-inside my-4 space-y-2">
+                  <ul key={idx} className="my-3 list-inside list-disc space-y-1">
                     {items.map((item, i) => (
                       <li key={i} style={{ color: BRAND.ink }}>
                         {item.replace('- ', '')}
@@ -232,11 +233,11 @@ export default function NewsReportPage() {
                   </ul>
                 );
               }
-              // Regular paragraph
+
               return (
                 <p
                   key={idx}
-                  className="text-lg leading-8 mb-4"
+                  className="mb-3 text-base leading-7 md:text-lg md:leading-8"
                   style={{ color: BRAND.ink, fontWeight: 300 }}
                 >
                   {paragraph}
@@ -245,14 +246,13 @@ export default function NewsReportPage() {
             })}
           </div>
 
-          {/* External Link (if available) */}
           {newsItem.link && newsItem.link.trim() && !newsItem.link.includes('example.com') && (
-            <div className="mt-8">
+            <div className="mt-5">
               <a
                 href={newsItem.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-medium px-6 py-3 rounded-full transition-all hover:shadow-lg"
+                className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition-all hover:shadow-lg"
                 style={{
                   backgroundColor: BRAND.purple,
                   color: 'white',

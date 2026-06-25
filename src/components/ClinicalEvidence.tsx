@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import {
   Activity,
@@ -157,7 +158,7 @@ function AccentCard({
   accent = "purple",
   className = "",
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   accent?: "purple" | "orange";
   className?: string;
 }) {
@@ -165,7 +166,7 @@ function AccentCard({
 
   return (
     <div
-      className={`rounded-[2rem] border bg-white ${className}`}
+      className={`rounded-[1.5rem] border bg-white ${className}`}
       style={{
         borderColor: isPurple ? BRAND.purpleBorder : BRAND.orangeBorder,
         background: isPurple
@@ -192,9 +193,10 @@ function PublicationLink({
   return (
     <a
       href={href}
+      title={title}
       target="_blank"
       rel="noopener noreferrer"
-      className="mt-5 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-all duration-300 hover:-translate-y-0.5"
+      className="mt-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-all duration-300 hover:-translate-y-0.5"
       style={{
         borderColor: isPurple ? BRAND.purpleBorder : BRAND.orangeBorder,
         background: isPurple ? BRAND.purpleSoft : BRAND.orangeSoft,
@@ -210,7 +212,7 @@ function PublicationLink({
 export default function ClinicalEvidencePage() {
   return (
     <div
-      className="min-h-screen pt-24"
+      className="min-h-screen pt-20"
       style={{
         backgroundColor: BRAND.bg,
         color: BRAND.ink,
@@ -219,23 +221,23 @@ export default function ClinicalEvidencePage() {
       }}
     >
       {/* Hero */}
-      <section className="relative overflow-hidden px-6 pt-20 pb-16 md:pt-24 md:pb-18">
+      <section className="relative overflow-hidden px-6 pt-10 pb-8 md:pt-12 md:pb-10">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div
-            className="absolute left-[-4rem] top-0 h-80 w-80 rounded-full blur-3xl"
+            className="absolute left-[-4rem] top-0 h-72 w-72 rounded-full blur-3xl"
             style={{ background: BRAND.purpleSoft }}
           />
           <div
-            className="absolute right-[-3rem] bottom-0 h-80 w-80 rounded-full blur-3xl"
+            className="absolute right-[-3rem] bottom-0 h-72 w-72 rounded-full blur-3xl"
             style={{ background: BRAND.orangeSoft }}
           />
         </div>
 
         <div className="relative z-10 mx-auto max-w-6xl">
           <div className="w-full">
-            <div className="mb-5 flex items-center gap-3">
+            <div className="mb-4 flex items-center gap-3">
               <div
-                className="flex h-11 w-11 items-center justify-center rounded-2xl border"
+                className="flex h-10 w-10 items-center justify-center rounded-2xl border"
                 style={{
                   background: BRAND.purpleSoft,
                   borderColor: BRAND.purpleBorder,
@@ -269,7 +271,7 @@ export default function ClinicalEvidencePage() {
             </h1>
 
             <p
-              className="mt-5 max-w-4xl text-lg leading-8"
+              className="mt-4 max-w-4xl text-base leading-7 sm:text-lg sm:leading-8"
               style={{ color: BRAND.muted, fontWeight: 300 }}
             >
               Neurologic Solutions develops EEG-based software tools designed to
@@ -282,10 +284,10 @@ export default function ClinicalEvidencePage() {
       </section>
 
       {/* Quick nav */}
-      <section className="px-6 pb-8">
+      <section className="px-6 pb-5">
         <div className="mx-auto max-w-6xl">
           <div
-            className="flex flex-wrap gap-3 rounded-[2rem] border p-4"
+            className="flex flex-wrap gap-2 rounded-[1.5rem] border p-3"
             style={{
               borderColor: BRAND.line,
               backgroundColor: "rgba(255,255,255,0.78)",
@@ -334,9 +336,9 @@ export default function ClinicalEvidencePage() {
       </section>
 
       {/* Overview */}
-      <section id="overview" className="px-6 py-8 sm:py-10">
+      <section id="overview" className="px-6 py-6 sm:py-8">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-8 max-w-3xl">
+          <div className="mb-5 max-w-3xl">
             <div
               className="text-[11px] uppercase tracking-[0.22em]"
               style={{ color: BRAND.purpleDark, fontWeight: 600 }}
@@ -352,7 +354,7 @@ export default function ClinicalEvidencePage() {
             </h2>
 
             <p
-              className="mt-4 text-base leading-7 sm:text-lg sm:leading-8"
+              className="mt-3 text-base leading-7 sm:text-lg sm:leading-8"
               style={{ color: BRAND.muted, fontWeight: 300 }}
             >
               EpiScalp focuses on diagnostic support from routine scalp EEG.
@@ -361,21 +363,21 @@ export default function ClinicalEvidencePage() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            <AccentCard accent="purple" className="p-7">
-              <div className="mb-4 flex items-center gap-3">
+          <div className="grid gap-4 md:grid-cols-2">
+            <AccentCard accent="purple" className="p-5 sm:p-6">
+              <div className="mb-3 flex items-center gap-3">
                 <div
-                  className="flex h-12 w-12 items-center justify-center rounded-2xl"
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl"
                   style={{ background: BRAND.purpleSoft }}
                 >
                   <Brain
-                    className="h-6 w-6"
+                    className="h-5 w-5"
                     style={{ color: BRAND.purpleDark }}
                   />
                 </div>
 
                 <div>
-                  <h3 className="text-2xl" style={{ fontWeight: 300 }}>
+                  <h3 className="text-xl sm:text-2xl" style={{ fontWeight: 300 }}>
                     EpiScalp
                   </h3>
                   <p className="text-sm" style={{ color: BRAND.muted }}>
@@ -384,7 +386,7 @@ export default function ClinicalEvidencePage() {
                 </div>
               </div>
 
-              <p className="text-base leading-7" style={{ color: BRAND.muted }}>
+              <p className="text-sm leading-6 sm:text-base sm:leading-7" style={{ color: BRAND.muted }}>
                 Built to turn routine resting-state scalp EEG into a
                 quantitative risk score that may help clinicians evaluate
                 suspected epilepsy, including cases where the EEG initially
@@ -392,20 +394,20 @@ export default function ClinicalEvidencePage() {
               </p>
             </AccentCard>
 
-            <AccentCard accent="orange" className="p-7">
-              <div className="mb-4 flex items-center gap-3">
+            <AccentCard accent="orange" className="p-5 sm:p-6">
+              <div className="mb-3 flex items-center gap-3">
                 <div
-                  className="flex h-12 w-12 items-center justify-center rounded-2xl"
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl"
                   style={{ background: BRAND.orangeSoft }}
                 >
                   <Activity
-                    className="h-6 w-6"
+                    className="h-5 w-5"
                     style={{ color: BRAND.orangeDark }}
                   />
                 </div>
 
                 <div>
-                  <h3 className="text-2xl" style={{ fontWeight: 300 }}>
+                  <h3 className="text-xl sm:text-2xl" style={{ fontWeight: 300 }}>
                     EZTrack
                   </h3>
                   <p className="text-sm" style={{ color: BRAND.muted }}>
@@ -414,7 +416,7 @@ export default function ClinicalEvidencePage() {
                 </div>
               </div>
 
-              <p className="text-base leading-7" style={{ color: BRAND.muted }}>
+              <p className="text-sm leading-6 sm:text-base sm:leading-7" style={{ color: BRAND.muted }}>
                 Built to help clinicians interpret intracranial EEG using neural
                 fragility visualizations that support seizure onset zone
                 assessment and neurosurgical planning.
@@ -433,14 +435,14 @@ export default function ClinicalEvidencePage() {
           <section
             key={section.id}
             id={section.id}
-            className="px-6 py-10 sm:py-12"
+            className="px-6 py-7 sm:py-8"
           >
             <div className="mx-auto max-w-6xl">
-              <div className="grid gap-8 lg:grid-cols-[1fr_1fr] lg:gap-10">
+              <div className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:gap-8">
                 <div>
-                  <div className="mb-4 flex items-center gap-3">
+                  <div className="mb-3 flex items-center gap-3">
                     <div
-                      className="flex h-12 w-12 items-center justify-center rounded-2xl"
+                      className="flex h-11 w-11 items-center justify-center rounded-2xl"
                       style={{
                         background: isPurple
                           ? BRAND.purpleSoft
@@ -448,7 +450,7 @@ export default function ClinicalEvidencePage() {
                       }}
                     >
                       <Icon
-                        className="h-6 w-6"
+                        className="h-5 w-5"
                         style={{
                           color: isPurple
                             ? BRAND.purpleDark
@@ -477,14 +479,14 @@ export default function ClinicalEvidencePage() {
                   </h2>
 
                   <p
-                    className="mt-5 text-base leading-7 sm:text-lg sm:leading-8"
+                    className="mt-3 text-base leading-7 sm:text-lg sm:leading-8"
                     style={{ color: BRAND.muted, fontWeight: 300 }}
                   >
                     {section.summary}
                   </p>
 
                   <div
-                    className="mt-5 rounded-[1.5rem] border p-5"
+                    className="mt-4 rounded-[1.5rem] border p-4 sm:p-5"
                     style={{
                       borderColor: isPurple
                         ? BRAND.purpleBorder
@@ -507,7 +509,7 @@ export default function ClinicalEvidencePage() {
                     </div>
 
                     <p
-                      className="mt-3 text-sm leading-7 sm:text-base"
+                      className="mt-2 text-sm leading-6 sm:text-base sm:leading-7"
                       style={{ color: BRAND.muted, fontWeight: 300 }}
                     >
                       {section.researchBlurb}
@@ -520,7 +522,7 @@ export default function ClinicalEvidencePage() {
                     />
                   </div>
 
-                  <div className="mt-6 space-y-3">
+                  <div className="mt-4 space-y-2.5">
                     {section.bullets.map((bullet) => (
                       <div key={bullet} className="flex items-start gap-3">
                         <ShieldCheck
@@ -541,10 +543,10 @@ export default function ClinicalEvidencePage() {
                     ))}
                   </div>
 
-                  <div className="mt-7">
+                  <div className="mt-5">
                     <Link
                       to={section.ctaHref}
-                      className="inline-flex items-center gap-2 rounded-full border px-5 py-3 text-sm transition-all duration-300 hover:-translate-y-0.5"
+                      className="inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm transition-all duration-300 hover:-translate-y-0.5"
                       style={{
                         borderColor: isPurple
                           ? BRAND.purpleBorder
@@ -563,12 +565,12 @@ export default function ClinicalEvidencePage() {
                   </div>
                 </div>
 
-                <div className="grid gap-4 sm:grid-cols-2">
+                <div className="grid gap-3 sm:grid-cols-2">
                   {section.cards.map((card) => (
                     <AccentCard
                       key={card.label}
                       accent={section.accent as "purple" | "orange"}
-                      className="p-6"
+                      className="p-5"
                     >
                       <div
                         className="text-[11px] uppercase tracking-[0.18em]"
@@ -583,14 +585,14 @@ export default function ClinicalEvidencePage() {
                       </div>
 
                       <div
-                        className="mt-3 text-3xl leading-none"
+                        className="mt-2 text-3xl leading-none"
                         style={{ fontWeight: 300 }}
                       >
                         {card.value}
                       </div>
 
                       <p
-                        className="mt-4 text-sm leading-6"
+                        className="mt-3 text-sm leading-6"
                         style={{ color: BRAND.muted }}
                       >
                         {card.note}

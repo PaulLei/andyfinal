@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type ReactNode } from 'react';
 import {
   BookOpen,
   ExternalLink,
@@ -27,10 +27,15 @@ import {
  * - removes old/fake publication entries
  * - uses only papers provided in the latest publication update
  * - removes poster / abstract language
- * - makes journals and venues clear and bold
+ * - removes the visible "Journal / venue:" label but keeps the actual journal / venue name
+ * - shows author labels in both key-paper cards and product publication cards
+ * - uses citation only as a fallback source for authors, but does not render citation again
+ * - prevents duplicate author display such as "Burns et al." appearing twice
+ * - pulls authors from ../data/publications instead of hardcoding author names here
  * - highlights the Annals of Neurology EpiScalp paper as the main publication
  * - adds Peer-Reviewed visibility for the LTI Models paper
  * - groups highlighted EpiScalp and EZTrack papers clearly
+ * - tightens card and section spacing to reduce extra white space
  */
 
 const BRAND = {
@@ -175,11 +180,161 @@ function PublicationTags({
 
 function JournalLine({ journal }: { journal: string }) {
   return (
-    <p className="mt-3 text-sm leading-6" style={{ color: BRAND.muted }}>
-      Journal / venue:{' '}
+    <p className="mt-2 text-sm leading-6" style={{ color: BRAND.muted }}>
       <strong className="font-semibold not-italic" style={{ color: BRAND.ink }}>
         {journal}
       </strong>
+    </p>
+  );
+}
+
+function getFamilyName(authorName: string) {
+  const cleaned = authorName
+    .replace(/\s+/g, ' ')
+    .replace(/[.;]+$/g, '')
+    .trim();
+
+  if (!cleaned) {
+    return '';
+  }
+
+  if (cleaned.includes(',')) {
+    return cleaned.split(',')[0].trim();
+  }
+
+  const parts = cleaned.split(' ');
+
+  if (parts.length === 1) {
+    return parts[0];
+  }
+
+  const lastPart = parts[parts.length - 1];
+
+  if (/^[A-Z]\.?$/.test(lastPart)) {
+    return parts[0];
+  }
+
+  return lastPart;
+}
+
+function formatAuthors(authors: string | string[]) {
+  if (Array.isArray(authors)) {
+    const cleanAuthors = authors.map((author) => author.trim()).filter(Boolean);
+
+    if (cleanAuthors.length === 0) {
+      return '';
+    }
+
+    if (cleanAuthors.length === 1) {
+      return cleanAuthors[0];
+    }
+
+    const firstFamilyName = getFamilyName(cleanAuthors[0]);
+
+    return firstFamilyName ? `${firstFamilyName} et al.` : `${cleanAuthors[0]} et al.`;
+  }
+
+  return authors.trim();
+}
+
+function formatAuthorChunk(authorChunk: string) {
+  const cleaned = authorChunk
+    .replace(/\s+/g, ' ')
+    .replace(/[.;:\s]+$/g, '')
+    .trim();
+
+  if (!cleaned) {
+    return '';
+  }
+
+  const etAlMatch = cleaned.match(/^(.+?)\bet\s+al\.?/i);
+
+  if (etAlMatch?.[1]) {
+    const firstAuthor = etAlMatch[1].replace(/[,;&\s]+$/g, '').trim();
+    const familyName = getFamilyName(firstAuthor);
+
+    return familyName ? `${familyName} et al.` : `${firstAuthor} et al.`;
+  }
+
+  const firstAuthor = cleaned.split(/;\s*|\sand\s/i)[0]?.trim();
+  const familyName = firstAuthor ? getFamilyName(firstAuthor) : '';
+
+  return familyName ? `${familyName} et al.` : cleaned;
+}
+
+function getAuthorLabelFromCitation(pub: (typeof publications)[number]) {
+  const citation = pub.citation?.trim() ?? '';
+
+  if (!citation) {
+    return '';
+  }
+
+  const titleIndex = citation.toLowerCase().indexOf(pub.title.toLowerCase());
+
+  if (titleIndex > 0) {
+    return formatAuthorChunk(citation.slice(0, titleIndex));
+  }
+
+  const firstQuoteIndex = citation.search(/["“”]/);
+
+  if (firstQuoteIndex > 0) {
+    return formatAuthorChunk(citation.slice(0, firstQuoteIndex));
+  }
+
+  const yearMatch = citation.match(/^(.+?)(?:\s*\(?\b(?:19|20)\d{2}\b\)?[.)]?\s*)/);
+
+  if (yearMatch?.[1]) {
+    return formatAuthorChunk(yearMatch[1]);
+  }
+
+  const etAlMatch = citation.match(/^(.+?\bet\s+al\.?)\b/i);
+
+  if (etAlMatch?.[1]) {
+    return formatAuthorChunk(etAlMatch[1]);
+  }
+
+  return '';
+}
+
+function getAuthorLabel(pub: (typeof publications)[number]) {
+  const publicationWithAuthors = pub as typeof pub & {
+    authorLabel?: string;
+    shortAuthors?: string;
+    authors?: string | string[];
+  };
+
+  if (publicationWithAuthors.authorLabel?.trim()) {
+    return publicationWithAuthors.authorLabel.trim();
+  }
+
+  if (publicationWithAuthors.shortAuthors?.trim()) {
+    return publicationWithAuthors.shortAuthors.trim();
+  }
+
+  if (publicationWithAuthors.authors) {
+    return formatAuthors(publicationWithAuthors.authors);
+  }
+
+  return getAuthorLabelFromCitation(pub);
+}
+
+function AuthorLine({
+  authorLabel,
+  compact = false,
+}: {
+  authorLabel: string;
+  compact?: boolean;
+}) {
+  if (!authorLabel) {
+    return null;
+  }
+
+  return (
+    <p
+      className={`${compact ? 'mt-2' : 'mt-3'} text-sm leading-6 font-semibold`}
+      style={{ color: BRAND.ink }}
+    >
+      {authorLabel}
     </p>
   );
 }
@@ -191,12 +346,14 @@ function PublicationCard({
   pub: (typeof publications)[number];
   featured?: boolean;
 }) {
+  const authorLabel = getAuthorLabel(pub);
+
   return (
     <article
       className={`rounded-3xl border bg-white transition-all duration-300 ${
         featured
-          ? 'h-full p-7 shadow-sm hover:-translate-y-1 hover:shadow-lg'
-          : 'group p-6 shadow-sm hover:-translate-y-0.5 hover:shadow-md md:p-7'
+          ? 'h-full p-6 shadow-sm hover:-translate-y-1 hover:shadow-lg'
+          : 'group p-5 shadow-sm hover:-translate-y-0.5 hover:shadow-md md:p-6'
       }`}
       style={{
         borderColor: BRAND.line,
@@ -216,22 +373,20 @@ function PublicationCard({
         {pub.title}
       </h3>
 
+      <AuthorLine authorLabel={authorLabel} />
+
       {pub.blurb && (
         <p
-          className="mt-4 text-sm leading-7 md:text-base"
+          className="mt-3 text-sm leading-7 md:text-base"
           style={{ color: BRAND.muted, fontWeight: 300 }}
         >
           {pub.blurb}
         </p>
       )}
 
-      <p className="mt-5 text-sm leading-6" style={{ color: BRAND.muted }}>
-        {pub.citation}
-      </p>
-
       <JournalLine journal={pub.journal} />
 
-      <div className="mt-6">
+      <div className="mt-5">
         <a
           href={pub.href}
           target="_blank"
@@ -261,7 +416,7 @@ function ProductPaperList({
 }: {
   title: string;
   subtitle: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   titles: string[];
   accent: 'purple' | 'orange';
 }) {
@@ -273,7 +428,7 @@ function ProductPaperList({
 
   return (
     <div
-      className="rounded-[2rem] border p-6"
+      className="rounded-[2rem] border p-5 md:p-6"
       style={{
         borderColor: isPurple ? BRAND.purpleBorder : BRAND.orangeBorder,
         background: isPurple
@@ -281,9 +436,9 @@ function ProductPaperList({
           : 'linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(206,127,87,0.05) 100%)',
       }}
     >
-      <div className="mb-5 flex items-start gap-3">
+      <div className="mb-4 flex items-start gap-3">
         <div
-          className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl"
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl"
           style={{
             background: isPurple ? BRAND.purpleSoft : BRAND.orangeSoft,
           }}
@@ -301,35 +456,40 @@ function ProductPaperList({
         </div>
       </div>
 
-      <div className="space-y-4">
-        {papers.map((pub) => (
-          <a
-            key={`${title}-${pub.title}`}
-            href={pub.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block rounded-2xl border bg-white p-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm"
-            style={{ borderColor: BRAND.line }}
-          >
-            <PublicationTags
-              category={pub.category}
-              year={pub.year}
-              tags={pub.tags}
-              compact
-            />
+      <div className="space-y-3">
+        {papers.map((pub) => {
+          const authorLabel = getAuthorLabel(pub);
 
-            <h4 className="mt-3 text-base leading-snug" style={{ fontWeight: 400 }}>
-              {pub.title}
-            </h4>
+          return (
+            <a
+              key={`${title}-${pub.title}`}
+              href={pub.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block rounded-2xl border bg-white p-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-sm md:p-5"
+              style={{ borderColor: BRAND.line }}
+            >
+              <PublicationTags
+                category={pub.category}
+                year={pub.year}
+                tags={pub.tags}
+                compact
+              />
 
-            <p className="mt-2 text-sm leading-6" style={{ color: BRAND.muted }}>
-              Published in{' '}
-              <strong style={{ color: BRAND.ink, fontWeight: 600 }}>
-                {pub.journal}
-              </strong>
-            </p>
-          </a>
-        ))}
+              <h4 className="mt-2 text-base leading-snug" style={{ fontWeight: 400 }}>
+                {pub.title}
+              </h4>
+
+              <AuthorLine authorLabel={authorLabel} compact />
+
+              <p className="mt-1 text-sm leading-6" style={{ color: BRAND.muted }}>
+                <strong style={{ color: BRAND.ink, fontWeight: 600 }}>
+                  {pub.journal}
+                </strong>
+              </p>
+            </a>
+          );
+        })}
       </div>
     </div>
   );
@@ -391,7 +551,7 @@ export default function PublicationsPage() {
       }}
     >
       {/* Hero */}
-      <section className="relative overflow-hidden px-6 pt-14 pb-12 md:pt-16 md:pb-14">
+      <section className="relative overflow-hidden px-6 pt-10 pb-8 md:pt-12 md:pb-10">
         <div className="absolute inset-0 z-0 pointer-events-none">
           <div
             className="absolute left-[-4rem] top-4 h-72 w-72 rounded-full blur-3xl"
@@ -404,7 +564,7 @@ export default function PublicationsPage() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-6xl">
-          <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+          <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
             <div>
               <div className="mb-5 flex items-center gap-3">
                 <div
@@ -501,7 +661,7 @@ export default function PublicationsPage() {
                 </div>
 
                 <div className="mt-1 text-sm" style={{ color: BRAND.muted }}>
-                  journals / venues
+                  publication sources
                 </div>
               </div>
 
@@ -534,17 +694,17 @@ export default function PublicationsPage() {
 
       {/* Main featured publication */}
       {mainPublication && (
-        <section className="px-6 pb-10">
+        <section className="px-6 pb-8">
           <div className="mx-auto max-w-6xl">
             <div
-              className="rounded-[2rem] border p-7 shadow-sm md:p-8"
+              className="rounded-[2rem] border p-6 shadow-sm md:p-7"
               style={{
                 borderColor: BRAND.purpleBorder,
                 background:
                   'linear-gradient(135deg, rgba(255,255,255,0.98) 0%, rgba(153,134,191,0.10) 55%, rgba(206,127,87,0.08) 100%)',
               }}
             >
-              <div className="grid gap-7 lg:grid-cols-[0.9fr_1.4fr] lg:items-center">
+              <div className="grid gap-6 lg:grid-cols-[0.9fr_1.4fr] lg:items-center">
                 <div>
                   <div
                     className="mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm"
@@ -569,9 +729,10 @@ export default function PublicationsPage() {
                     className="mt-4 text-base leading-7"
                     style={{ color: BRAND.muted, fontWeight: 300 }}
                   >
-                    This paper should be the primary publication callout for
-                    EpiScalp because it directly supports the normal interictal
-                    EEG diagnostic story.
+                    Our retrospective EpiScalp study demonstrates that our unique
+                    dynamic network model features can support epilepsy diagnosis
+                    by enabling accurate epilepsy classification (AUC 0.94) in
+                    patients with no visible epileptiform discharges.
                   </p>
                 </div>
 
@@ -583,9 +744,9 @@ export default function PublicationsPage() {
       )}
 
       {/* Product publication highlights */}
-      <section className="px-6 pb-10">
+      <section className="px-6 pb-8">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-6">
+          <div className="mb-5">
             <div
               className="text-[11px] uppercase tracking-[0.22em]"
               style={{ color: BRAND.orangeDark, fontWeight: 600 }}
@@ -598,7 +759,7 @@ export default function PublicationsPage() {
             </h2>
 
             <p
-              className="mt-3 max-w-3xl text-base leading-7"
+              className="mt-2 max-w-3xl text-base leading-7"
               style={{ color: BRAND.muted, fontWeight: 300 }}
             >
               These highlighted papers replace the previous publication set and
@@ -607,7 +768,7 @@ export default function PublicationsPage() {
             </p>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-5 lg:grid-cols-2">
             <ProductPaperList
               title="EpiScalp"
               subtitle="Papers supporting source-sink connectivity, interictal EEG biomarkers, and diagnostic modeling."
@@ -638,9 +799,9 @@ export default function PublicationsPage() {
       </section>
 
       {/* Featured publications */}
-      <section className="px-6 pb-10">
+      <section className="px-6 pb-8">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-5 flex items-center justify-between gap-4">
+          <div className="mb-4 flex items-center justify-between gap-4">
             <div>
               <div
                 className="text-[11px] uppercase tracking-[0.22em]"
@@ -655,7 +816,7 @@ export default function PublicationsPage() {
             </div>
           </div>
 
-          <div className="grid gap-6 lg:grid-cols-2">
+          <div className="grid gap-5 lg:grid-cols-2">
             {featuredPubs.map((pub) => (
               <PublicationCard
                 key={`${pub.title}-${pub.year}-featured`}
@@ -750,15 +911,15 @@ export default function PublicationsPage() {
                               active && type === 'Conference'
                                 ? BRAND.orange
                                 : active
-                                ? BRAND.purple
-                                : 'white',
+                                  ? BRAND.purple
+                                  : 'white',
                             color: active ? 'white' : BRAND.ink,
                             borderColor:
                               active && type === 'Conference'
                                 ? BRAND.orange
                                 : active
-                                ? BRAND.purple
-                                : BRAND.line,
+                                  ? BRAND.purple
+                                  : BRAND.line,
                             boxShadow: active
                               ? '0 8px 24px rgba(47,39,56,0.10)'
                               : 'none',
@@ -822,9 +983,9 @@ export default function PublicationsPage() {
       </section>
 
       {/* Publications list */}
-      <section className="px-6 py-10 md:py-12">
+      <section className="px-6 py-8 md:py-10">
         <div className="mx-auto max-w-6xl">
-          <div className="mb-6 flex items-end justify-between gap-4">
+          <div className="mb-5 flex items-end justify-between gap-4">
             <div>
               <div
                 className="text-[11px] uppercase tracking-[0.22em]"
@@ -843,7 +1004,7 @@ export default function PublicationsPage() {
             </div>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3">
             {filteredPubs.map((pub) => (
               <PublicationCard key={`${pub.title}-${pub.year}`} pub={pub} />
             ))}

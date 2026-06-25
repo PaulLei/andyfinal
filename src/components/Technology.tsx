@@ -1,5 +1,5 @@
 import { publications } from '../data/publications';
-import { ExternalLink, BookOpen } from 'lucide-react';
+import { ExternalLink, BookOpen, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const B = {
@@ -105,17 +105,30 @@ function getAuthorLabel(pub: Publication) {
     }
   }
 
+  const citation = asText(record.citation);
+  const title = asText(record.title);
+
+  if (citation && title) {
+    const titleIndex = citation.toLowerCase().indexOf(title.toLowerCase());
+
+    if (titleIndex > 0) {
+      const firstAuthor = citation
+        .slice(0, titleIndex)
+        .replace(/[.;:\s]+$/g, '')
+        .split(';')[0]
+        .split(' and ')[0]
+        .split(' & ')[0]
+        .trim();
+
+      const lastName = getLastNameFromAuthorName(firstAuthor);
+
+      if (lastName) {
+        return `${lastName} et al.`;
+      }
+    }
+  }
+
   return '';
-}
-
-function getCitation(pub: Publication) {
-
-  const record = pub as Record<string, unknown>;
-
-  return (
-    asText(record.citation) ||
-    [pub.journal, pub.year].filter(Boolean).join(' ')
-  );
 }
 
 function getPublicationLabel(pub: Publication) {
@@ -171,21 +184,21 @@ export default function Technology() {
 
   return (
     <section
-      className="py-12 px-6 sm:py-16"
+      className="px-6 py-9 sm:py-11"
       style={{ backgroundColor: B.bg, color: B.ink }}
     >
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-8 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-6 grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
           <div className="max-w-4xl">
             <div
-              className="text-[11px] uppercase tracking-[0.22em] mb-4"
+              className="mb-2 text-[11px] uppercase tracking-[0.22em]"
               style={{ color: B.purpleDark, fontWeight: 600 }}
             >
               Research Foundation
             </div>
 
             <h2
-              className="text-4xl sm:text-5xl leading-[1.05]"
+              className="text-3xl leading-tight sm:text-4xl lg:text-5xl"
               style={{ fontWeight: 300 }}
             >
               Built on{' '}
@@ -202,7 +215,7 @@ export default function Technology() {
             </h2>
 
             <p
-              className="mt-5 max-w-3xl text-base leading-7"
+              className="mt-4 max-w-3xl text-sm leading-6 sm:text-base sm:leading-7"
               style={{ color: B.muted }}
             >
               Our technology is grounded in over a decade of peer-reviewed
@@ -215,11 +228,11 @@ export default function Technology() {
           </div>
 
           {showStats && (
-            <div className="flex flex-wrap gap-3 lg:flex-col lg:items-end">
+            <div className="flex flex-wrap gap-2 lg:flex-col lg:items-end">
               {stats.map((s) => (
                 <div
                   key={s.label}
-                  className="rounded-2xl border px-5 py-3 text-center"
+                  className="rounded-2xl border px-4 py-2.5 text-center"
                   style={{
                     borderColor: B.purpleBorder,
                     backgroundColor: B.purpleSoft,
@@ -231,6 +244,7 @@ export default function Technology() {
                   >
                     {s.value}
                   </div>
+
                   <div
                     className="mt-1 text-[10px] uppercase tracking-[0.18em]"
                     style={{ color: B.muted, fontWeight: 600 }}
@@ -247,7 +261,6 @@ export default function Technology() {
           {featuredPubs.map((pub, index) => {
             const publicationStyle = getPublicationLabel(pub);
             const authorLabel = getAuthorLabel(pub);
-            const citation = getCitation(pub);
 
             return (
               <a
@@ -255,7 +268,7 @@ export default function Technology() {
                 href={pub.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex flex-col rounded-[1.25rem] border p-3 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:p-4"
+                className="group flex flex-col rounded-[1.25rem] border p-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md"
                 style={{
                   borderColor: publicationStyle.border,
                   backgroundColor: publicationStyle.soft,
@@ -285,7 +298,7 @@ export default function Technology() {
 
                 {authorLabel && (
                   <div
-                    className="mb-2 text-sm"
+                    className="mb-1.5 text-sm"
                     style={{ color: publicationStyle.color, fontWeight: 600 }}
                   >
                     {authorLabel}
@@ -301,28 +314,15 @@ export default function Technology() {
 
                 {pub.journal && (
                   <p
-                    className="mt-3 text-xs leading-5"
+                    className="mt-2 text-xs leading-5"
                     style={{ color: B.muted }}
                   >
                     {pub.journal}
                   </p>
                 )}
 
-                {citation && (
-                  <div
-                    className="mt-3 flex items-start gap-1.5 text-xs leading-5"
-                    style={{ color: B.muted }}
-                  >
-                    <BookOpen
-                      className="mt-0.5 h-3.5 w-3.5 shrink-0"
-                      style={{ color: publicationStyle.color }}
-                    />
-                    <span>{citation}</span>
-                  </div>
-                )}
-
                 <div
-                  className="mt-4 flex items-center gap-1.5 text-xs opacity-0 transition-opacity group-hover:opacity-100"
+                  className="mt-3 flex items-center gap-1.5 text-xs opacity-0 transition-opacity group-hover:opacity-100"
                   style={{ color: publicationStyle.color }}
                 >
                   <ExternalLink className="h-3 w-3" />
@@ -333,10 +333,10 @@ export default function Technology() {
           })}
         </div>
 
-        <div className="mt-7 flex justify-center">
+        <div className="mt-5 flex justify-center">
           <Link
             to="/publications"
-            className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+            className="inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
             style={{
               backgroundColor: B.purpleDark,
               color: '#fff',
@@ -344,6 +344,7 @@ export default function Technology() {
           >
             <BookOpen className="h-4 w-4" />
             View all publications
+            <ArrowRight className="h-4 w-4" />
           </Link>
         </div>
       </div>
