@@ -15,6 +15,7 @@ import {
   Clock3,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { publications as masterPublications } from "../data/publications";
 
 // ─── Contact ──────────────────────────────────────────────────────────────────
 const CONTACT_NAME = "Andrew Gotshalk";
@@ -99,26 +100,10 @@ const institutions = [
   },
 ];
 
-const publications = [
-  {
-    title:
-      "EpiScalp clinical validation study supporting quantitative epilepsy risk assessment from scalp EEG",
-    authors: "Patrick et al.",
-    journal: "Annals of Neurology",
-    year: "2024",
-    episcalp: true,
-    href: "#",
-  },
-  {
-    title:
-      "Source/sink network dynamics for identifying epileptic dysfunction from EEG",
-    authors: "Sarma Lab and collaborators",
-    journal: "Peer-reviewed research",
-    year: "Published",
-    episcalp: true,
-    href: "#",
-  },
-];
+const episcalpPublications = masterPublications
+  .filter((publication) => publication.tags.includes("EpiScalp"))
+  .sort((a, b) => b.year - a.year)
+  .slice(0, 3);
 
 const faqs = [
   {
@@ -336,7 +321,6 @@ function InstitutionLogo({
 
 export default function EpiScalpPage() {
   const [scrollY, setScrollY] = useState(0);
-  const [showAllPubs, setShowAllPubs] = useState(false);
   const pubsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -348,9 +332,7 @@ export default function EpiScalpPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const visiblePubs = showAllPubs
-    ? publications
-    : publications.filter((p) => p.episcalp);
+  const visiblePubs = episcalpPublications;
 
   const mailtoGeneral = `mailto:${CONTACT_EMAIL}?subject=EpiScalp%20Inquiry`;
   const mailtoCommercial = `mailto:${CONTACT_EMAIL}?subject=EpiScalp%20Commercialization%20Inquiry`;
@@ -911,22 +893,6 @@ export default function EpiScalpPage() {
             </Link>
           </div>
 
-          <div className="mb-6 flex flex-wrap items-center gap-3">
-            <button
-              onClick={() => setShowAllPubs(false)}
-              className="rounded-full px-4 py-2 text-sm transition-colors"
-              style={{
-                backgroundColor: !showAllPubs ? B.purpleDark : "transparent",
-                color: !showAllPubs ? "#fff" : B.muted,
-                border: `1px solid ${!showAllPubs ? B.purpleDark : B.line}`,
-              }}
-            >
-              EpiScalp relevant
-            </button>
-
-           
-          </div>
-
           <div className="space-y-4">
             {visiblePubs.map((pub) => (
               <a
@@ -936,30 +902,26 @@ export default function EpiScalpPage() {
                 rel="noreferrer"
                 className="group flex flex-col gap-4 rounded-2xl border p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md sm:p-6"
                 style={{
-                  borderColor: pub.episcalp ? B.purpleBorder : B.line,
-                  backgroundColor: pub.episcalp
-                    ? "rgba(153,134,191,0.05)"
-                    : B.card,
+                  borderColor: B.purpleBorder,
+                  backgroundColor: "rgba(153,134,191,0.05)",
                 }}
               >
                 <div className="min-w-0 flex-1">
                   <div className="mb-2 flex flex-wrap items-center gap-2">
-                    {pub.episcalp && (
-                      <span
-                        className="rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-[0.16em]"
-                        style={{
-                          borderColor: B.purpleBorder,
-                          color: B.purpleDark,
-                          backgroundColor: B.purpleSoft,
-                          fontWeight: 600,
-                        }}
-                      >
-                        EpiScalp
-                      </span>
-                    )}
+                    <span
+                      className="rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-[0.16em]"
+                      style={{
+                        borderColor: B.purpleBorder,
+                        color: B.purpleDark,
+                        backgroundColor: B.purpleSoft,
+                        fontWeight: 600,
+                      }}
+                    >
+                      EpiScalp
+                    </span>
 
                     <span className="text-xs" style={{ color: B.muted }}>
-                      {pub.journal} · {pub.year}
+                      {pub.journal}
                     </span>
                   </div>
 
@@ -971,7 +933,7 @@ export default function EpiScalpPage() {
                   </p>
 
                   <p className="mt-1 text-sm leading-5" style={{ color: B.muted }}>
-                    {pub.authors}
+                    {pub.citation}
                   </p>
                 </div>
 

@@ -68,9 +68,37 @@ export default function Navigation({ scrolled }: NavigationProps) {
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
 
   const navRef = useRef<HTMLElement>(null);
+  const closeTimeoutRef = useRef<number | null>(null);
   const location = useLocation();
 
+  const clearCloseTimeout = () => {
+    if (closeTimeoutRef.current) {
+      window.clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+  };
+
+  const openDropdown = (label: string) => {
+    clearCloseTimeout();
+    setActiveDropdown(label);
+  };
+
+  const closeDropdownWithDelay = () => {
+    clearCloseTimeout();
+
+    closeTimeoutRef.current = window.setTimeout(() => {
+      setActiveDropdown(null);
+      closeTimeoutRef.current = null;
+    }, 450);
+  };
+
+  const closeDropdownNow = () => {
+    clearCloseTimeout();
+    setActiveDropdown(null);
+  };
+
   useEffect(() => {
+    clearCloseTimeout();
     setMobileOpen(false);
     setActiveDropdown(null);
     setMobileExpanded(null);
@@ -79,11 +107,15 @@ export default function Navigation({ scrolled }: NavigationProps) {
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (navRef.current && !navRef.current.contains(e.target as Node)) {
-        setActiveDropdown(null);
+        closeDropdownNow();
       }
     };
+
     document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+
+    return () => {
+      document.removeEventListener("mousedown", handler);
+    };
   }, []);
 
   useEffect(() => {
@@ -94,6 +126,12 @@ export default function Navigation({ scrolled }: NavigationProps) {
       document.body.style.overflow = "unset";
     };
   }, [mobileOpen]);
+
+  useEffect(() => {
+    return () => {
+      clearCloseTimeout();
+    };
+  }, []);
 
   return (
     <header
@@ -111,7 +149,7 @@ export default function Navigation({ scrolled }: NavigationProps) {
             className="flex items-center gap-2 flex-shrink-0 lg:justify-self-start"
             onClick={() => {
               setMobileOpen(false);
-              setActiveDropdown(null);
+              closeDropdownNow();
             }}
           >
             <img
@@ -128,7 +166,11 @@ export default function Navigation({ scrolled }: NavigationProps) {
 
               if (!hasChildren) {
                 return (
-                  <div key={item.label} className="h-20 flex items-center px-4">
+                  <div
+                    key={item.label}
+                    className="h-20 flex items-center px-4"
+                    onMouseEnter={closeDropdownNow}
+                  >
                     <Link
                       to={item.href}
                       className="text-[13px] tracking-widest uppercase font-medium text-neutral-500 hover:text-black transition-colors"
@@ -142,19 +184,22 @@ export default function Navigation({ scrolled }: NavigationProps) {
               return (
                 <div
                   key={item.label}
-                  onMouseEnter={() => setActiveDropdown(item.label)}
-                  onMouseLeave={() => setActiveDropdown(null)}
+                  onMouseEnter={() => openDropdown(item.label)}
+                  onMouseLeave={closeDropdownWithDelay}
                   className="h-20 flex items-center px-4"
                 >
                   <button
-                    onClick={() =>
-                      setActiveDropdown(isOpen ? null : item.label)
-                    }
+                    type="button"
+                    onClick={() => {
+                      if (isOpen) closeDropdownNow();
+                      else openDropdown(item.label);
+                    }}
                     className={`relative text-[13px] tracking-widest uppercase font-medium transition-colors ${
                       isOpen
                         ? "text-black"
                         : "text-neutral-500 hover:text-black"
                     }`}
+                    aria-expanded={isOpen}
                   >
                     {item.label}
                     <span
@@ -165,6 +210,8 @@ export default function Navigation({ scrolled }: NavigationProps) {
                   </button>
 
                   <div
+                    onMouseEnter={() => openDropdown(item.label)}
+                    onMouseLeave={closeDropdownWithDelay}
                     className={`absolute left-0 top-full w-full bg-white border-b border-neutral-200 shadow-xl shadow-black/5 transition-all duration-300 origin-top ${
                       isOpen
                         ? "opacity-100 visible translate-y-0"
@@ -177,7 +224,7 @@ export default function Navigation({ scrolled }: NavigationProps) {
                           <Link
                             key={child.href}
                             to={child.href}
-                            onClick={() => setActiveDropdown(null)}
+                            onClick={closeDropdownNow}
                             className="group p-4 rounded-xl hover:bg-neutral-50 border border-transparent hover:border-neutral-100 transition-all duration-200 flex items-start justify-between"
                           >
                             <div>
@@ -202,6 +249,7 @@ export default function Navigation({ scrolled }: NavigationProps) {
           <div className="hidden lg:flex items-center lg:justify-self-end">
             <Link
               to="/contact"
+              onMouseEnter={closeDropdownNow}
               className="inline-flex items-center justify-center h-10 px-6 rounded-full bg-black text-white text-[12px] tracking-widest uppercase font-medium hover:bg-neutral-800 transition"
             >
               Contact Us
