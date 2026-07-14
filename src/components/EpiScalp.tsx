@@ -77,7 +77,7 @@ const institutions = [
   {
     name: "Thomas Jefferson University",
     department: "Epilepsy Center",
-    role: "Prospective validation and clinical research collaboration",
+    role: "Prospective data collection and clinical research validation",
     logo: "jefferson.png",
     logoScale: 2.2,
     fallbackIcon: Building2,
@@ -85,7 +85,7 @@ const institutions = [
   {
     name: "University of Maryland",
     department: "Epilepsy Center",
-    role: "Prospective data collection and clinical workflow evaluation",
+    role: "Prospective data collection and clinical research validation",
     logo: "umm.png",
     logoScale: 1,
     fallbackIcon: Microscope,
@@ -93,7 +93,7 @@ const institutions = [
   {
     name: "Johns Hopkins Hospital",
     department: "Epilepsy Center",
-    role: "Prospective clinical research collaboration and validation support",
+    role: "Prospective data collection and clinical research validation",
     logo: "jhu.png",
     logoScale: 1,
     fallbackIcon: Building2,

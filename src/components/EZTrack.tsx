@@ -77,7 +77,7 @@ const institutions = [
   {
     name: "University of Miami Health System",
     department: "Epilepsy Center",
-    role: "Prospective validation and clinical research collaboration",
+    role: "Retrospective data collection and clinical research validation",
     logo: "umiami.png",
     logoScale: 1,
     fallbackIcon: Building2,
@@ -85,7 +85,7 @@ const institutions = [
   {
     name: "University of Maryland",
     department: "Epilepsy Center",
-    role: "Prospective data collection and clinical workflow evaluation",
+    role: "Retrospective data collection and clinical research validation",
     logo: "umm.png",
     logoScale: 1,
     fallbackIcon: Microscope,
@@ -93,15 +93,15 @@ const institutions = [
   {
     name: "Johns Hopkins Hospital",
     department: "Epilepsy Center",
-    role: "Prospective clinical research collaboration and validation support",
+    role: "Retrospective data collection and clinical research validation",
     logo: "jhu.png",
     logoScale: 1,
     fallbackIcon: Building2,
   },
   {
-    name: "National Institutes of Health (NIH)",
+    name: "National Institutes of Health",
     department: "Epilepsy Center",
-    role: "Prospective clinical research collaboration and validation support",
+    role: "Retrospective clinical research collaboration and validation support",
     logo: "nih.png",
     logoScale: 1,
     fallbackIcon: Microscope,
@@ -109,7 +109,7 @@ const institutions = [
   {
     name: "Cleveland Clinic",
     department: "Epilepsy Center",
-    role: "Prospective clinical research collaboration and validation support",
+    role: "Retrospective clinical research collaboration and validation support",
     logo: "cleveland.png",
     logoScale: 1.5,
     fallbackIcon: Microscope,
