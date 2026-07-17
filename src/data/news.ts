@@ -154,7 +154,7 @@ Neurologic Solutions is a pre-revenue company that aims to improve the diagnosis
       "Neurologic Solutions Awarded $1 Million NIH Blueprint MedTech Optimizer Award to Advance EpiScalp",
     excerpt:
       "Neurologic Solutions receives a $1 million NIH Blueprint MedTech Optimizer award to advance EpiScalp development, clinical validation, and regulatory readiness.",
-    image: "/new Blueprint-Medtech4_Logo.jpg",
+    image: "/Blueprint-Medtech4_Logo.jpg",
     link: "",
     internalReport: `FOR IMMEDIATE RELEASE
 
