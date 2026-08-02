@@ -72,42 +72,86 @@ export default function PressSection() {
 
         {/* Cards */}
         <div className="grid gap-3 md:grid-cols-3">
-          {latestItems.map((item, index) => (
-            <a
-              key={index}
-              href={item.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex flex-col rounded-[1.35rem] border p-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:p-5"
-              style={{
-                borderColor: index === 0 ? B.purpleBorder : B.line,
-                backgroundColor: index === 0 ? B.purpleSoft : B.card,
-                boxShadow: index === 0 ? `inset 3px 0 0 ${B.purpleDark}` : undefined,
-              }}
-            >
-              <p
-                className="mb-3 text-[11px] uppercase tracking-[0.18em]"
-                style={{ color: B.orangeDark, fontWeight: 600 }}
-              >
-                {formatDate(item.date)}
-              </p>
+          {latestItems.map((item, index) => {
+            const hasInternalReport = !!item.internalReport && (!item.link || !item.link.trim());
+            const itemPath = item.title.toLowerCase().replace(/\s+/g, '-');
+            const cardContent = (
+              <>
+                <p
+                  className="mb-3 text-[11px] uppercase tracking-[0.18em]"
+                  style={{ color: B.orangeDark, fontWeight: 600 }}
+                >
+                  {formatDate(item.date)}
+                </p>
 
-              <h3
-                className="mb-4 text-base leading-6"
-                style={{ color: B.ink, fontWeight: 400 }}
-              >
-                {item.title}
-              </h3>
+                <h3
+                  className="mb-3 text-base leading-6"
+                  style={{ color: B.ink, fontWeight: 400 }}
+                >
+                  {item.title}
+                </h3>
 
-              <div
-                className="mt-auto flex items-center gap-1.5 text-xs opacity-0 transition-opacity group-hover:opacity-100"
-                style={{ color: B.purpleDark }}
-              >
-                <ExternalLink className="h-3 w-3" />
-                Read article
+                {item.excerpt && (
+                  <p
+                    className="mb-4 text-sm leading-6"
+                    style={{ color: B.muted }}
+                  >
+                    {item.excerpt}
+                  </p>
+                )}
+
+                <div
+                  className="mt-auto flex items-center gap-1.5 text-xs opacity-0 transition-opacity group-hover:opacity-100"
+                  style={{ color: B.purpleDark }}
+                >
+                  <ExternalLink className="h-3 w-3" />
+                  {hasInternalReport ? 'Read report' : item.link ? 'Read article' : 'Read update'}
+                </div>
+              </>
+            );
+
+            const cardClassName =
+              'group flex flex-col rounded-[1.35rem] border p-4 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg sm:p-5';
+            const cardStyle = {
+              borderColor: index === 0 ? B.purpleBorder : B.line,
+              backgroundColor: index === 0 ? B.purpleSoft : B.card,
+              boxShadow: index === 0 ? `inset 3px 0 0 ${B.purpleDark}` : undefined,
+            };
+
+            if (hasInternalReport) {
+              return (
+                <Link
+                  key={`${item.title}-${item.date}`}
+                  to={`/news-report/${itemPath}`}
+                  className={cardClassName}
+                  style={cardStyle}
+                >
+                  {cardContent}
+                </Link>
+              );
+            }
+
+            if (item.link) {
+              return (
+                <a
+                  key={`${item.title}-${item.date}`}
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={cardClassName}
+                  style={cardStyle}
+                >
+                  {cardContent}
+                </a>
+              );
+            }
+
+            return (
+              <div key={`${item.title}-${item.date}`} className={cardClassName} style={cardStyle}>
+                {cardContent}
               </div>
-            </a>
-          ))}
+            );
+          })}
         </div>
 
         {/* CTA */}

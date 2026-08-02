@@ -20,10 +20,8 @@ const B = {
 
 type Publication = (typeof publications)[number];
 
-function getStats(pubs: typeof publications) {
-  const total = pubs.length;
-  const journals = new Set(pubs.map((p) => p.journal).filter(Boolean)).size;
-  return { total, journals };
+function getPublicationCount(pubs: typeof publications) {
+  return pubs.length;
 }
 
 function asText(value: unknown) {
@@ -173,14 +171,7 @@ function getPublicationLabel(pub: Publication) {
 
 export default function Technology() {
   const featuredPubs = publications.filter((p) => p.featured);
-  const { total, journals } = getStats(publications);
-
-  const showStats = total >= 5;
-
-  const stats = [
-    { label: 'Publications', value: `${total}+` },
-    { label: 'Journals', value: `${journals}` },
-  ];
+  const totalPublications = getPublicationCount(publications);
 
   return (
     <section
@@ -188,7 +179,7 @@ export default function Technology() {
       style={{ backgroundColor: B.bg, color: B.ink }}
     >
       <div className="mx-auto max-w-6xl">
-        <div className="mb-6 grid gap-5 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-4xl">
             <div
               className="mb-2 text-[11px] uppercase tracking-[0.22em]"
@@ -227,34 +218,30 @@ export default function Technology() {
             </p>
           </div>
 
-          {showStats && (
-            <div className="flex flex-wrap gap-2 lg:flex-col lg:items-end">
-              {stats.map((s) => (
-                <div
-                  key={s.label}
-                  className="rounded-2xl border px-4 py-2.5 text-center"
-                  style={{
-                    borderColor: B.purpleBorder,
-                    backgroundColor: B.purpleSoft,
-                  }}
-                >
-                  <div
-                    className="text-2xl leading-none"
-                    style={{ color: B.purpleDark, fontWeight: 300 }}
-                  >
-                    {s.value}
-                  </div>
+          <div className="flex justify-start lg:justify-start lg:pr-3">
+            <div
+              className="rounded-[1.4rem] border px-5 py-3.5 text-center shadow-sm sm:px-6 sm:py-4"
+              style={{
+                borderColor: B.purpleBorder,
+                backgroundColor: B.purpleSoft,
+                boxShadow: `0 10px 24px rgba(153, 134, 191, 0.12)`,
+              }}
+            >
+              <div
+                className="text-[2rem] leading-none sm:text-[2.2rem]"
+                style={{ color: B.purpleDark, fontWeight: 300 }}
+              >
+                {totalPublications}+
+              </div>
 
-                  <div
-                    className="mt-1 text-[10px] uppercase tracking-[0.18em]"
-                    style={{ color: B.muted, fontWeight: 600 }}
-                  >
-                    {s.label}
-                  </div>
-                </div>
-              ))}
+              <div
+                className="mt-1.5 text-[10px] uppercase tracking-[0.2em]"
+                style={{ color: B.muted, fontWeight: 600 }}
+              >
+                Publications
+              </div>
             </div>
-          )}
+          </div>
         </div>
 
         <div className="grid gap-3 md:grid-cols-2">

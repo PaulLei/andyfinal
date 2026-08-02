@@ -108,7 +108,7 @@ const episcalpPublications = masterPublications
 const faqs = [
   {
     q: "What type of EEG data does EpiScalp require?",
-    a: "EpiScalp is designed for any standard scalp EEG recordings. It supports common clinical EEG formats and is intended to work with recordings that include both interictal and ictal segments.",
+    a: "EpiScalp is designed for any standard scalp EEG recordings. It supports common clinical EEG formats and is intended to work with recordings that include both interictal segments.",
   },
   {
     q: "How long does it take to generate results?",
@@ -116,7 +116,7 @@ const faqs = [
   },
   {
     q: "Has EpiScalp been validated in clinical settings?",
-    a: "Yes. EpiScalp has been studied in retrospective and prospective research across multiple academic medical centers. Peer-reviewed publications are available in the section above and can also be found in our Publications page. EpiScalp is also currently being tested and validated as part of a NINDs SBIR Phase 2 study at 3 leading Level 4 Epilepsy Centers.",
+    a: "Yes. EpiScalp has been studied in retrospective and prospective research across multiple academic medical centers. Peer-reviewed publications are available in the section above and can also be found in our Publications page. EpiScalp is also currently being tested and validated as part of a NINDS SBIR Phase 2 study at 3 leading Level 4 Epilepsy Centers.",
   },
   {
     q: "Is EpiScalp FDA cleared?",
@@ -128,7 +128,7 @@ const faqs = [
   },
   {
     q: "What does the output look like?",
-    a: "EpiScalp produces a risk score, from 0-100 and an epilepsy prediction: Epilepsy Likely, Epilepsy Unlikely, or Uncertain, on the likelihood a patient has epilepsy.",
+    a: "EpiScalp produces a risk score, from 0-100 and an epilepsy prediction: Epilepsy Likely, Epilepsy Unlikely, or Indeterminate, on the likelihood a patient has epilepsy.",
   },
 ];
 
@@ -601,7 +601,7 @@ export default function EpiScalpPage() {
               >
                 <p>
                   Following the successful completion of a retrospective
-                  clinical study, we are now approximately 75% complete with a
+                  clinical study, we are now completing a
                   multi-center prospective study being conducted at three leading
                   epilepsy centers. These studies are designed to further
                   validate EpiScalp’s ability to support earlier and more
@@ -744,18 +744,6 @@ export default function EpiScalpPage() {
               </h2>
             </div>
 
-            <a
-              href={mailtoTrial}
-              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-medium transition-transform duration-200 hover:-translate-y-0.5"
-              style={{
-                backgroundColor: B.purpleSoft,
-                color: B.purpleDark,
-                border: `1px solid ${B.purpleBorder}`,
-              }}
-            >
-              <FlaskConical className="h-4 w-4" />
-              Interested in a clinical trial?
-            </a>
           </div>
 
           <p
@@ -955,7 +943,7 @@ export default function EpiScalpPage() {
             <p className="text-sm leading-7" style={{ color: B.muted }}>
               <strong style={{ color: B.ink }}>Study validation: </strong>
               EpiScalp has completed a retrospective clinical study and is
-              approximately 75% complete with a multi-center prospective study
+              completing a multi-center prospective study
               involving over 1,000 patients across three premier Level 4 Epilepsy
               Centers. These studies are designed to further validate EpiScalp’s
               ability to support earlier and more objective identification of
@@ -1041,14 +1029,6 @@ export default function EpiScalpPage() {
                   <ArrowRight className="h-4 w-4" />
                 </a>
 
-                <a
-                  href={mailtoTrial}
-                  className="inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3.5 text-sm text-white transition-colors duration-300 hover:bg-white/10"
-                  style={{ borderColor: "rgba(255,255,255,0.18)" }}
-                >
-                  <FlaskConical className="h-4 w-4" />
-                  Clinical trial inquiry
-                </a>
               </div>
             </div>
 
