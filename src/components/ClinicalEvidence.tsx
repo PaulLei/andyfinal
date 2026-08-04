@@ -485,32 +485,45 @@ export default function ClinicalEvidencePage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-2.5">
-                  {section.cards.map((card) => (
-                    <AccentCard
-                      key={card.label}
-                      accent={section.accent}
-                      className="p-3.5"
-                    >
-                      <div
-                        className="text-[10px] uppercase tracking-[0.16em]"
-                        style={{
-                          color: isPurple ? BRAND.purpleDark : BRAND.orangeDark,
-                          fontWeight: 600,
-                        }}
-                      >
-                        {card.label}
-                      </div>
+                <div className="flex items-center justify-center">
+                  {section.id === 'episcalp-evidence' ? (
+                    <img
+                      src="/Neurologic boxes.png"
+                      alt="Neurologic boxes"
+                      className="w-full max-w-[36rem] rounded-[2rem] border border-neutral-200 bg-white shadow-sm"
+                      style={{ objectFit: 'contain' }}
+                    />
+                  ) : (
+                    <div className="grid w-full grid-cols-1 gap-3 lg:grid-cols-2">
+                      {section.cards.map((card) => (
+                        <AccentCard
+                          key={card.label}
+                          accent={section.accent}
+                          className="p-4"
+                        >
+                          <div className="flex items-start justify-between gap-3">
+                            <div
+                              className="text-[10px] uppercase tracking-[0.18em]"
+                              style={{
+                                color: isPurple ? BRAND.purpleDark : BRAND.orangeDark,
+                                fontWeight: 600,
+                              }}
+                            >
+                              {card.label}
+                            </div>
+                          </div>
 
-                      <div className="mt-1.5 text-2xl leading-none" style={{ fontWeight: 300 }}>
-                        {card.value}
-                      </div>
+                          <div className="mt-3 text-3xl leading-tight" style={{ fontWeight: 300 }}>
+                            {card.value}
+                          </div>
 
-                      <p className="mt-1.5 text-xs leading-5" style={{ color: BRAND.muted }}>
-                        {card.note}
-                      </p>
-                    </AccentCard>
-                  ))}
+                          <p className="mt-2 text-sm leading-6" style={{ color: BRAND.muted }}>
+                            {card.note}
+                          </p>
+                        </AccentCard>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

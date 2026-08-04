@@ -139,15 +139,6 @@ Neurologic Solutions is a pre-revenue company that aims to improve the diagnosis
     link: "https://technical.ly/entrepreneurship/johns-hopkins-innovation-summit-2025/?nab=1",
   },
   {
-    date: "5 December 2025",
-    category: "Company",
-    title: "MII Technology Assessment Awards",
-    excerpt:
-      "Neurologic Solutions Gets the Maryland Innovation Initiative Technology Assessment Award",
-    image: "/new article.png",
-    link: "https://www.tedcomd.com/mii-universityprojects ",
-  },
-  {
     date: "5 December 2026",
     category: "Awards",
     title:

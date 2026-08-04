@@ -75,7 +75,7 @@ const steps = [
 
 const institutions = [
   {
-    name: "Thomas Jefferson University",
+    name: "Thomas Jefferson",
     department: "Epilepsy Center",
     role: "Prospective data collection and clinical research validation",
     logo: "jefferson.png",
@@ -751,7 +751,7 @@ export default function EpiScalpPage() {
             style={{ color: B.muted, fontWeight: 300 }}
           >
             EpiScalp™ prospective validation work includes leading epilepsy
-            research partners, including Jefferson, University of Maryland, and
+            research partners, including Thomas Jefferson, University of Maryland, and
             Johns Hopkins Hospital. These collaborations help evaluate clinical
             workflows, real-world utility, and broader deployment following
             regulatory clearance.
