@@ -145,7 +145,7 @@ function getPublicationLabel(pub: Publication) {
 
   if (isEpiScalp) {
     return {
-      label: 'EpiScalp Foundation',
+      label: 'EpiScalp™ Foundation',
       color: B.purpleDark,
       soft: B.purpleSoft,
       border: B.purpleBorder,
@@ -154,7 +154,7 @@ function getPublicationLabel(pub: Publication) {
 
   if (isEZTrack) {
     return {
-      label: 'EZTrack Foundation',
+      label: 'EZTrack™ Foundation',
       color: B.orangeDark,
       soft: B.orangeSoft,
       border: B.orangeBorder,

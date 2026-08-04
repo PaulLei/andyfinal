@@ -48,7 +48,7 @@ const steps = [
     number: "1",
     title: "Upload intracranial EEG",
     description:
-      "Upload any intracranial EEG recording: SEEG or ECoG. EZTrack allows you to upload additional electrode annotations to exclude channels with non-neural signals from the analysis.",
+      "Upload any intracranial EEG recording: SEEG or ECoG. EZTrack™ allows you to upload additional electrode annotations to exclude channels with non-neural signals from the analysis.",
     detail:
       "Designed for intracranial EEG workflows, including stereoelectroencephalography and electrocorticography recordings used in epilepsy surgery evaluation.",
     image: "/ezstep1.png",
@@ -57,7 +57,7 @@ const steps = [
     number: "2",
     title: "Compute neural fragility",
     description:
-      "EZTrack preprocesses the data and computes the Fragility Index, a validated neural biomarker for localizing the epileptogenic zone. Regions of high fragility, or instability within the epileptic network, have been shown to correspond to the epileptogenic zone and predict surgical outcome.",
+      "EZTrack™ preprocesses the data and computes the Fragility Index, a validated neural biomarker for localizing the epileptogenic zone. Regions of high fragility, or instability within the epileptic network, have been shown to correspond to the epileptogenic zone and predict surgical outcome.",
     detail:
       "Fragility analysis helps reduce the burden of manual review by highlighting network instability patterns that may be clinically meaningful for surgical planning.",
     image: "/ezstep2.png",
@@ -66,7 +66,7 @@ const steps = [
     number: "3",
     title: "Generate localization heatmap",
     description:
-      "EZTrack generates an interpretable spatiotemporal heatmap of the Fragility Index across all electrodes, immediately highlighting regions of high fragility to support neurosurgical planning in patients with drug-resistant epilepsy.",
+      "EZTrack™ generates an interpretable spatiotemporal heatmap of the Fragility Index across all electrodes, immediately highlighting regions of high fragility to support neurosurgical planning in patients with drug-resistant epilepsy.",
     detail:
       "The output is designed for clinical review and multidisciplinary discussion, helping teams identify regions that may inform surgical decision-making.",
     image: "/ezstep3.png",
@@ -123,20 +123,20 @@ const eztrackPublications = masterPublications
 
 const faqs = [
   {
-    q: "What type of EEG data does EZTrack require?",
-    a: "EZTrack is designed for any intracranial EEG recording: SEEG or ECoG. It supports common clinical iEEG formats.",
+    q: "What type of EEG data does EZTrack™ require?",
+    a: "EZTrack™ is designed for any intracranial EEG recording: SEEG or ECoG. It supports common clinical iEEG formats.",
   },
   {
     q: "How long does it take to generate results?",
-    a: "EZTrack takes minutes to run with exact duration depending on recording length and operating system configurations.",
+    a: "EZTrack™ takes minutes to run with exact duration depending on recording length and operating system configurations.",
   },
   {
-    q: "Has EZTrack been validated in clinical settings?",
-    a: "Yes. EZTrack has been clinically validated across 91 surgical cases. Peer-reviewed publications are available in the section above.",
+    q: "Has EZTrack™ been validated in clinical settings?",
+    a: "Yes. EZTrack™ has been clinically validated across 91 surgical cases. Peer-reviewed publications are available in the section above.",
   },
   {
-    q: "Is EZTrack FDA cleared?",
-    a: "Yes. EZTrack received 510(k) clearance in 2019 (K201910).",
+    q: "Is EZTrack™ FDA cleared?",
+    a: "Yes. EZTrack™ received 510(k) clearance in 2019 (K201910).",
   },
   {
     q: "Can I participate in a clinical trial?",
@@ -144,7 +144,7 @@ const faqs = [
   },
   {
     q: "What does the output look like?",
-    a: "EZTrack produces spatio-temporal fragility heatmaps and electrode-level summary overlays. These outputs are designed to be interpretable without specialized signal-processing expertise.",
+    a: "EZTrack™ produces spatio-temporal fragility heatmaps and electrode-level summary overlays. These outputs are designed to be interpretable without specialized signal-processing expertise.",
   },
 ];
 
@@ -379,7 +379,7 @@ export default function EZTrackPage() {
                   color: B.purpleDark,
                 }}
               >
-                EZTrack · Product Overview
+                EZTrack™ · Product Overview
               </span>
 
               <h1
@@ -404,7 +404,7 @@ export default function EZTrackPage() {
                 className="mt-7 max-w-2xl text-lg leading-8 sm:text-xl"
                 style={{ color: B.muted, fontWeight: 300 }}
               >
-                EZTrack analyzes intracranial EEG to localize epileptogenic
+                EZTrack™ analyzes intracranial EEG to localize epileptogenic
                 regions, reducing the burden of manual review and supporting
                 surgical planning in patients with drug-resistant epilepsy.
               </p>
@@ -442,7 +442,7 @@ export default function EZTrackPage() {
                 className="text-[11px] uppercase tracking-[0.22em]"
                 style={{ color: B.orangeDark, fontWeight: 600 }}
               >
-                What EZTrack produces
+                What EZTrack™ produces
               </div>
 
               <p className="mt-4 text-xl leading-8" style={{ fontWeight: 300 }}>
@@ -499,7 +499,7 @@ export default function EZTrackPage() {
               className="mt-5 text-lg leading-8"
               style={{ color: B.muted, fontWeight: 300 }}
             >
-              EZTrack is designed to transform intracranial EEG into an
+              EZTrack™ is designed to transform intracranial EEG into an
               interpretable localization heatmap that supports surgical planning.
             </p>
           </div>
@@ -594,7 +594,7 @@ export default function EZTrackPage() {
                 className="mt-4 text-4xl leading-tight sm:text-5xl"
                 style={{ fontWeight: 300 }}
               >
-                Advancing EZTrack toward broader clinical deployment
+                Advancing EZTrack™ toward broader clinical deployment
               </h2>
 
               <div
@@ -602,7 +602,7 @@ export default function EZTrackPage() {
                 style={{ color: B.muted, fontWeight: 300 }}
               >
                 <p>
-                  EZTrack has been clinically validated across 91 surgical
+                  EZTrack™ has been clinically validated across 91 surgical
                   cases, demonstrating strong performance and usability in
                   real-world clinical settings. The platform has already
                   received regulatory clearance, representing a significant
@@ -611,7 +611,7 @@ export default function EZTrackPage() {
                 </p>
 
                 <p>
-                  All product development activities for EZTrack were completed
+                  All product development activities for EZTrack™ were completed
                   within a comprehensive Quality Management System, ensuring the
                   platform was built to meet rigorous standards for quality,
                   reliability, and regulatory compliance.
@@ -745,7 +745,7 @@ export default function EZTrackPage() {
             className="mb-10 max-w-3xl text-lg leading-8"
             style={{ color: B.muted, fontWeight: 300 }}
           >
-            EZTrack was developed and validated for clinical teams evaluating
+            EZTrack™ was developed and validated for clinical teams evaluating
             patients with drug-resistant epilepsy. The platform supports review
             of intracranial EEG by producing interpretable heatmaps that
             highlight high-fragility regions relevant to surgical planning.
@@ -853,7 +853,7 @@ export default function EZTrackPage() {
                   className="text-lg leading-7"
                   style={{ fontWeight: 300, color: B.ink }}
                 >
-                  Is your center interested in evaluating EZTrack?
+                  Is your center interested in evaluating EZTrack™?
                 </p>
 
                 <p className="mt-2 text-sm leading-6" style={{ color: B.muted }}>
@@ -894,7 +894,7 @@ export default function EZTrackPage() {
                 className="mt-4 text-4xl leading-tight sm:text-5xl"
                 style={{ fontWeight: 300 }}
               >
-                Research behind EZTrack
+                Research behind EZTrack™
               </h2>
 
               <p
@@ -902,7 +902,7 @@ export default function EZTrackPage() {
                 style={{ color: B.muted, fontWeight: 300 }}
               >
                 Peer-reviewed work supporting the neural fragility biomarker,
-                epileptogenic localization, and clinical validation of EZTrack.
+                epileptogenic localization, and clinical validation of EZTrack™.
               </p>
             </div>
 
@@ -940,7 +940,7 @@ export default function EZTrackPage() {
                         fontWeight: 600,
                       }}
                     >
-                      EZTrack
+                      EZTrack™
                     </span>
 
                     <span className="text-xs" style={{ color: B.muted }}>
@@ -977,7 +977,7 @@ export default function EZTrackPage() {
           >
             <p className="text-sm leading-7" style={{ color: B.muted }}>
               <strong style={{ color: B.ink }}>Study validation: </strong>
-              EZTrack has been clinically validated across 91 surgical cases and
+              EZTrack™ has been clinically validated across 91 surgical cases and
               uses the Fragility Index to highlight high-fragility regions that
               can inform epileptogenic localization and neurosurgical planning.{" "}
               <Link
@@ -1009,7 +1009,7 @@ export default function EZTrackPage() {
               className="mt-5 text-lg leading-8"
               style={{ color: B.muted, fontWeight: 300 }}
             >
-              About EZTrack, how it works, and how to get involved.
+              About EZTrack™, how it works, and how to get involved.
             </p>
           </div>
 
@@ -1040,7 +1040,7 @@ export default function EZTrackPage() {
                 className="mt-4 text-4xl leading-tight sm:text-5xl"
                 style={{ fontWeight: 300 }}
               >
-                Interested in EZTrack?
+                Interested in EZTrack™?
               </h2>
 
               <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">
@@ -1061,14 +1061,7 @@ export default function EZTrackPage() {
                   <ArrowRight className="h-4 w-4" />
                 </a>
 
-                <a
-                  href={mailtoBeta}
-                  className="inline-flex items-center justify-center gap-2 rounded-full border px-6 py-3.5 text-sm text-white transition-colors duration-300 hover:bg-white/10"
-                  style={{ borderColor: "rgba(255,255,255,0.18)" }}
-                >
-                  <FlaskConical className="h-4 w-4" />
-                  Beta customer inquiry
-                </a>
+             
               </div>
             </div>
 

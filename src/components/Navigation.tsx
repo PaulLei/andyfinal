@@ -13,12 +13,12 @@ const NAV_ITEMS = [
     href: "/products",
     children: [
       {
-        label: "EpiScalp",
+        label: "EpiScalp™",
         href: "/episcalp",
         desc: "Rapid EEG-Based Epilepsy Risk Assessment",
       },
       {
-        label: "EZTrack",
+        label: "EZTrack™",
         href: "/eztrack",
         desc: "Epileptogenic Localization for Surgical Planning",
       },

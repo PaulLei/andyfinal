@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Linkedin } from "lucide-react";
+import { Mail, Phone, Linkedin } from "lucide-react";
 import { useState } from "react";
 
 const BRAND = {
@@ -158,41 +158,6 @@ export default function ContactPage() {
                     >
                       info@neurologicsolutions.net
                     </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Address */}
-              <div
-                className="rounded-[2rem] border p-6"
-                style={{
-                  borderColor: BRAND.line,
-                  backgroundColor: BRAND.card,
-                }}
-              >
-                <div className="flex items-start gap-4">
-                  <div
-                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl"
-                    style={{ background: "rgba(47,39,56,0.06)" }}
-                  >
-                    <MapPin className="h-5 w-5" style={{ color: BRAND.ink }} />
-                  </div>
-                  <div>
-                    <h3 className="text-lg" style={{ fontWeight: 300 }}>
-                      Address
-                    </h3>
-                    <p
-                      className="mt-2 leading-7"
-                      style={{ color: BRAND.muted, fontWeight: 300 }}
-                    >
-                      Neurologic Solutions Inc.
-                      <br />
-                      301 W 29th ST.
-                      <br />
-                      Baltimore, MD 21218
-                      <br />
-                      United States
-                    </p>
                   </div>
                 </div>
               </div>

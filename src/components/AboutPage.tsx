@@ -82,15 +82,15 @@ export default function AboutPage() {
     },
     {
       year: '2020',
-      title: 'EZTrack Clearance',
+      title: 'EZTrack™ Clearance',
       description:
-        'The company received FDA 510(k) clearance for EZTrack, an important milestone in translating research into clinical workflow.',
+        'The company received FDA 510(k) clearance for EZTrack™, an important milestone in translating research into clinical workflow.',
     },
     {
       year: '2021',
-      title: 'EpiScalp Funding',
+      title: 'EpiScalp™ Funding',
       description:
-        'More than $3M in research funding supported EpiScalp development and retrospective study work.',
+        'More than $3M in research funding supported EpiScalp™ development and retrospective study work.',
     },
     {
       year: '2024',
@@ -162,45 +162,35 @@ export default function AboutPage() {
         </div>
 
         <div className="relative z-10 mx-auto max-w-6xl">
-          <div className="grid gap-7 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-            <div>
+          <div className="flex flex-col items-center text-center">
+            <span
+              className="inline-flex rounded-full border px-4 py-2 text-[12px] font-semibold uppercase tracking-[0.24em]"
+              style={{
+                background: BRAND.purpleSoft,
+                borderColor: BRAND.purpleBorder,
+                color: BRAND.purpleDark,
+              }}
+            >
+              About Neurologic Solutions
+            </span>
+
+            <h1
+              className="mt-5 max-w-5xl text-5xl leading-[0.95] sm:text-6xl lg:text-7xl"
+              style={{ fontWeight: 300 }}
+            >
+              Pioneering Precision in
               <span
-                className="inline-flex rounded-full border px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.24em]"
-                style={{
-                  background: BRAND.purpleSoft,
-                  borderColor: BRAND.purpleBorder,
-                  color: BRAND.purpleDark,
-                }}
+                className="mt-2 block"
+                style={{ color: BRAND.purpleDark, fontStyle: 'italic' }}
               >
-                About Neurologic Solutions
+                Neurodata Analysis
               </span>
+            </h1>
+          </div>
 
-              <h1
-                className="mt-4 max-w-5xl text-4xl leading-tight sm:text-5xl lg:text-6xl"
-                style={{ fontWeight: 300 }}
-              >
-                Pioneering precision in
-                <span
-                  className="block"
-                  style={{ color: BRAND.purpleDark, fontStyle: 'italic' }}
-                >
-                  neurodata analysis
-                </span>
-              </h1>
-
-              <p
-                className="mt-5 max-w-3xl text-base leading-7 sm:text-lg sm:leading-8"
-                style={{ color: BRAND.muted, fontWeight: 300 }}
-              >
-                Neurologic Solutions is dedicated to empowering clinicians with
-                reliable EEG analytics and actionable insights for more accurate
-                diagnosis and better treatment decisions.
-              </p>
-            </div>
-
-            {/* Right-side mission card */}
+          <div className="mt-8 grid gap-4 lg:grid-cols-2">
             <div
-              className="rounded-[2rem] border p-5 shadow-sm sm:p-6"
+              className="rounded-[2rem] border p-6 shadow-sm sm:p-7"
               style={{
                 borderColor: BRAND.line,
                 background:
@@ -219,12 +209,15 @@ export default function AboutPage() {
                 biomarkers that help clinicians diagnose and treat neurological
                 disorders quickly and more effectively.
               </p>
+            </div>
 
-              <div
-                className="my-4 h-px w-full"
-                style={{ backgroundColor: BRAND.line }}
-              />
-
+            <div
+              className="rounded-[2rem] border p-6 shadow-sm sm:p-7"
+              style={{
+                borderColor: BRAND.line,
+                backgroundColor: BRAND.card,
+              }}
+            >
               <div
                 className="text-[11px] uppercase tracking-[0.22em]"
                 style={{ color: BRAND.purpleDark, fontWeight: 600 }}

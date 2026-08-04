@@ -48,16 +48,16 @@ const steps = [
     number: "1",
     title: "Upload scalp EEG",
     description:
-      "Upload any scalp EEG recording: routine, long-term monitoring, or ambulatory. EpiScalp is designed to work with studies that appear normal or inconclusive on standard visual review.",
+      "Upload any scalp EEG recording: routine, long-term monitoring, or ambulatory. EpiScalp™ is designed to work with studies that appear normal or inconclusive on standard visual review.",
     detail:
-      "EpiScalp supports diagnostic evaluation from scalp EEG data, including EEG studies without obvious epileptiform discharges.",
+      "EpiScalp™ supports diagnostic evaluation from scalp EEG data, including EEG studies without obvious epileptiform discharges.",
     image: "epsstep1.png",
   },
   {
     number: "2",
     title: "Analyze brain network dynamics",
     description:
-      "EpiScalp preprocesses the EEG and applies dynamic network modeling to quantify imbalances in the brain network that are characteristic of epilepsy. These validated features capture unique interactions that are not visible on the EEG trace, but reflect the underlying epileptic dysfunction.",
+      "EpiScalp™ preprocesses the EEG and applies dynamic network modeling to quantify imbalances in the brain network that are characteristic of epilepsy. These validated features capture unique interactions that are not visible on the EEG trace, but reflect the underlying epileptic dysfunction.",
     detail:
       "The analysis emphasizes source/sink network dynamics and quantitative features that provide information beyond standard visual EEG review.",
     image: "epsstep2.png",
@@ -66,7 +66,7 @@ const steps = [
     number: "3",
     title: "Generate epilepsy risk score",
     description:
-      "EpiScalp reports a 0-100 epilepsy risk score and an Epilepsy Likely or Unlikely prediction, integrating the EEG network features and relevant patient information to provide personalized, quantitative support for the clinician’s diagnostic assessment.",
+      "EpiScalp™ reports a 0-100 epilepsy risk score and an Epilepsy Likely or Unlikely prediction, integrating the EEG network features and relevant patient information to provide personalized, quantitative support for the clinician’s diagnostic assessment.",
     detail:
       "The output is designed to be easily interpretable and to support, not replace, clinical judgment.",
     image: "epsstep3.png",
@@ -107,20 +107,20 @@ const episcalpPublications = masterPublications
 
 const faqs = [
   {
-    q: "What type of EEG data does EpiScalp require?",
-    a: "EpiScalp is designed for any standard scalp EEG recordings. It supports common clinical EEG formats and is intended to work with recordings that include both interictal segments.",
+    q: "What type of EEG data does EpiScalp™ require?",
+    a: "EpiScalp™ is designed for any standard scalp EEG recordings. It supports common clinical EEG formats and is intended to work with recordings that include both interictal segments.",
   },
   {
     q: "How long does it take to generate results?",
     a: "Analysis typically runs in minutes. The exact duration depends on recording length and system configuration, but the workflow is designed to be efficient enough for routine clinical use.",
   },
   {
-    q: "Has EpiScalp been validated in clinical settings?",
-    a: "Yes. EpiScalp has been studied in retrospective and prospective research across multiple academic medical centers. Peer-reviewed publications are available in the section above and can also be found in our Publications page. EpiScalp is also currently being tested and validated as part of a NINDS SBIR Phase 2 study at 3 leading Level 4 Epilepsy Centers.",
+    q: "Has EpiScalp™ been validated in clinical settings?",
+    a: "Yes. EpiScalp™ has been studied in retrospective and prospective research across multiple academic medical centers. Peer-reviewed publications are available in the section above and can also be found in our Publications page. EpiScalp™ is also currently being tested and validated as part of a NINDS SBIR Phase 2 study at 3 leading Level 4 Epilepsy Centers.",
   },
   {
-    q: "Is EpiScalp FDA cleared?",
-    a: "Not yet. EpiScalp is being developed under a Quality Management System in preparation for a 510k submission by Q4 of 2026.",
+    q: "Is EpiScalp™ FDA cleared?",
+    a: "Not yet. EpiScalp™ is being developed under a Quality Management System in preparation for a 510k submission by Q4 of 2026.",
   },
   {
     q: "Can I participate in a clinical trial?",
@@ -128,7 +128,7 @@ const faqs = [
   },
   {
     q: "What does the output look like?",
-    a: "EpiScalp produces a risk score, from 0-100 and an epilepsy prediction: Epilepsy Likely, Epilepsy Unlikely, or Indeterminate, on the likelihood a patient has epilepsy.",
+    a: "EpiScalp™ produces a risk score, from 0-100 and an epilepsy prediction: Epilepsy Likely, Epilepsy Unlikely, or Indeterminate, on the likelihood a patient has epilepsy.",
   },
 ];
 
@@ -376,7 +376,7 @@ export default function EpiScalpPage() {
                   color: B.purpleDark,
                 }}
               >
-                EpiScalp · Product Overview
+                EpiScalp™ · Product Overview
               </span>
 
               <h1
@@ -401,7 +401,7 @@ export default function EpiScalpPage() {
                 className="mt-7 max-w-2xl text-lg leading-8 sm:text-xl"
                 style={{ color: B.muted, fontWeight: 300 }}
               >
-                EpiScalp translates any scalp EEG into a quantifiable assessment
+                EpiScalp™ translates any scalp EEG into a quantifiable assessment
                 to support clinicians in the diagnostic evaluation of patients
                 with first-time seizures.
               </p>
@@ -439,7 +439,7 @@ export default function EpiScalpPage() {
                 className="text-[11px] uppercase tracking-[0.22em]"
                 style={{ color: B.orangeDark, fontWeight: 600 }}
               >
-                What EpiScalp produces
+                What EpiScalp™ produces
               </div>
 
               <p className="mt-4 text-xl leading-8" style={{ fontWeight: 300 }}>
@@ -494,7 +494,7 @@ export default function EpiScalpPage() {
               className="mt-5 text-lg leading-8"
               style={{ color: B.muted, fontWeight: 300 }}
             >
-              EpiScalp is designed to turn scalp EEG data into a quantitative,
+              EpiScalp™ is designed to turn scalp EEG data into a quantitative,
               clinically interpretable assessment that supports diagnostic
               decision-making.
             </p>
@@ -592,7 +592,7 @@ export default function EpiScalpPage() {
                 className="mt-4 text-4xl leading-tight sm:text-5xl"
                 style={{ fontWeight: 300 }}
               >
-                Preparing EpiScalp for clinical adoption
+                Preparing EpiScalp™ for clinical adoption
               </h2>
 
               <div
@@ -604,13 +604,13 @@ export default function EpiScalpPage() {
                   clinical study, we are now completing a
                   multi-center prospective study being conducted at three leading
                   epilepsy centers. These studies are designed to further
-                  validate EpiScalp’s ability to support earlier and more
+                  validate EpiScalp™’s ability to support earlier and more
                   objective identification of epilepsy using routine scalp EEG
                   data.
                 </p>
 
                 <p>
-                  In parallel with clinical validation, the EpiScalp platform is
+                  In parallel with clinical validation, the EpiScalp™ platform is
                   being developed within a robust Quality Management System to
                   support scalability, reliability, and regulatory compliance. We
                   are actively preparing for regulatory submission and continuing
@@ -750,7 +750,7 @@ export default function EpiScalpPage() {
             className="mb-10 max-w-3xl text-lg leading-8"
             style={{ color: B.muted, fontWeight: 300 }}
           >
-            EpiScalp prospective validation work includes leading epilepsy
+            EpiScalp™ prospective validation work includes leading epilepsy
             research partners, including Jefferson, University of Maryland, and
             Johns Hopkins Hospital. These collaborations help evaluate clinical
             workflows, real-world utility, and broader deployment following
@@ -818,7 +818,7 @@ export default function EpiScalpPage() {
                   style={{ fontWeight: 300, color: B.ink }}
                 >
                   Is your center interested in participating in research or a
-                  clinical trial with EpiScalp?
+                  clinical trial with EpiScalp™?
                 </p>
 
                 <p className="mt-2 text-sm leading-6" style={{ color: B.muted }}>
@@ -858,7 +858,7 @@ export default function EpiScalpPage() {
                 className="mt-4 text-4xl leading-tight sm:text-5xl"
                 style={{ fontWeight: 300 }}
               >
-                Research behind EpiScalp
+                Research behind EpiScalp™
               </h2>
 
               <p
@@ -867,7 +867,7 @@ export default function EpiScalpPage() {
               >
                 Peer-reviewed and clinical research supporting source/sink
                 network dynamics, quantitative epilepsy risk assessment, and
-                clinical validation of EpiScalp.
+                clinical validation of EpiScalp™.
               </p>
             </div>
 
@@ -905,7 +905,7 @@ export default function EpiScalpPage() {
                         fontWeight: 600,
                       }}
                     >
-                      EpiScalp
+                      EpiScalp™
                     </span>
 
                     <span className="text-xs" style={{ color: B.muted }}>
@@ -942,10 +942,10 @@ export default function EpiScalpPage() {
           >
             <p className="text-sm leading-7" style={{ color: B.muted }}>
               <strong style={{ color: B.ink }}>Study validation: </strong>
-              EpiScalp has completed a retrospective clinical study and is
+              EpiScalp™ has completed a retrospective clinical study and is
               completing a multi-center prospective study
               involving over 1,000 patients across three premier Level 4 Epilepsy
-              Centers. These studies are designed to further validate EpiScalp’s
+              Centers. These studies are designed to further validate EpiScalp™’s
               ability to support earlier and more objective identification of
               epilepsy using routine scalp EEG data.{" "}
               <Link
@@ -977,7 +977,7 @@ export default function EpiScalpPage() {
               className="mt-5 text-lg leading-8"
               style={{ color: B.muted, fontWeight: 300 }}
             >
-              About EpiScalp, how it works, and how to get involved.
+              About EpiScalp™, how it works, and how to get involved.
             </p>
           </div>
 
@@ -1008,7 +1008,7 @@ export default function EpiScalpPage() {
                 className="mt-4 text-4xl leading-tight sm:text-5xl"
                 style={{ fontWeight: 300 }}
               >
-                Interested in EpiScalp?
+                Interested in EpiScalp™?
               </h2>
 
               <p className="mt-5 max-w-2xl text-lg leading-8 text-white/80">

@@ -64,12 +64,12 @@ export default function Footer() {
               <ul className="space-y-3">
                 <li>
                   <Link to="/episcalp" className={linkClass}>
-                    EpiScalp
+                    EpiScalp™
                   </Link>
                 </li>
                 <li>
                   <Link to="/eztrack" className={linkClass}>
-                    EZTrack
+                    EZTrack™
                   </Link>
                 </li>
               </ul>
@@ -137,10 +137,6 @@ export default function Footer() {
                 >
                   info@neurologicsolutions.net
                 </a>
-              </li>
-              <li className={bodyClass}>
-                Address: Neurologic Solutions Inc. 301 W 29th ST. Baltimore, MD
-                21218
               </li>
             </ul>
           </div>

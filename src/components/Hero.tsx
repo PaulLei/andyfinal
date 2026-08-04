@@ -99,7 +99,7 @@ export default function Hero() {
             type="button"
             onClick={() => scrollToSection("episcalp-process")}
             className="pointer-events-auto inline-flex flex-col items-center rounded-full border border-white/10 bg-black/20 px-5 py-3 text-slate-200 backdrop-blur-md transition-all hover:border-white/20 hover:bg-black/30 hover:text-white"
-            aria-label="Scroll to EpiScalp process section"
+            aria-label="Scroll to EpiScalp™ process section"
           >
             <span className="mb-1 text-[11px] uppercase tracking-[0.24em] text-slate-300/90">
               Scroll

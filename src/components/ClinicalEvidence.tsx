@@ -56,19 +56,19 @@ const evidenceSections: Array<{
 }> = [
   {
     id: "episcalp-evidence",
-    eyebrow: "EpiScalp Evidence",
+    eyebrow: "EpiScalp™ Evidence",
     title: "Diagnostic support from routine scalp EEG",
     icon: Brain,
     accent: "purple",
-    productName: "EpiScalp",
+    productName: "EpiScalp™",
     ctaHref: "/episcalp",
-    ctaLabel: "Explore EpiScalp",
+    ctaLabel: "Explore EpiScalp™",
     publicationTitle:
       "Diagnosing Epilepsy with Normal Interictal EEG Using Dynamic Network Models",
     publicationHref: "https://onlinelibrary.wiley.com/doi/10.1002/ana.27168",
     summary: (
       <>
-        EpiScalp analyzes routine scalp EEG to estimate epilepsy risk, even
+        EpiScalp™ analyzes routine scalp EEG to estimate epilepsy risk, even
         when the initial EEG looks normal. Its strongest evidence is a
         retrospective study of suspected-epilepsy patients, showing strong
         accuracy for definitive risk classifications.
@@ -76,7 +76,7 @@ const evidenceSections: Array<{
     ),
     researchBlurb: (
       <>
-        The retrospective study anchors this section, showing how EpiScalp
+        The retrospective study anchors this section, showing how EpiScalp™
         turns interictal EEG features into a quantitative risk score. Ongoing
         SBIR-supported work extends this validation but isn't the headline
         claim.
@@ -91,18 +91,18 @@ const evidenceSections: Array<{
   },
   {
     id: "eztrack-evidence",
-    eyebrow: "EZTrack Evidence",
+    eyebrow: "EZTrack™ Evidence",
     title: "Interpretable seizure localization support",
     icon: Activity,
     accent: "orange",
-    productName: "EZTrack",
+    productName: "EZTrack™",
     ctaHref: "/eztrack",
-    ctaLabel: "Explore EZTrack",
+    ctaLabel: "Explore EZTrack™",
     publicationTitle: "Neural fragility as an EEG marker of the seizure onset zone",
     publicationHref: "https://pmc.ncbi.nlm.nih.gov/articles/PMC8547387/",
     summary: (
       <>
-        EZTrack analyzes intracranial EEG for drug-resistant epilepsy patients
+        EZTrack™ analyzes intracranial EEG for drug-resistant epilepsy patients
         being evaluated for surgery. Its public evidence is a retrospective,
         91-patient analysis of surgical-outcome prediction — not yet a broad
         prospective trial.
@@ -244,8 +244,8 @@ export default function ClinicalEvidencePage() {
             style={{ color: BRAND.muted, fontWeight: 300 }}
           >
             Neurologic Solutions builds EEG software for epilepsy diagnosis and
-            seizure localization. Here's the public research behind EpiScalp
-            and EZTrack.
+            seizure localization. Here's the public research behind EpiScalp™
+            and EZTrack™.
           </p>
         </div>
       </section>
@@ -283,7 +283,7 @@ export default function ClinicalEvidencePage() {
               }}
             >
               <Brain className="h-3.5 w-3.5" />
-              EpiScalp
+              EpiScalp™
             </a>
 
             <a
@@ -296,7 +296,7 @@ export default function ClinicalEvidencePage() {
               }}
             >
               <Activity className="h-3.5 w-3.5" />
-              EZTrack
+              EZTrack™
             </a>
           </div>
         </div>
@@ -321,7 +321,7 @@ export default function ClinicalEvidencePage() {
               className="mt-2 text-sm leading-6 sm:text-base sm:leading-7"
               style={{ color: BRAND.muted, fontWeight: 300 }}
             >
-              EpiScalp supports diagnosis from scalp EEG. EZTrack supports
+              EpiScalp™ supports diagnosis from scalp EEG. EZTrack™ supports
               seizure localization from intracranial EEG.
             </p>
           </div>
@@ -338,7 +338,7 @@ export default function ClinicalEvidencePage() {
 
                 <div>
                   <h3 className="text-lg" style={{ fontWeight: 300 }}>
-                    EpiScalp
+                    EpiScalp™
                   </h3>
                   <p className="text-xs" style={{ color: BRAND.muted }}>
                     Epilepsy diagnosis support
@@ -363,7 +363,7 @@ export default function ClinicalEvidencePage() {
 
                 <div>
                   <h3 className="text-lg" style={{ fontWeight: 300 }}>
-                    EZTrack
+                    EZTrack™
                   </h3>
                   <p className="text-xs" style={{ color: BRAND.muted }}>
                     Seizure localization support

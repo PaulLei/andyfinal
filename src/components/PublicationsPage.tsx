@@ -32,9 +32,9 @@ import {
  * - uses citation only as a fallback source for authors, but does not render citation again
  * - prevents duplicate author display such as "Burns et al." appearing twice
  * - pulls authors from ../data/publications instead of hardcoding author names here
- * - highlights the Annals of Neurology EpiScalp paper as the main publication
+ * - highlights the Annals of Neurology EpiScalp™ paper as the main publication
  * - adds Peer-Reviewed visibility for the LTI Models paper
- * - groups highlighted EpiScalp and EZTrack papers clearly
+ * - groups highlighted EpiScalp™ and EZTrack™ papers clearly
  * - tightens card and section spacing to reduce extra white space
  */
 
@@ -519,13 +519,6 @@ export default function PublicationsPage() {
     return publications.find((pub) => pub.mainFeature);
   }, []);
 
-  const featuredPubs = useMemo(() => {
-    return publications
-      .filter((pub) => pub.featured && !pub.mainFeature)
-      .slice()
-      .sort((a, b) => b.year - a.year);
-  }, []);
-
   const totalPublications = publications.length;
 
   const totalJournals = new Set(publications.map((pub) => pub.journal.trim()))
@@ -722,14 +715,14 @@ export default function PublicationsPage() {
                     className="text-3xl leading-tight md:text-4xl"
                     style={{ fontWeight: 300 }}
                   >
-                    Highlighted EpiScalp paper
+                    Highlighted EpiScalp™ paper
                   </h2>
 
                   <p
                     className="mt-4 text-base leading-7"
                     style={{ color: BRAND.muted, fontWeight: 300 }}
                   >
-                    Our retrospective EpiScalp study demonstrates that our unique
+                    Our retrospective EpiScalp™ study demonstrates that our unique
                     dynamic network model features can support epilepsy diagnosis
                     by enabling accurate epilepsy classification (AUC 0.94) in
                     patients with no visible epileptiform discharges.
@@ -763,14 +756,14 @@ export default function PublicationsPage() {
               style={{ color: BRAND.muted, fontWeight: 300 }}
             >
               These highlighted papers replace the previous publication set and
-              should be used for the EpiScalp and EZTrack product evidence
+              should be used for the EpiScalp™ and EZTrack™ product evidence
               sections.
             </p>
           </div>
 
           <div className="grid gap-5 lg:grid-cols-2">
             <ProductPaperList
-              title="EpiScalp"
+              title="EpiScalp™"
               subtitle="Papers supporting source-sink connectivity, interictal EEG biomarkers, and diagnostic modeling."
               accent="purple"
               titles={episcalpPublicationTitles}
@@ -783,7 +776,7 @@ export default function PublicationsPage() {
             />
 
             <ProductPaperList
-              title="EZTrack"
+              title="EZTrack™"
               subtitle="Papers supporting neural fragility, epileptogenic zone localization, and seizure onset zone assessment."
               accent="orange"
               titles={eztrackPublicationTitles}
@@ -794,36 +787,6 @@ export default function PublicationsPage() {
                 />
               }
             />
-          </div>
-        </div>
-      </section>
-
-      {/* Featured publications */}
-      <section className="px-6 pb-8">
-        <div className="mx-auto max-w-6xl">
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <div>
-              <div
-                className="text-[11px] uppercase tracking-[0.22em]"
-                style={{ color: BRAND.orangeDark, fontWeight: 600 }}
-              >
-                Featured
-              </div>
-
-              <h2 className="mt-2 text-3xl sm:text-4xl" style={{ fontWeight: 300 }}>
-                Key papers
-              </h2>
-            </div>
-          </div>
-
-          <div className="grid gap-5 lg:grid-cols-2">
-            {featuredPubs.map((pub) => (
-              <PublicationCard
-                key={`${pub.title}-${pub.year}-featured`}
-                pub={pub}
-                featured
-              />
-            ))}
           </div>
         </div>
       </section>

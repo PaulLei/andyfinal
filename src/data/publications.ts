@@ -132,15 +132,9 @@ export const publications: Publication[] = [
 ];
 
 export const eztrackPublicationTitles = [
-  'Fragility in epileptic networks: The epileptogenic zone',
   'Neural fragility as an EEG marker of the seizure onset zone',
-  'Fragility in Dynamic Networks: Application to Neural Networks in the Epileptic Cortex',
 ];
 
 export const episcalpPublicationTitles = [
-  'Sources and Sinks in Interictal iEEG Networks: An iEEG Marker of the Epileptogenic Zone',
-  'Fragility in epileptic networks: The epileptogenic zone',
-  'Diagnosing Epilepsy with Normal Interictal EEG Using Dynamic Network Models',
   'Source-sink connectivity: a novel interictal EEG marker for seizure localization',
-  'Neural fragility as an EEG marker of the seizure onset zone',
 ];

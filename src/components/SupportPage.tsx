@@ -6,12 +6,12 @@ const faqs = [
     category: 'Getting Started',
     items: [
       {
-        q: 'How do I set up EpiScalp?',
+        q: 'How do I set up EpiScalp™?',
         a: 'Our setup wizard will guide you through the installation process. Download the software from your account dashboard and follow the on-screen instructions.',
       },
       {
         q: 'What are the system requirements?',
-        a: 'EpiScalp requires Windows 10+ or macOS 10.15+, 8GB RAM, and a stable internet connection.',
+        a: 'EpiScalp™ requires Windows 10+ or macOS 10.15+, 8GB RAM, and a stable internet connection.',
       },
       {
         q: 'How long does training take?',
@@ -23,7 +23,7 @@ const faqs = [
     category: 'EEG Analysis',
     items: [
       {
-        q: 'What file formats does EZTrack support?',
+        q: 'What file formats does EZTrack™ support?',
         a: 'We support EDF, EEG, and other standard clinical EEG formats. Custom formats can be added upon request.',
       },
       {
@@ -234,7 +234,7 @@ export default function SupportPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                title: 'Getting Started with EpiScalp',
+                title: 'Getting Started with EpiScalp™',
                 duration: '5 min',
               },
               {
