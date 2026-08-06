@@ -73,7 +73,7 @@ export default function PressSection() {
         {/* Cards */}
         <div className="grid gap-3 md:grid-cols-3">
           {latestItems.map((item, index) => {
-            const hasInternalReport = !!item.internalReport && (!item.link || !item.link.trim());
+            const hasInternalReport = !!item.reportMarkdown && (!item.link || !item.link.trim());
             const itemPath = item.title.toLowerCase().replace(/\s+/g, '-');
             const cardContent = (
               <>

@@ -264,8 +264,8 @@ export default function NewsPage() {
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {filteredNews.map((item) => {
               const categoryStyles = getCategoryStyles(item.category);
-              // Use internal report if: has internalReport AND (no link OR link is empty)
-              const hasInternalReport = !!item.internalReport && (!item.link || !item.link.trim());
+              // Use internal report if: has reportMarkdown AND (no link OR link is empty)
+              const hasInternalReport = !!item.reportMarkdown && (!item.link || !item.link.trim());
               const itemPath = item.title.toLowerCase().replace(/\s+/g, '-');
 
               // Handle click to navigate internally or externally

@@ -1,5 +1,8 @@
+import type { ReactNode } from 'react';
 import { ArrowLeft, Calendar, ArrowUpRight } from 'lucide-react';
 import { useParams, useNavigate } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { newsItems } from '../data/news';
 
 const BRAND = {
@@ -55,6 +58,45 @@ function getCategoryStyles(category: string) {
   }
 }
 
+const markdownComponents = {
+  p: ({ children }: { children?: ReactNode }) => (
+    <p className="mb-4 text-base leading-7 md:text-lg md:leading-8" style={{ color: BRAND.ink, fontWeight: 300 }}>
+      {children}
+    </p>
+  ),
+  strong: ({ children }: { children?: ReactNode }) => (
+    <strong style={{ fontWeight: 700 }}>{children}</strong>
+  ),
+  em: ({ children }: { children?: ReactNode }) => <em style={{ fontStyle: 'italic' }}>{children}</em>,
+  h1: ({ children }: { children?: ReactNode }) => (
+    <h1 className="mb-4 mt-6 text-3xl font-semibold" style={{ color: BRAND.purpleDark }}>
+      {children}
+    </h1>
+  ),
+  h2: ({ children }: { children?: ReactNode }) => (
+    <h2 className="mb-3 mt-6 text-2xl font-semibold" style={{ color: BRAND.purpleDark }}>
+      {children}
+    </h2>
+  ),
+  h3: ({ children }: { children?: ReactNode }) => (
+    <h3 className="mb-2 mt-5 text-xl font-semibold" style={{ color: BRAND.orange }}>
+      {children}
+    </h3>
+  ),
+  ul: ({ children }: { children?: ReactNode }) => (
+    <ul className="mb-4 list-disc space-y-2 pl-6">{children}</ul>
+  ),
+  ol: ({ children }: { children?: ReactNode }) => (
+    <ol className="mb-4 list-decimal space-y-2 pl-6">{children}</ol>
+  ),
+  li: ({ children }: { children?: ReactNode }) => <li style={{ color: BRAND.ink }}>{children}</li>,
+  blockquote: ({ children }: { children?: ReactNode }) => (
+    <blockquote className="mb-4 border-l-4 pl-4 italic" style={{ borderColor: BRAND.purple, color: BRAND.muted }}>
+      {children}
+    </blockquote>
+  ),
+};
+
 export default function NewsReportPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
@@ -63,7 +105,7 @@ export default function NewsReportPage() {
     (item) => item.title.toLowerCase().replace(/\s+/g, '-') === id?.toLowerCase()
   );
 
-  if (!newsItem || !newsItem.internalReport) {
+  if (!newsItem || !newsItem.reportMarkdown) {
     return (
       <div
         className="min-h-screen pt-20"
@@ -181,69 +223,9 @@ export default function NewsReportPage() {
               color: BRAND.ink,
             }}
           >
-            {newsItem.internalReport.split('\n\n').map((paragraph, idx) => {
-              if (paragraph.startsWith('# ')) {
-                return (
-                  <h2
-                    key={idx}
-                    className="mb-3 mt-5 text-3xl font-semibold first:mt-0"
-                    style={{ color: BRAND.purpleDark }}
-                  >
-                    {paragraph.replace('# ', '')}
-                  </h2>
-                );
-              }
-
-              if (paragraph.startsWith('## ')) {
-                return (
-                  <h3
-                    key={idx}
-                    className="mb-2 mt-5 text-2xl font-semibold first:mt-0"
-                    style={{ color: BRAND.purpleDark }}
-                  >
-                    {paragraph.replace('## ', '')}
-                  </h3>
-                );
-              }
-
-              if (paragraph.startsWith('### ')) {
-                return (
-                  <h4
-                    key={idx}
-                    className="mb-2 mt-4 text-xl font-semibold first:mt-0"
-                    style={{ color: BRAND.orange }}
-                  >
-                    {paragraph.replace('### ', '')}
-                  </h4>
-                );
-              }
-
-              if (paragraph.startsWith('- ')) {
-                const items = paragraph
-                  .split('\n')
-                  .filter((line) => line.startsWith('- '));
-
-                return (
-                  <ul key={idx} className="my-3 list-inside list-disc space-y-1">
-                    {items.map((item, i) => (
-                      <li key={i} style={{ color: BRAND.ink }}>
-                        {item.replace('- ', '')}
-                      </li>
-                    ))}
-                  </ul>
-                );
-              }
-
-              return (
-                <p
-                  key={idx}
-                  className="mb-3 text-base leading-7 md:text-lg md:leading-8"
-                  style={{ color: BRAND.ink, fontWeight: 300 }}
-                >
-                  {paragraph}
-                </p>
-              );
-            })}
+            <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
+              {newsItem.reportMarkdown}
+            </ReactMarkdown>
           </div>
 
           {newsItem.link && newsItem.link.trim() && !newsItem.link.includes('example.com') && (
