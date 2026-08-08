@@ -1,4 +1,4 @@
-BALTIMORE, Md. (May 13th, 2021)—Neurologic Solutions, Inc. announced today that it received the National Science Foundation SBIR Phase I grant of $250k. The novel software was initially developed in Dr. Sridevi Sarma's lab and then scaled to an enterprise-level product. It is licensed from Johns Hopkins University. EZTrack™-RS is intended to provide easy-to-read visualizations of human brain scalp electroencephalogram (EEG) for patients with suspected epilepsy, which can be used to assist, along with other clinical data, in diagnosis. The software analyzes minutes to hours of EEG recordings to generate a metric for epilepsy susceptibility, which is displayed in a spatiotemporal heatmap that can be analyzed by neurologists and neurosurgeons in seconds.
+**BALTIMORE, Md. (May 13th, 2021)**—Neurologic Solutions, Inc. announced today that it received the National Science Foundation SBIR Phase I grant of $250k. The novel software was initially developed in Dr. Sridevi Sarma's lab and then scaled to an enterprise-level product. It is licensed from Johns Hopkins University. EZTrack™-RS is intended to provide easy-to-read visualizations of human brain scalp electroencephalogram (EEG) for patients with suspected epilepsy, which can be used to assist, along with other clinical data, in diagnosis. The software analyzes minutes to hours of EEG recordings to generate a metric for epilepsy susceptibility, which is displayed in a spatiotemporal heatmap that can be analyzed by neurologists and neurosurgeons in seconds.
 
 EZTrack™ has the potential to have high clinical impact in a currently underserved patient population, stated Sri Sarma, Neurologic Solutions co-founder and president. It can improve surgical outcomes and reduce significant costs associated with intracranial EEG monitoring as well as patient risks of monitoring by cutting time to analyze data.
 
@@ -8,16 +8,16 @@ Epilepsy is a devastating disease affecting over 50 million people worldwide. Th
 
 Neurologic Solutions, Inc. has previously received multiple funding rounds from TEDCO's Maryland Innovation Initiative, a Small Business Innovation Research award from the National Science Foundation and a Thalheimer grant from Johns Hopkins University.
 
-## About Neurologic Solutions, Inc.
+**About Neurologic Solutions, Inc.**
 
 Neurologic Solutions, Inc. is a medical software device company that uses complex dynamical network models to develop technologies that reveal underlying mechanisms of the diseased brain, helping provide new insights for treatment. The Company's first commercial product, EZTrack™(TM), analyzes intracranial and cortical brain signal recordings to analyze the stability of the brain network, identifying "fragile" regions as possible locations for the seizure onset zone in drug-resistant epilepsy patients. The company is currently developing EZTrack™-RS, which will allow expansion into other scalp EEG.
 
-## About the National Science Foundation SBIR
+**About the National Science Foundation SBIR**
 
 In 1977, NSF recognized the need for ongoing support for small business and instituted the Small Business Innovation Applied to National Needs program within the Engineering Division. The program was designed to tap the innovative capabilities of small firms and was the precursor to NSF's Small Business Innovation Research program. The program's first solicitation attracted 329 proposals from small businesses, 42 of which were funded with awards of up to $25,000 each.
 
 America's Seed Fund powered by NSF awards $200 million annually to startups and small businesses, transforming scientific discovery into products and services with commercial and societal impact. Startups working across almost all areas of science and technology can receive up to $2 million to support research and development (R&D), helping de-risk technology for commercial success. America's Seed Fund is congressionally mandated through the Small Business Innovation Research (SBIR) program. The NSF is an independent federal agency with a budget of about $8.5 billion that supports fundamental research and education across all fields of science and engineering. For more information, visit seedfund.nsf.gov.
 
-## Forward-Looking Statements
+**Forward-Looking Statements**
 
 Neurologic Solutions is a pre-revenue company that aims to improve the diagnosis and treatment of patients with epilepsy by building a portfolio of smart EEG analytic software tools. Over the next five years, we plan to initiate commercialization for our initial product EZTrack™-SZ (which is designed to assist in the identification of the epileptogenic zone, EZ, in surgical candidates) while in parallel completing the product development and clinical testing for our second product EZTrack™-RS, which is designed to improve the diagnosis of epilepsy using EEGs recorded from the scalp and which greatly expands the market size.

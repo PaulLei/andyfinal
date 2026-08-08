@@ -1,4 +1,4 @@
-BALTIMORE, Md. (April 1, 2021)—Neurologic Solutions, Inc. announced today that it received 510K clearance from the U.S. Food and Drug Administration (FDA) for its medical software, EZTrack™(TM). The novel software was initially developed in Dr. Sridevi Sarma's lab and then scaled to an enterprise-level product. It is licensed from Johns Hopkins University. EZTrack™(TM) is intended to provide easy-to-read visualizations of human brain intracranial electroencephalogram (iEEG) for focal or multifocal drug-resistant epilepsy patients, which can be used to assist, along with other clinical data, in neurosurgical planning. The software analyzes minutes to hours of EEG recordings to generate an EEG biomarker of the epileptogenic zone, called the Fragility Index, which is displayed in a spatiotemporal heatmap that can be analyzed by neurologists and neurosurgeons in seconds.
+**BALTIMORE, Md. (April 1, 2021)**—Neurologic Solutions, Inc. announced today that it received 510K clearance from the U.S. Food and Drug Administration (FDA) for its medical software, EZTrack™(TM). The novel software was initially developed in Dr. Sridevi Sarma's lab and then scaled to an enterprise-level product. It is licensed from Johns Hopkins University. EZTrack™(TM) is intended to provide easy-to-read visualizations of human brain intracranial electroencephalogram (iEEG) for focal or multifocal drug-resistant epilepsy patients, which can be used to assist, along with other clinical data, in neurosurgical planning. The software analyzes minutes to hours of EEG recordings to generate an EEG biomarker of the epileptogenic zone, called the Fragility Index, which is displayed in a spatiotemporal heatmap that can be analyzed by neurologists and neurosurgeons in seconds.
 
 EZTrack™ has the potential to have high clinical impact in a currently underserved patient population, stated Sri Sarma, Neurologic Solutions co-founder and president. It can improve surgical outcomes and reduce significant costs associated with intracranial EEG monitoring as well as patient risks of monitoring by cutting time to analyze data.
 
@@ -8,10 +8,10 @@ Medically refractory epilepsy (MRE) is a devastating disease affecting around 50
 
 Neurologic Solutions, Inc. received funding from TEDCO's Maryland Innovation Initiative and a Small Business Innovation Research award from the National Science Foundation.
 
-## About Neurologic Solutions, Inc.
+**About Neurologic Solutions, Inc.**
 
 Neurologic Solutions, Inc. is a medical software device company that uses complex dynamical network models to develop technologies that reveal underlying mechanisms of the diseased brain, helping provide new insights for treatment. The Company's first commercial product, EZTrack™(TM), analyzes intracranial and cortical brain signal recordings to analyze the stability of the brain network, identifying "fragile" regions as possible locations for the seizure onset zone in drug-resistant epilepsy patients. The company is currently developing technologies that we believe will allow expansion into other recording modalities, such as scalp EEG, and other neurological conditions, such as traumatic brain injury.
 
-## Forward-Looking Statements
+**Forward-Looking Statements**
 
 Beyond this initial market, additional expansion opportunities utilizing EZTrack™™ as a biomarker to assess the efficacy of drug therapy for epilepsy and other conditions such as Alzheimer's Disease and dementia are worth more than $1 billion annually.

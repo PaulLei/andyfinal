@@ -1,6 +1,6 @@
-FOR IMMEDIATE RELEASE
+**FOR IMMEDIATE RELEASE**
 
-Baltimore, MD – December 5, 2026 – Neurologic Solutions, an innovative digital health and medtech startup focused on advanced neurodiagnostic software, today announced that it has been awarded an NIH Blueprint MedTech Optimizer award to support the further development and clinical validation of EpiScalp™, its proprietary software application designed to assist neurologists in diagnosing epilepsy.
+**Baltimore, MD – December 5, 2026** – Neurologic Solutions, an innovative digital health and medtech startup focused on advanced neurodiagnostic software, today announced that it has been awarded an NIH Blueprint MedTech Optimizer award to support the further development and clinical validation of EpiScalp™, its proprietary software application designed to assist neurologists in diagnosing epilepsy.
 
 The $1 million award will enable Neurologic Solutions to scale the capabilities of EpiScalp™, accelerate its path toward regulatory clearance, and expand its clinical implementation to help clinicians make faster, more accurate diagnoses.
 
@@ -12,15 +12,15 @@ EpiScalp™ leverages advanced computational algorithms to analyze brain activit
 
 The Blueprint Optimizer award will fund not only software refinement but also significant milestones critical for the successful commercialization of a medical device. These components include implementing a right-sized Quality Management System, developing additional intellectual property, advancing a reimbursement strategy, and strengthening cybersecurity.
 
-This award is supported by the National Institutes of Health (NIH) Blueprint for Neuroscience Research and by the National Institute of Biomedical Imaging and Bioengineering through grant 3U54EB033650-04S4.
+This award is supported by the National Institutes of Health (NIH) Blueprint for Neuroscience Research and by the National Institute of Biomedical Imaging and Bioengineering through grant **3U54EB033650-04S4**.
 
-## About Neurologic Solutions
+**About Neurologic Solutions**
 
 Neurologic Solutions is an innovative medtech startup dedicated to developing cutting-edge digital health software that transforms neurodiagnostic workflows. The company's flagship platform, EpiScalp™, provides neurologists with advanced, intelligent software applications to detect, analyze, and assist in the diagnosis of epilepsy and related neurological conditions. Neurologic Solutions aims to significantly improve clinical efficiency and elevate patient care globally.
 
 For more information, visit www.neurologicsolutions.net.
 
-## Media Contact
+**Media Contact**
 
 Andy Gotshalk, CEO  
 Neurologic Solutions  

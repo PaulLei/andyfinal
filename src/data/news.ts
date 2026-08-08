@@ -79,7 +79,7 @@ export const newsItems: NewsItem[] = [
     title: "Neurologic Solutions Hires Mark Hays and Golnoosh Kamali",
     excerpt:
       "The company strengthens its team with the addition of Mark Hays and Golnoosh Kamali.",
-    image: "/MarkH.jpg",
+    image: "/Markgolnoosh.png",
     link: "", reportMarkdown: reportSept15,
   },
   {
