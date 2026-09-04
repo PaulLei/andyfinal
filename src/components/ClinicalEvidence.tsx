@@ -7,6 +7,7 @@ import {
   ShieldCheck,
   Stethoscope,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const BRAND = {
   purple: "#9986bf",
@@ -470,8 +471,8 @@ export default function ClinicalEvidencePage() {
                   </div>
 
                   <div className="mt-4">
-                    <a
-                      href={section.ctaHref}
+                    <Link
+                      to={section.ctaHref}
                       className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm transition-all duration-300 hover:-translate-y-0.5"
                       style={{
                         borderColor: isPurple ? BRAND.purpleBorder : BRAND.orangeBorder,
@@ -481,7 +482,7 @@ export default function ClinicalEvidencePage() {
                     >
                       <span>{section.ctaLabel}</span>
                       <ArrowRight className="h-3.5 w-3.5" />
-                    </a>
+                    </Link>
                   </div>
                 </div>
 
