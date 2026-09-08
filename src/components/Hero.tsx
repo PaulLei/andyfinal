@@ -1,8 +1,9 @@
 import { ChevronDown } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function Hero() {
   const [showScrollCue, setShowScrollCue] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -13,6 +14,24 @@ export default function Hero() {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const media = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const applyMotionPreference = () => {
+      if (media.matches) {
+        video.pause();
+      } else {
+        void video.play().catch(() => {});
+      }
+    };
+
+    applyMotionPreference();
+    media.addEventListener("change", applyMotionPreference);
+    return () => media.removeEventListener("change", applyMotionPreference);
   }, []);
 
   const scrollToSection = (id: string) => {
@@ -35,6 +54,7 @@ export default function Hero() {
         />
 
         <video
+          ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover opacity-30"
           autoPlay
           loop
@@ -42,6 +62,7 @@ export default function Hero() {
           playsInline
           preload="auto"
           aria-hidden
+          tabIndex={-1}
         >
           <source src="/Neurologic.mp4" type="video/mp4" />
         </video>

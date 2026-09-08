@@ -1,5 +1,6 @@
 import { Mail, Phone, Linkedin } from "lucide-react";
-import { useEffect, useState, type ChangeEvent } from "react";
+import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import { Link } from "react-router-dom";
 import { useForm, ValidationError } from "@formspree/react";
 
 const BRAND = {
@@ -25,6 +26,7 @@ export default function ContactPage() {
     subject: "",
     otherSubject: "",
     message: "",
+    privacyConsent: false,
   });
 
   // Formspree form ID from:
@@ -34,11 +36,13 @@ export default function ContactPage() {
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    const { name, value } = e.target;
+    const { name, value, type } = e.target;
+    const checked =
+      type === "checkbox" ? (e.target as HTMLInputElement).checked : undefined;
 
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [name]: type === "checkbox" ? checked : value,
       ...(name === "subject" && value !== "other"
         ? { otherSubject: "" }
         : {}),
@@ -54,6 +58,7 @@ export default function ContactPage() {
         subject: "",
         otherSubject: "",
         message: "",
+        privacyConsent: false,
       });
     }
   }, [state.succeeded]);
@@ -323,7 +328,16 @@ export default function ContactPage() {
                     Send us a Message
                   </h2>
 
-                  <form onSubmit={handleSubmit} className="mt-8 space-y-6">
+                  <form
+                    onSubmit={(e: FormEvent<HTMLFormElement>) => {
+                      if (!formData.privacyConsent) {
+                        e.preventDefault();
+                        return;
+                      }
+                      handleSubmit(e);
+                    }}
+                    className="mt-8 space-y-6"
+                  >
                     {/* Name */}
                     <div>
                       <label
@@ -535,6 +549,37 @@ export default function ContactPage() {
                         color: BRAND.orangeDark,
                       }}
                     />
+
+                    <div className="flex items-start gap-3">
+                      <input
+                        id="privacyConsent"
+                        type="checkbox"
+                        name="privacyConsent"
+                        checked={formData.privacyConsent}
+                        onChange={handleChange}
+                        required
+                        className="mt-1 h-4 w-4 shrink-0 rounded border"
+                        style={{ accentColor: BRAND.purpleDark }}
+                      />
+                      <label
+                        htmlFor="privacyConsent"
+                        className="text-sm leading-6"
+                        style={{ color: BRAND.muted, fontWeight: 300 }}
+                      >
+                        I agree that Neurologic Solutions may process the
+                        information I submit in order to respond to my inquiry,
+                        as described in the{" "}
+                        <Link
+                          to="/privacy"
+                          className="underline underline-offset-4"
+                          style={{ color: BRAND.ink }}
+                        >
+                          Privacy Policy
+                        </Link>
+                        . Please do not include patient records or other
+                        protected health information.
+                      </label>
+                    </div>
 
                     {/* Submit */}
                     <button

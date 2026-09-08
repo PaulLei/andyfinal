@@ -133,6 +133,17 @@ export default function Navigation({ scrolled }: NavigationProps) {
     };
   }, []);
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      closeDropdownNow();
+      setMobileOpen(false);
+    };
+
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
   return (
     <header
       ref={navRef}
@@ -154,12 +165,15 @@ export default function Navigation({ scrolled }: NavigationProps) {
           >
             <img
               src={Logo}
-              alt="Neurologic Solutions"
+              alt="Neurologic Solutions home"
               className="h-10 md:h-11 lg:h-12 xl:h-[52px] w-auto object-contain"
             />
           </Link>
 
-          <nav className="hidden lg:flex items-center justify-center space-x-1 lg:justify-self-center">
+          <nav
+            className="hidden lg:flex items-center justify-center space-x-1 lg:justify-self-center"
+            aria-label="Primary"
+          >
             {NAV_ITEMS.map((item) => {
               const hasChildren = !!item.children?.length;
               const isOpen = activeDropdown === item.label;
@@ -200,6 +214,8 @@ export default function Navigation({ scrolled }: NavigationProps) {
                         : "text-neutral-500 hover:text-black"
                     }`}
                     aria-expanded={isOpen}
+                    aria-haspopup="true"
+                    aria-controls={`nav-menu-${item.label.toLowerCase()}`}
                   >
                     {item.label}
                     <span
@@ -210,6 +226,9 @@ export default function Navigation({ scrolled }: NavigationProps) {
                   </button>
 
                   <div
+                    id={`nav-menu-${item.label.toLowerCase()}`}
+                    role="region"
+                    aria-label={`${item.label} menu`}
                     onMouseEnter={() => openDropdown(item.label)}
                     onMouseLeave={closeDropdownWithDelay}
                     className={`absolute left-0 top-full w-full bg-white border-b border-neutral-200 shadow-xl shadow-black/5 transition-all duration-300 origin-top ${
@@ -257,18 +276,34 @@ export default function Navigation({ scrolled }: NavigationProps) {
           </div>
 
           <button
+            type="button"
             className="lg:hidden relative z-50 w-10 h-10 flex items-center justify-center rounded-full text-neutral-900 bg-neutral-50 hover:bg-neutral-100"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-navigation"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
-            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? (
+              <X className="w-5 h-5" aria-hidden />
+            ) : (
+              <Menu className="w-5 h-5" aria-hidden />
+            )}
           </button>
         </div>
       </div>
 
       <div
+        id="mobile-navigation"
+        role="dialog"
+        aria-modal={mobileOpen}
+        aria-label="Mobile menu"
         className={`lg:hidden fixed inset-0 w-full h-[100dvh] bg-white z-40 flex flex-col transition-transform duration-500 ${
-          mobileOpen ? "translate-y-0" : "-translate-y-full"
+          mobileOpen
+            ? "translate-y-0"
+            : "-translate-y-full pointer-events-none"
         }`}
+        aria-hidden={!mobileOpen}
+        {...(!mobileOpen ? { inert: true } : {})}
       >
         <div className="h-20 shrink-0" />
 
@@ -296,6 +331,8 @@ export default function Navigation({ scrolled }: NavigationProps) {
             return (
               <div key={item.label} className="border-b border-neutral-100">
                 <button
+                  type="button"
+                  aria-expanded={mobileExpanded === item.label}
                   onClick={() =>
                     setMobileExpanded(
                       mobileExpanded === item.label ? null : item.label
