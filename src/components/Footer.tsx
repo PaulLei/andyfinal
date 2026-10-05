@@ -1,21 +1,6 @@
 import { Link } from "react-router-dom";
 import LogoWhite from "/neurologic_solutions.horizontal.color_.white_.png";
-
-const BRAND = {
-  purple: '#9986bf',
-  purpleDark: '#7e6aa7',
-  purpleSoft: 'rgba(153, 134, 191, 0.12)',
-  purpleBorder: 'rgba(153, 134, 191, 0.28)',
-  orange: '#ce7f57',
-  orangeDark: '#b96d46',
-  orangeSoft: 'rgba(206, 127, 87, 0.12)',
-  orangeBorder: 'rgba(206, 127, 87, 0.28)',
-  ink: '#2f2738',
-  muted: '#6e647b',
-  line: 'rgba(47, 39, 56, 0.10)',
-  bg: '#fcfaf8',
-  card: '#ffffff',
-};
+import { CookieSettingsButton } from "./CookieConsent";
 
 export default function Footer() {
   const sectionTitleClass =
@@ -34,7 +19,7 @@ export default function Footer() {
             <Link to="/" className="inline-flex items-center">
               <img
                 src={LogoWhite}
-                alt="Neurologic Solutions"
+                alt="Neurologic Solutions home"
                 className="h-10 w-auto origin-left scale-[1.2] sm:h-11 sm:scale-[1.45] lg:h-12 lg:scale-[1.6]"
               />
             </Link>
@@ -156,11 +141,20 @@ export default function Footer() {
             <Link to="/terms" className={linkClass}>
               Terms of Use
             </Link>
+            <Link to="/cookies" className={linkClass}>
+              Cookie Policy
+            </Link>
+            <CookieSettingsButton className={linkClass}>
+              Your Privacy Choices
+            </CookieSettingsButton>
+            <Link to="/accessibility" className={linkClass}>
+              Accessibility
+            </Link>
 
             <a
               href="https://patadigitalservices.com"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               className="text-sm font-light transition-colors"
             >
               site by{" "}

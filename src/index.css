@@ -19,6 +19,42 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+
+  :focus {
+    outline: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid #7e6aa7;
+    outline-offset: 3px;
+  }
+
+  #main-content:focus,
+  #main-content:focus-visible {
+    outline: none;
+  }
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -5rem;
+  z-index: 100;
+  border-radius: 9999px;
+  background: #000;
+  color: #fff;
+  padding: 0.65rem 1.1rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 1rem;
+  outline: 2px solid #facc15;
+  outline-offset: 3px;
 }
 
 @layer utilities {
@@ -38,12 +74,21 @@
     animation: fadeInUp 800ms ease-out both;
   }
 
-  /* Optional: accessibility */
   @media (prefers-reduced-motion: reduce) {
     .animate-fade-in {
       animation: none;
       opacity: 1;
       transform: none;
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-bounce {
+    animation: none;
   }
 }

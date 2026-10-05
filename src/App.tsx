@@ -21,6 +21,13 @@ import ContactPage from "./components/ContactPage";
 import SupportPage from "./components/SupportPage";
 import ProfilePage from "./components/ProfilePage";
 import ScrollToTop from "./ScrollToTop";
+import SkipToContent from "./components/SkipToContent";
+import CookieConsent from "./components/CookieConsent";
+import { ConsentProvider } from "./context/ConsentContext";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsOfUsePage from "./pages/TermsOfUsePage";
+import CookiePolicyPage from "./pages/CookiePolicyPage";
+import AccessibilityStatementPage from "./pages/AccessibilityStatementPage";
 
 
 function Home() {
@@ -62,10 +69,13 @@ export default function App() {
 
   return (
     <BrowserRouter>
+      <ConsentProvider>
       <ScrollToTop />
+      <SkipToContent />
       <div className="min-h-screen bg-white">
         <Navigation scrolled={scrolled} />
 
+        <main id="main-content" tabIndex={-1}>
         <Routes>
           {/* Home */}
           <Route path="/" element={<Home />} />
@@ -148,6 +158,15 @@ export default function App() {
               </>
             }
           />
+          <Route
+            path="/contact-us"
+            element={
+              <>
+                <ContactPage />
+                <Footer />
+              </>
+            }
+          />
 
           {/* Resources */}
           <Route path="/resources" element={<Placeholder title="Resources" />} />
@@ -183,10 +202,50 @@ export default function App() {
             }
           />
 
+          <Route
+            path="/privacy"
+            element={
+              <>
+                <PrivacyPolicyPage />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/terms"
+            element={
+              <>
+                <TermsOfUsePage />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/cookies"
+            element={
+              <>
+                <CookiePolicyPage />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/accessibility"
+            element={
+              <>
+                <AccessibilityStatementPage />
+                <Footer />
+              </>
+            }
+          />
+
           {/* Catch-all */}
           <Route path="*" element={<Placeholder title="Not Found" />} />
         </Routes>
+        </main>
       </div>
+      <CookieConsent />
+      </ConsentProvider>
     </BrowserRouter>
   );
 }
