@@ -1,6 +1,6 @@
 **FOR IMMEDIATE RELEASE**
 
-**Baltimore, MD – December 5, 2026** – Neurologic Solutions, an innovative digital health and medtech startup focused on advanced neurodiagnostic software, today announced that it has been awarded an NIH Blueprint MedTech Optimizer award to support the further development and clinical validation of EpiScalp™, its proprietary software application designed to assist neurologists in diagnosing epilepsy.
+**Baltimore, MD – January 15, 2026** – Neurologic Solutions, an innovative digital health and medtech startup focused on advanced neurodiagnostic software, today announced that it has been awarded an NIH Blueprint MedTech Optimizer award to support the further development and clinical validation of EpiScalp™, its proprietary software application designed to assist neurologists in diagnosing epilepsy.
 
 The $1 million award will enable Neurologic Solutions to scale the capabilities of EpiScalp™, accelerate its path toward regulatory clearance, and expand its clinical implementation to help clinicians make faster, more accurate diagnoses.
 
