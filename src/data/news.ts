@@ -104,7 +104,7 @@ export const newsItems: NewsItem[] = [
     link: "https://technical.ly/entrepreneurship/johns-hopkins-innovation-summit-2025/?nab=1",
   },
   {
-    date: "5 December 2026",
+    date: "15 January 2026",
     category: "Awards",
     title:
       "Neurologic Solutions Awarded $1 Million NIH Blueprint MedTech Optimizer Award to Advance EpiScalp™",
